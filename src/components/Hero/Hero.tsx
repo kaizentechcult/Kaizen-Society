@@ -6,8 +6,8 @@ type Props = {};
 
 const Hero = (props: Props) => {
   return (
-    <div className="md:px-64 px-4">
-      <div className="hero md:h-screen relative flex md:flex-row flex-col lg:flex-row overflow-hidden py-10">
+    <div className="md:px-64 px-4 md:pt-0 pt-8">
+      <div className="hero h-screen md:h-screen relative flex md:flex-row flex-col lg:flex-row overflow-hidden py-10 justify-center items-center">
         <div className="left w-full flex flex-col md:gap-10 justify-center text-center md:text-left items-center md:items-start gap-10 py-10 md:py-0">
           <h1 className="font-sans text-5xl md:text-[64px]  font-semibold md:leading-[4rem]">
             Kaizen Technical <br /> Community

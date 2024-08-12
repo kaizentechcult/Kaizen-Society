@@ -19,8 +19,8 @@ const BuildWithDelhi = (props: Props) => {
   return (
     <>
       <div className="text-center my-16">
-        <h1 className="text-[50px] font-bold">Build With Delhi Hackathon</h1>
-        <div className="flex flex-wrap justify-center items-center gap-10">
+        <h1 className="text-[50px] font-bold p-8">Build With Delhi Hackathon</h1>
+        <div className="flex flex-wrap justify-center items-center gap-10 mx-10 md:m-0">
           {teamImages.map((img, index) => (
             <Image
               src={img}
@@ -28,7 +28,7 @@ const BuildWithDelhi = (props: Props) => {
               key={index}
               width={450}
               height={300}
-              className="object-cover w-[450px] h-[300px]"
+              className="object-cover w-[450px] h-[300px] md:p-0 mx-8"
             />
           ))}
         </div>

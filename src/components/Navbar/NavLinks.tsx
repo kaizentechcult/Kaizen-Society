@@ -5,6 +5,7 @@ type Props = {
   to: string;
   text: string;
   className?: string;
+  onClick?: () => void;
 };
 
 const NavLinks = (props: Props) => {
@@ -12,6 +13,7 @@ const NavLinks = (props: Props) => {
     <Link
       href={props.to}
       className={`hover:text-white   duration-500 ${props.className}`}
+      onClick={props.onClick}
     >
       {props.text}
     </Link>

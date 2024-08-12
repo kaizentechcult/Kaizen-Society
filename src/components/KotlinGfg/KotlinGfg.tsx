@@ -19,8 +19,8 @@ const KotlinGfg = (props: Props) => {
   return (
     <>
       <div className="text-center my-16">
-        <h1 className="text-[50px] font-bold">Kotlin GFG Meetup</h1>
-        <div className="flex flex-wrap justify-center items-center gap-10">
+        <h1 className="text-[50px] font-bold  p-8">Kotlin GFG Meetup</h1>
+        <div className="flex flex-wrap justify-center items-center gap-10 mx-10 md:m-0">
           {teamImages.map((img, index) => (
             <Image
               src={img}
