@@ -1,6 +1,7 @@
 import React from "react";
 import { membersData } from "../../utils/data";
 import Member from "@/components/Member/Member";
+import Image from "next/image";
 
 type Props = {};
 
@@ -18,12 +19,8 @@ const page = (props: Props) => {
             work, a <br /> company work, a society work, a civilisation work.
           </p>
         </div>
-        <div className="right  right-0 md:absolute -z-50 mt-24  md:w-[40%]">
-          <img
-            src="Hero/aboutus.svg"
-            className="h-[300px] object-cover"
-            alt="img"
-          />
+        <div className="right  right-0 md:absolute -z-50 mt-24 md:w-[40%]">
+          <Image width={500} height={300} src={"Hero/aboutus.svg"} alt="img" />
         </div>
       </div>
       <div className="text-center flex flex-col gap-6">
