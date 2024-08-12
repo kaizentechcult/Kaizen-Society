@@ -1,8 +1,8 @@
 import React from "react";
-// import { LazyLoadImage } from "react-lazy-load-image-component";
-// import "react-lazy-load-image-component/src/effects/blur.css";
 import Image from "next/image";
 import img from "../../../public/hero.jpg";
+// import { LazyLoadImage } from "react-lazy-load-image-component";
+// import "react-lazy-load-image-component/src/effects/blur.css";
 
 type Props = {};
 
@@ -35,8 +35,8 @@ const Hero = (props: Props) => {
             style: { transitionDelay: "1s" },
             }}
             /> */}
-          <img src="hero.jpg" alt="hello" />
-          {/* <Image src={img} alt="img" width={400} height={300} /> */}
+          {/* <img src="hero.jpg" alt="hello" /> */}
+          <Image src={img} alt="img" width={400} height={300} />
         </div>
         <div className="right w-full md:flex justify-end rounded-3xl items-center hidden">
         {/* <LazyLoadImage
