@@ -11,7 +11,7 @@ type Props = {
 
 const Member = (props: Props) => {
   return (
-    <div className="flex items-center p-4 sm:w-2/5 w-full lg:w-[31%] border border-[#e5e7eb] m-4 rounded-lg">
+    <div className="flex items-center p-4 sm:w-2/5 w-full md:w-[20rem] border border-[#e5e7eb] m-4 rounded-lg">
       <div className="flex items-center">
         <Image
           src={props.img}

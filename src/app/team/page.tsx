@@ -33,7 +33,7 @@ const page = (props: Props) => {
         </p>
         <p className="font-bold tracking-wider">- Michael Jordan</p>
       </div>
-      <div className="flex flex-wrap justify-center items-center md:px-64 px-4 py-20">
+      <div className="flex flex-wrap justify-center items-center md:px-6 px-4 py-20 w-11/12 m-auto">
         {membersData.map((member, index) => (
           <Member key={index} {...member} />
         ))}
