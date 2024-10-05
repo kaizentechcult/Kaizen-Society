@@ -9,6 +9,8 @@ type Props = {
 };
 
 const NavLinks = (props: Props) => {
+  const [isActive, setIsActive] = React.useState(false);
+
   return (
     <Link
       href={props.to}
