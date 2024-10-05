@@ -2,6 +2,7 @@ import React from "react";
 import { membersData } from "../../utils/data";
 import Member from "@/components/Member/Member";
 import Image from "next/image";
+import Footer from "@/components/Footer/Footer";
 
 type Props = {};
 
@@ -38,6 +39,7 @@ const page = (props: Props) => {
           <Member key={index} {...member} />
         ))}
       </div>
+      <Footer/>
     </>
   );
 };

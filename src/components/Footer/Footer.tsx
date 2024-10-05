@@ -18,12 +18,18 @@
 import Image from "next/image";
 import React from "react";
 
-type Props = {};
+type Props = {
+  className?: string;
+};
 
 const Footer = (props: Props) => {
   return (
     <>
-      <div className="relative bottom-0 w-full md:px-64 px-4 flex md:flex-row flex-col justify-center items-center md:justify-between py-4  bg-[#f3f4f6] gap-4 md:gap-0">
+      <div
+        className={`absolute w-full md:px-64 px-4 flex md:flex-row flex-col justify-center items-center md:justify-between py-4  bg-[#f3f4f6] gap-4 md:gap-0 ${
+          props.className ? props.className : ""
+        }`}
+      >
         <div>2024 Kaizen Club </div>
         <div>Coded with ❤ and ☕ by Kaizen Team</div>
         <div className=" flex gap-10">
