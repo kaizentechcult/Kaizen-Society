@@ -1,20 +1,3 @@
-// import React from "react";
-// import GitHubIcon from "@mui/icons-material/GitHub";
-// import LinkedInIcon from "@mui/icons-material/LinkedIn";
-// import InstagramIcon from "@mui/icons-material/Instagram";
-// import { LazyLoadImage } from "react-lazy-load-image-component";
-// import "react-lazy-load-image-component/src/effects/blur.css";
-
-// const Footer = () => {
-//   return (
-//     <>
-
-//     </>
-//   );
-// };
-
-// export default Footer;
-
 import Image from "next/image";
 import React from "react";
 

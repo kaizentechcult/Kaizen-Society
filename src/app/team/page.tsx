@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { membersData } from "../../utils/data";
 import Member from "@/components/Member/Member";
@@ -15,13 +16,20 @@ const page = (props: Props) => {
           <h1 className="text-5xl sm:text-5xl  text-primary-default tracking-wide text-[#4763b7] ">
             Kaizen Club Team
           </h1>
-          <p className="mt-4 md:mt-8 text-xl text-gray-500 md:text-xl md:pr-24 lg:pr-20 font-light leading-tight tracking-tight text-justify">
+          <p className="mt-4 md:mt-8 text-xl text-gray-500 md:text-xl md:pr-24 lg:pr-20 font-light leading-tight tracking-tight text-justify w-1/2">
             Individual commitment to a group effort that is what makes a team
-            work, a <br /> company work, a society work, a civilisation work.
+            work, a company work, a society work, a civilisation work.
           </p>
         </div>
         <div className="right  right-0 md:absolute -z-50 mt-24 md:w-[40%]">
-          <Image width={500} height={300} src={"Hero/aboutus.svg"} alt="img" />
+          <Image
+            src="Hero/aboutus.svg"
+            alt="img"
+            width={500}
+            height={300}
+            loading="eager"
+            priority
+          />
         </div>
       </div>
       <div className="text-center flex flex-col gap-6">
@@ -39,7 +47,7 @@ const page = (props: Props) => {
           <Member key={index} {...member} />
         ))}
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };
