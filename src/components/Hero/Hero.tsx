@@ -1,37 +1,40 @@
 import React from "react";
 import Image from "next/image";
 import img from "../../../public/hero.jpg";
+import * as motion from "framer-motion/client";
 
-type Props = {};
-
-const Hero = (props: Props) => {
+const Hero = () => {
   return (
-    <div className="md:px-64 px-4 md:pt-0 pt-8">
-      <div className="hero h-screen md:h-screen relative flex md:flex-row flex-col lg:flex-row overflow-hidden py-10 justify-center items-center">
-        <div className="left w-full flex flex-col md:gap-10 justify-center text-center md:text-left items-center md:items-start gap-10 py-10 md:py-0">
-          <h1 className="font-sans text-5xl md:text-[64px]  font-semibold md:leading-[4rem]">
-            Kaizen Technical <br /> Community
-          </h1>
-          <p className="md:text-xl w-5/6">
-            As a part of the Institute Technical Council, we aim to provide a
-            gateway for the people in our institute to join the coding
-            community. We create a platform which allows students to gain
-            assistance and mentorship to enhance their coding ability.
-          </p>
-        </div>
-        <div className="right w-full flex justify-end rounded-3xl items-center md:hidden">
-          <Image src={img} alt="img" width={400} height={300} />
-        </div>
-        <div className="right w-full md:flex justify-end rounded-3xl items-center hidden">
-          <Image
-            className="rounded-2xl"
-            src={img}
-            alt="img"
-            width={600}
-            height={300}
-          />
-        </div>
+    <div className="h-screen flex md:flex-row flex-col justify-center items-center gap-20  md:px-64 px-10 ">
+      <div className="flex-1 md:flex md:flex-col md:justify-center md:items-center md:gap-10 flex flex-col justify-center items-center sm:gap-6 gap-4">
+        <motion.h1
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25 }}
+          className="text-5xl font-bold text-center"
+        >
+          Kaizen Technical Community
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.25, delay: 0.25 }}
+          className="text-justify"
+        >
+          As a part of the Institute Technical Council, we aim to provide a
+          gateway for the people in our institute to join the coding community.
+          We create a platform which allows students to gain assistance and
+          mentorship to enhance their coding ability.
+        </motion.p>
       </div>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25, delay: 0.5 }}
+        className="flex-1 hidden md:block"
+      >
+        <Image className="rounded-2xl w-auto h-auto " src={img} alt="img" />
+      </motion.div>
     </div>
   );
 };
