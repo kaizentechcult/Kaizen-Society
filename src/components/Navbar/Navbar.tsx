@@ -12,7 +12,9 @@ interface NavLink {
 const navlinks: NavLink[] = [
   { label: "Home", to: "/" },
   { label: "Team", to: "/team" },
+
   { label: "Events", to: "/events-hosted" },
+
   // { label: "Join Us", to: "https://forms.gle/dAGYv4SLC5wkFvxq9" },
 ];
 
