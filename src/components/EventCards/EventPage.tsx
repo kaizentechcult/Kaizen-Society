@@ -1,12 +1,11 @@
 "use client";
-import { useState } from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { EventList } from "./EventList";
 import { eventData } from "./EventData";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+
+type TabValue = "upcoming" | "ongoing" | "past";
 
 export default function EventsPage() {
-  const [activeTab, setActiveTab] = useState("upcoming");
-
   return (
     <div className="min-h-screen mt-12 bg-gray-100 text-gray-800 p-8">
       <main>
@@ -18,8 +17,7 @@ export default function EventsPage() {
             {["upcoming", "ongoing", "past"].map((tab) => (
               <TabsTrigger
                 key={tab}
-                value={tab}
-                onClick={() => setActiveTab(tab)}
+                value={tab as TabValue}
                 className="
                    text-blue-100 hover:bg-gray-200 hover:text-black transition-colors duration-300 capitalize data-[state=active]:bg-blue-700 data-[state=active]:text-white"
               >
@@ -62,3 +60,4 @@ export default function EventsPage() {
     </div>
   );
 }
+

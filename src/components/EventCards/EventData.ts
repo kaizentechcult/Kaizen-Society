@@ -14,7 +14,7 @@ export const eventData = {
       name: "THINKTANK IDEATHON",
       description:
         "Join industry experts in a hands-on ideathon as they build a REST API from scratch, exploring essential backend concepts.",
-      image: "/Events/portfolioLeaderboard.jpg",
+      image: "/Events/ideaThonPoster.jpg",
       date: "2024-10-30",
       time: "Now Live",
     },
