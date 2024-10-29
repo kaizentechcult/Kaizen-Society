@@ -7,7 +7,7 @@ type TabValue = "upcoming" | "ongoing" | "past";
 
 export default function EventsPage() {
   return (
-    <div className="min-h-screen mt-12 bg-gray-100 text-gray-800 p-8">
+    <div className="min-h-fit mt-12 bg-gray-100 text-gray-800 p-8">
       <main>
         <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">
           Events organized by our community
