@@ -80,7 +80,7 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
               <h1 className="text-4xl font-bold text-center mb-4 text-yellow-400">🌟 ThinkTank IdeaThon 🌟</h1>
 
               <p className="text-lg text-center mb-4">
-                "Great ideas often start as <span className="italic text-blue-400">whispers of imagination</span>
+                &quots;Great ideas often start as <span className="italic text-blue-400">whispers of imagination</span>
                 that only the brave can hear." 🌠
               </p>
 
