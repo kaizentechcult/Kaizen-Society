@@ -96,7 +96,7 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
 
                 <p className="text-lg mb-8">
                   <span className="font-bold">Kaizen</span> presents - <span className="text-green-400 font-bold">ThinkTank</span>,
-                  our IdeaThon designed for all thinkers and creative minds! 💭 Whether it's a solution to a real-world problem
+                  our IdeaThon designed for all thinkers and creative minds! 💭 Whether it&apos;s a solution to a real-world problem
                   or an idea that could make everyday life better, share it with a like-minded community!
                 </p>
 
