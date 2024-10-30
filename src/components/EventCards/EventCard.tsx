@@ -80,8 +80,8 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
               <h1 className="text-4xl font-bold text-center mb-4 text-yellow-400">🌟 ThinkTank IdeaThon 🌟</h1>
 
               <p className="text-lg text-center mb-4">
-                "Great ideas often start as <span className="italic text-blue-400">whispers of imagination</span>
-                that only the brave can hear." 🌠
+              &quot;Great ideas often start as <span className="italic text-blue-400">whispers of imagination</span>
+                that only the brave can hear.&quot; 🌠
               </p>
 
               <div className="text-center">
@@ -95,8 +95,8 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
                 </p>
 
                 <p className="text-lg mb-8">
-                  <span className="font-bold">Kaizen</span> presents – <span className="text-green-400 font-bold">ThinkTank</span>,
-                  our IdeaThon designed for all thinkers and creative minds! 💭 Whether it’s a solution to a real-world problem
+                  <span className="font-bold">Kaizen</span> presents - <span className="text-green-400 font-bold">ThinkTank</span>,
+                  our IdeaThon designed for all thinkers and creative minds! 💭 Whether it&apos;s a solution to a real-world problem
                   or an idea that could make everyday life better, share it with a like-minded community!
                 </p>
 
