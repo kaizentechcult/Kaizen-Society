@@ -84,7 +84,7 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
                 height={500}
                 className="rounded-t-lg bg-blue-500 w-fit"
               />
-              <div className="max-w-4xl px-8 py-10  rounded-lg shadow-xl flex-1">
+              <div className="max-w-4xl px-8 py-10  rounded-lg  flex-1">
                 <h1 className="text-4xl font-bold text-center mb-4 text-yellow-400">
                   🌟 ThinkTank IdeaThon 🌟
                 </h1>
