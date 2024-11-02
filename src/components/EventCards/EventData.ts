@@ -25,7 +25,7 @@ export const eventData = {
       name: "THINKTANK IDEATHON",
       description:
         "Join industry experts in a hands-on ideathon as they build a REST API from scratch, exploring essential backend concepts.",
-      image: "/Events/portfolioLeaderboard.jpg",
+      image: "/Events/ideathonPoster.jpg",
       date: "2024-10-30",
       time: "Now Live",
     },
@@ -35,37 +35,37 @@ export const eventData = {
       id: 3,
       name: "Daily DSA Week 3",
       description:
-        "Wrap up Week 3 of Daily DSA with advanced topics such as greedy algorithms, backtracking, and problem-solving strategies.",
+        "Daily DSA question for the week, to develop thinking skills and problem-solving strategies.",
       image: "/Events/portfolioLeaderboard.jpg",
       date: "2024-09-15",
-      time: "09:00 - 17:00",
+      time: "10:00 - 21:00",
     },
     {
       id: 6,
       name: "Portfolio Challenge",
       description:
-        "Discover the best practices to make websites more accessible to all users and enhance user experience.",
+        "Develop a Website Portfolio to showcase your skills, and get feedback from industry experts.",
       image: "/Events/portfolioLeaderboard.jpg",
       date: "2024-10-01",
-      time: "10:00 - 13:00",
+      time: "10:00 - 7:00",
     },
     {
       id: 2,
       name: "Daily DSA Week 2",
       description:
-        "Continue with Week 2 of Daily DSA, focusing on trees, graphs, and dynamic programming concepts.",
+        "Daily DSA question for the week, to develop thinking skills and problem-solving strategies.",
       image: "/Events/portfolioLeaderboard.jpg",
       date: "2024-09-08",
-      time: "09:00 - 17:00",
+      time: "10:00 - 21:00",
     },
     {
       id: 1,
       name: "Daily DSA Week 1",
       description:
-        "Kick off Week 1 of Daily DSA with a full-day event covering core data structures like arrays, linked lists, and stacks.",
+        "Daily DSA question for the week, to develop thinking skills and problem-solving strategies.",
       image: "/Events/portfolioLeaderboard.jpg",
       date: "2024-09-01",
-      time: "09:00 - 17:00",
+      time: "10:00 - 21:00",
     },
   ],
 };
