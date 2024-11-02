@@ -21,6 +21,7 @@ interface EventCardProps {
 
 export function EventCard({ event, isPast = false }: EventCardProps) {
   const [showImage, setShowImage] = useState<boolean>(false);
+  const toggleDetails = () => setShowImage(!showImage);
   return (
     <>
       <Card className="bg-white shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -30,7 +31,7 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
             alt={event.name}
             width={300}
             height={200}
-            className="rounded-t-lg object-contain bg-blue-500 w-full h-48"
+            className="rounded-t-lg object-contain bg-gray-300 w-full h-48"
           />
         </CardHeader>
         <CardContent className="p-4">
@@ -48,15 +49,13 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
           <Button
             variant="outline"
             onClick={() => setShowImage(!showImage)}
-            className={`${isPast
-              ? "bg-gray-300 text-gray-600"
-              : "bg-blue-500 text-white hover:bg-blue-600"
-              }`}
+            className={`${
+              isPast
+                ? "bg-gray-300 text-gray-600"
+                : "bg-blue-500 text-white hover:bg-blue-600"
+            }`}
           >
-            {isPast ? "View Details" : (
-
-              "View Details"
-            )}
+            {isPast ? "View Details" : "View Details"}
           </Button>
         </CardFooter>
       </Card>
@@ -77,33 +76,53 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
               className="rounded-t-lg bg-blue-500 w-fit"
             />
             <div className="max-w-4xl px-8 py-10  rounded-lg shadow-xl flex-1">
-              <h1 className="text-4xl font-bold text-center mb-4 text-yellow-400">🌟 ThinkTank IdeaThon 🌟</h1>
+              <div
+                className="text-right text-red-600 font-extrabold cursor-pointer"
+                onClick={toggleDetails}
+              >
+                X
+              </div>
+              <h1 className="text-4xl font-bold text-center mb-4 text-yellow-400">
+                🌟 ThinkTank IdeaThon 🌟
+              </h1>
 
               <p className="text-lg text-center mb-4">
-              &quot;Great ideas often start as <span className="italic text-blue-400">whispers of imagination</span>
+                &quot;Great ideas often start as{" "}
+                <span className="italic text-blue-400">
+                  whispers of imagination
+                </span>
                 that only the brave can hear.&quot; 🌠
               </p>
 
               <div className="text-center">
-                <p className="text-xl font-semibold mb-6">Wanna be brave??? <br />
+                <p className="text-xl font-semibold mb-6">
+                  Wanna be brave??? <br />
                   <span className="text-3xl">【(ง •̀_•́)ง】</span>
                 </p>
 
                 <p className="text-lg mb-4">
-                  This is your moment to take that <span className="text-pink-500 font-bold">leap of faith</span>,
-                  explore different iterations of your concept, and refine it to the best it can be. ✅
+                  This is your moment to take that{" "}
+                  <span className="text-pink-500 font-bold">leap of faith</span>
+                  , explore different iterations of your concept, and refine it
+                  to the best it can be. ✅
                 </p>
 
                 <p className="text-lg mb-8">
-                  <span className="font-bold">Kaizen</span> presents - <span className="text-green-400 font-bold">ThinkTank</span>,
-                  our IdeaThon designed for all thinkers and creative minds! 💭 Whether it&apos;s a solution to a real-world problem
-                  or an idea that could make everyday life better, share it with a like-minded community!
+                  <span className="font-bold">Kaizen</span> presents -{" "}
+                  <span className="text-green-400 font-bold">ThinkTank</span>,
+                  our IdeaThon designed for all thinkers and creative minds! 💭
+                  Whether it&apos;s a solution to a real-world problem or an
+                  idea that could make everyday life better, share it with a
+                  like-minded community!
                 </p>
 
                 <p className="text-xl mb-8">So what are you waiting for? ⏳</p>
 
-                <a target="_blank" href="https://unstop.com/o/TuZG3Vh?lb=Ec8wUTMd&utm_medium=Share&utm_source=shortUrl"
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300">
+                <a
+                  target="_blank"
+                  href="https://unstop.com/o/TuZG3Vh?lb=Ec8wUTMd&utm_medium=Share&utm_source=shortUrl"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300"
+                >
                   Register Now 🚀
                 </a>
               </div>
@@ -115,7 +134,15 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
   );
 }
 
-const PopUpContainer = ({ children, setShowImage, showImage }: { children: React.ReactNode, setShowImage: (showImage: boolean) => void, showImage: boolean }) => {
+const PopUpContainer = ({
+  children,
+  setShowImage,
+  showImage,
+}: {
+  children: React.ReactNode;
+  setShowImage: (showImage: boolean) => void;
+  showImage: boolean;
+}) => {
   return (
     <>
       <motion.div
