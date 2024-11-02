@@ -31,15 +31,15 @@ export const eventData = {
     },
   ],
   pastEvents: [
-    {
-      id: 3,
-      name: "Daily DSA Week 3",
-      description:
-        "Daily DSA question for the week, to develop thinking skills and problem-solving strategies.",
-      image: "/Events/portfolioLeaderboard.jpg",
-      date: "2024-09-15",
-      time: "10:00 - 21:00",
-    },
+    // {
+    //   id: 3,
+    //   name: "Daily DSA Week 3",
+    //   description:
+    //     "Daily DSA question for the week, to develop thinking skills and problem-solving strategies.",
+    //   image: "/Events/portfolioLeaderboard.jpg",
+    //   date: "2024-09-15",
+    //   time: "10:00 - 21:00",
+    // },
     {
       id: 6,
       name: "Portfolio Challenge",
@@ -54,7 +54,7 @@ export const eventData = {
       name: "Daily DSA Week 2",
       description:
         "Daily DSA question for the week, to develop thinking skills and problem-solving strategies.",
-      image: "/Events/portfolioLeaderboard.jpg",
+      image: "/Events/week2.jpg",
       date: "2024-09-08",
       time: "10:00 - 21:00",
     },
@@ -63,7 +63,7 @@ export const eventData = {
       name: "Daily DSA Week 1",
       description:
         "Daily DSA question for the week, to develop thinking skills and problem-solving strategies.",
-      image: "/Events/portfolioLeaderboard.jpg",
+      image: "/Events/week1.jpg",
       date: "2024-09-01",
       time: "10:00 - 21:00",
     },
