@@ -68,63 +68,71 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
             transition={{ duration: 0.2 }}
             className="bg-white p-8 rounded-lg flex flex-wrap  overflow-y-scroll jucstify-center items-center w-10/12 gap-4 h-[85vh] mt-8"
           >
-            <Image
-              src={event.image}
-              alt={event.name}
-              width={300}
-              height={500}
-              className="rounded-t-lg bg-blue-500 w-fit"
-            />
-            <div className="max-w-4xl px-8 py-10  rounded-lg shadow-xl flex-1">
+            <div className="flex justify-end text-right w-full">
               <div
-                className="text-right text-red-600 font-extrabold cursor-pointer"
+                className="text-red-600 font-extrabold cursor-pointer"
                 onClick={toggleDetails}
               >
                 X
               </div>
-              <h1 className="text-4xl font-bold text-center mb-4 text-yellow-400">
-                🌟 ThinkTank IdeaThon 🌟
-              </h1>
+            </div>
+            <div className="flex">
+              <Image
+                src={event.image}
+                alt={event.name}
+                width={300}
+                height={500}
+                className="rounded-t-lg bg-blue-500 w-fit"
+              />
+              <div className="max-w-4xl px-8 py-10  rounded-lg shadow-xl flex-1">
+                <h1 className="text-4xl font-bold text-center mb-4 text-yellow-400">
+                  🌟 ThinkTank IdeaThon 🌟
+                </h1>
 
-              <p className="text-lg text-center mb-4">
-                &quot;Great ideas often start as{" "}
-                <span className="italic text-blue-400">
-                  whispers of imagination
-                </span>
-                that only the brave can hear.&quot; 🌠
-              </p>
-
-              <div className="text-center">
-                <p className="text-xl font-semibold mb-6">
-                  Wanna be brave??? <br />
-                  <span className="text-3xl">【(ง •̀_•́)ง】</span>
+                <p className="text-lg text-center mb-4">
+                  &quot;Great ideas often start as{" "}
+                  <span className="italic text-blue-400">
+                    whispers of imagination
+                  </span>
+                  that only the brave can hear.&quot; 🌠
                 </p>
 
-                <p className="text-lg mb-4">
-                  This is your moment to take that{" "}
-                  <span className="text-pink-500 font-bold">leap of faith</span>
-                  , explore different iterations of your concept, and refine it
-                  to the best it can be. ✅
-                </p>
+                <div className="text-center">
+                  <p className="text-xl font-semibold mb-6">
+                    Wanna be brave??? <br />
+                    <span className="text-3xl">【(ง •̀_•́)ง】</span>
+                  </p>
 
-                <p className="text-lg mb-8">
-                  <span className="font-bold">Kaizen</span> presents -{" "}
-                  <span className="text-green-400 font-bold">ThinkTank</span>,
-                  our IdeaThon designed for all thinkers and creative minds! 💭
-                  Whether it&apos;s a solution to a real-world problem or an
-                  idea that could make everyday life better, share it with a
-                  like-minded community!
-                </p>
+                  <p className="text-lg mb-4">
+                    This is your moment to take that{" "}
+                    <span className="text-pink-500 font-bold">
+                      leap of faith
+                    </span>
+                    , explore different iterations of your concept, and refine
+                    it to the best it can be. ✅
+                  </p>
 
-                <p className="text-xl mb-8">So what are you waiting for? ⏳</p>
+                  <p className="text-lg mb-8">
+                    <span className="font-bold">Kaizen</span> presents -{" "}
+                    <span className="text-green-400 font-bold">ThinkTank</span>,
+                    our IdeaThon designed for all thinkers and creative minds!
+                    💭 Whether it&apos;s a solution to a real-world problem or
+                    an idea that could make everyday life better, share it with
+                    a like-minded community!
+                  </p>
 
-                <a
-                  target="_blank"
-                  href="https://unstop.com/o/TuZG3Vh?lb=Ec8wUTMd&utm_medium=Share&utm_source=shortUrl"
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300"
-                >
-                  Register Now 🚀
-                </a>
+                  <p className="text-xl mb-8">
+                    So what are you waiting for? ⏳
+                  </p>
+
+                  <a
+                    target="_blank"
+                    href="https://unstop.com/o/TuZG3Vh?lb=Ec8wUTMd&utm_medium=Share&utm_source=shortUrl"
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300"
+                  >
+                    Register Now 🚀
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>
