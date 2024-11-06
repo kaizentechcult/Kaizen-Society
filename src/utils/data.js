@@ -15,7 +15,7 @@ export const membersData = [
   },
   {
     name: "Sooraj",
-    post: "Web D Lead",
+    post: "Web Development Lead",
     img: "/members/Sooraj.jpg",
     linkedin: "https://www.linkedin.com/in/sooraj-bhaskar-nambiar",
     github: "https://github.com/Sooraj002",
@@ -36,43 +36,37 @@ export const membersData = [
   },
   {
     name: "Adista Nautiyal",
-    post: "Web D",
+    post: "Web Dev member",
     img: "/members/Adista.jpg",
     linkedin: "https://www.linkedin.com/in/adista-nautiyal-3011a7294",
     github: "https://github.com/adistanautiyal",
   },
   {
     name: "Shivang Shukla",
-    post: "DSA",
+    post: "DSA Member",
     img: "/members/Shivang.jpg",
     linkedin: "https://www.linkedin.com/in/shivang-shukla-6212012b2/",
+    github: "https://github.com/Shivang1611",
   },
   {
     name: "Shivangi Bhartiya",
-    post: "DSA",
+    post: "DSA member",
     img: "/members/Shivangi.jpg",
     linkedin: "https://www.linkedin.com/in/shivangi-bhartiya-39336b294/",
     github: "https://github.com/ShivangiBhartiya",
   },
   {
     name: "Anurag raj",
-    post: "DSA",
+    post: "DSA Member",
     img: "/members/Anurag.jpg",
     linkedin: "https://www.linkedin.com/in/anurag-raj-821214216/",
     github: "https://github.com/Anurag07-07",
   },
   {
     name: "Rianna Bansal",
-    post: "DSA",
+    post: "DSA Member",
     img: "/members/Rianna.jpg",
     linkedin: "https://www.linkedin.com/in/rianna-bansal-a4972031a/",
     github: "https://github.com/Rianna17",
   },
-  {
-    name: "Sukhwinder Singh"
-    , post: "Web D",
-    img: "/members/Sukhwinder.jpg",
-    linkedin: "https://www.linkedin.com/in/sukhwinder-i0",
-    github: "https://github.com/Sukhwinder-i0",
-  }
 ];

@@ -102,16 +102,11 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
                     Wanna be brave??? <br />
                     <span className="text-3xl">【(ง •̀_•́)ง】</span>
                   </p>
-
-                  <p className="text-lg mb-4">
-                    This is your moment to take that{" "}
-                    <span className="text-pink-500 font-bold">
-                      leap of faith
-                    </span>
-                    , explore different iterations of your concept, and refine
-                    it to the best it can be. ✅
-                  </p>
-
+                <p className="text-lg mb-8">
+                  <span className="font-bold">Kaizen</span> presents - <span className="text-green-400 font-bold">ThinkTank</span>,
+                  our IdeaThon designed for all thinkers and creative minds! 💭 Whether it&apos;s a solution to a real-world problem
+                  or an idea that could make everyday life better, share it with a like-minded community!
+                </p>
                   <p className="text-lg mb-8">
                     <span className="font-bold">Kaizen</span> presents -{" "}
                     <span className="text-green-400 font-bold">ThinkTank</span>,
