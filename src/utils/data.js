@@ -69,4 +69,12 @@ export const membersData = [
     linkedin: "https://www.linkedin.com/in/rianna-bansal-a4972031a/",
     github: "https://github.com/Rianna17",
   },
+
+  {
+    name: "Sukhwinder Singh"
+    , post: "Web D",
+    img: "/members/Sukhwinder.jpg",
+    linkedin: "https://www.linkedin.com/in/sukhwinder-i0",
+    github: "https://github.com/Sukhwinder-i0",
+  }
 ];
