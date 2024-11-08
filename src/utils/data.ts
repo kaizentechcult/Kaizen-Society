@@ -14,18 +14,18 @@ export const membersData = [
     github: "https://github.com/sreehithathati03",
   },
   {
-    name: "Sooraj",
-    post: "Web Development Lead",
-    img: "/members/Sooraj.jpg",
-    linkedin: "https://www.linkedin.com/in/sooraj-bhaskar-nambiar",
-    github: "https://github.com/Sooraj002",
-  },
-  {
     name: "Krish Khanna",
     post: "Management Lead",
     img: "/members/Krish.jpg",
     linkedin: "https://www.linkedin.com/in/krish-k-498774234",
     github: "https://github.com/krishkh",
+  },
+  {
+    name: "Sooraj",
+    post: "Web Development Lead",
+    img: "/members/Sooraj.jpg",
+    linkedin: "https://www.linkedin.com/in/sooraj-bhaskar-nambiar",
+    github: "https://github.com/Sooraj002",
   },
   {
     name: "Manisha Kumari",
@@ -69,12 +69,18 @@ export const membersData = [
     linkedin: "https://www.linkedin.com/in/rianna-bansal-a4972031a/",
     github: "https://github.com/Rianna17",
   },
-
   {
     name: "Sukhwinder Singh"
     , post: "Web D",
     img: "/members/Sukhwinder.jpg",
     linkedin: "https://www.linkedin.com/in/sukhwinder-i0",
     github: "https://github.com/Sukhwinder-i0",
+  },
+  {
+    name: "Archana Mishra"
+    , post: "Marketing",
+    img: "/members/archana.jpg",
+    linkedin: "https://www.linkedin.com/in/archana-mishra-581855293/",
+    github: "https://github.com/Archanamishra2103",
   }
 ];
