@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { connectMongoDB } from "@/lib/mongodb";
 import { User } from "@/models/User";
@@ -8,7 +8,6 @@ export async function GET() {
   try {
     await connectMongoDB();
     const users = await User.find({});
-    console.log(users);
     return NextResponse.json(users);
   } catch (error: unknown) {
     console.error("Error fetching users:", error);

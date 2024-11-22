@@ -1,3 +1,9 @@
+/**
+ * EventCard component
+ * @param {Event} event - the event object
+ * @param {boolean} [isPast=false] - whether the event is past or not
+ * @returns {React.ReactElement} - the event card component
+ */
 import {
   Card,
   CardContent,
@@ -10,9 +16,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Event } from "./EventData";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import CloseBtn from "../CloseBtn";
-import { button } from "framer-motion/client";
 
 interface EventCardProps {
   event: Event;
@@ -48,7 +52,7 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
           </div>
           <Button
             variant="outline"
-            onClick={() => setShowImage(!showImage)}
+            onClick={toggleDetails}
             className={`${
               isPast
                 ? "bg-gray-300 text-gray-600"
@@ -62,12 +66,7 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
 
       {showImage && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 overflow-hidden">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.2 }}
-            className="bg-white p-8 rounded-lg flex flex-wrap  overflow-y-scroll jucstify-center items-center w-10/12 gap-4 h-[85vh] mt-8"
-          >
+          <div className="bg-white p-8 rounded-lg flex flex-wrap  overflow-y-scroll jucstify-center items-center w-10/12 gap-4 h-[85vh] mt-8">
             <div className="flex justify-end text-right w-full">
               <div
                 className="text-red-600 font-extrabold cursor-pointer"
@@ -102,11 +101,14 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
                     Wanna be brave??? <br />
                     <span className="text-3xl">【(ง •̀_•́)ง】</span>
                   </p>
-                <p className="text-lg mb-8">
-                  <span className="font-bold">Kaizen</span> presents - <span className="text-green-400 font-bold">ThinkTank</span>,
-                  our IdeaThon designed for all thinkers and creative minds! 💭 Whether it&apos;s a solution to a real-world problem
-                  or an idea that could make everyday life better, share it with a like-minded community!
-                </p>
+                  <p className="text-lg mb-8">
+                    <span className="font-bold">Kaizen</span> presents -{" "}
+                    <span className="text-green-400 font-bold">ThinkTank</span>,
+                    our IdeaThon designed for all thinkers and creative minds!
+                    💭 Whether it&apos;s a solution to a real-world problem or
+                    an idea that could make everyday life better, share it with
+                    a like-minded community!
+                  </p>
                   <p className="text-lg mb-8">
                     <span className="font-bold">Kaizen</span> presents -{" "}
                     <span className="text-green-400 font-bold">ThinkTank</span>,
@@ -130,7 +132,7 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       )}
     </>
@@ -148,14 +150,9 @@ const PopUpContainer = ({
 }) => {
   return (
     <>
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.2 }}
-        className="bg-white p-4 rounded-[20px] w-full mx-4 flex flex-col items-center justify-center gap-4 z-[50]"
-      >
+      <div className="bg-white p-4 rounded-[20px] w-full mx-4 flex flex-col items-center justify-center gap-4 z-[50]">
         {children}
-      </motion.div>
+      </div>
       <CloseBtn
         // handleClick={()=>{}}
         handleClick={() => setShowImage(!showImage)}

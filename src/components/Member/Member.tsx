@@ -1,16 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-// type membersData = {
-//   name: string;
-//   post: string;
-//   img: string;
-//   github?: string;
-//   linkedin?: string;
-// };
-
 const Member = (membersData: any) => {
-  console.log(membersData);
   return (
     <div className="flex items-center p-4 sm:w-2/5 w-full md:w-[20rem] border border-[#e5e7eb] m-4 rounded-lg">
       <div className="flex items-center">

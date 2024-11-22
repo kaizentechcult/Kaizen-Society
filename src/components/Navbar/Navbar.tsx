@@ -3,7 +3,6 @@ import React from "react";
 import NavLinks from "./NavLinks";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 interface NavLink {
   label: string;
@@ -12,9 +11,7 @@ interface NavLink {
 const navlinks: NavLink[] = [
   { label: "Home", to: "/" },
   { label: "Team", to: "/team" },
-
   { label: "Events", to: "/events-hosted" },
-
   // { label: "Join Us", to: "https://forms.gle/dAGYv4SLC5wkFvxq9" },
 ];
 
@@ -29,11 +26,7 @@ const Navbar = () => {
   };
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0, y: -100 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="z-50 w-full bg-[#1F2937] text-white flex md:flex-row flex-col justify-between md:px-64 px-4 h-[3.5rem] items-center navbar absolute top-0"
-      >
+      <div className="z-50 w-full bg-[#1F2937] text-white flex md:flex-row flex-col justify-between md:px-64 px-4 h-[3.5rem] items-center navbar absolute top-0">
         <div className="flex justify-between w-full mt-4 md:mt-0">
           <div className="logo">
             <Link href="/">
@@ -67,7 +60,7 @@ const Navbar = () => {
             />
           ))}
         </div>
-      </motion.div>
+      </div>
     </>
   );
 };
