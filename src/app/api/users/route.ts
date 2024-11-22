@@ -1,4 +1,4 @@
-"use server";
+"use server"
 
 import { connectMongoDB } from "@/lib/mongodb";
 import { User } from "@/models/User";
