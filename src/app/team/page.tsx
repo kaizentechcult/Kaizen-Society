@@ -1,35 +1,24 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import React, { Suspense } from "react";
 import Member from "@/components/Member/Member";
 import Image from "next/image";
 import Footer from "@/components/Footer/Footer";
+import { TeamProvider, useTeam, TeamDataWrapper } from "@/context/TeamContext";
 
-type MemberType = {
-  _id: string;
-  name: string;
-  img: string;
-  github: string;
-  linkedin: string;
-  position: string;
-  __v: number;
+// Suspense fallback UI while loading
+const SuspenseFallback = () => {
+  return (
+    <div className="text-center text-xl text-gray-500 h-screen flex justify-center items-center">
+      <p>Loading team members...</p>
+    </div>
+  );
 };
 
-const Page = () => {
-  const [membersData, setMembersData] = useState<MemberType[]>([]);
+const PageContent = () => {
+  const membersData = useTeam();
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("/api/users");
-        const data = await response.json();
-        setMembersData(data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-
-    fetchUsers();
-  }, []);
+  if (!membersData) return null;
 
   return (
     <>
@@ -46,7 +35,7 @@ const Page = () => {
         </div>
         <div className="right right-0 md:absolute -z-50 mt-24 md:w-[40%]">
           <Image
-            src="Hero/aboutus.svg"
+            src="/Hero/aboutus.svg"
             alt="Kaizen Club Team"
             width={500}
             height={300}
@@ -65,14 +54,25 @@ const Page = () => {
         </p>
         <p className="font-bold tracking-wider">- Michael Jordan</p>
       </div>
+
       <div className="flex flex-wrap justify-center items-center md:px-6 px-4 py-20 w-11/12 m-auto">
         {membersData.map((member) => (
           <Member key={member._id} {...member} />
         ))}
       </div>
-      <Footer />
     </>
   );
 };
+
+const Page = () => (
+  <TeamProvider>
+    <TeamDataWrapper>
+      <Suspense fallback={<SuspenseFallback />}>
+        <PageContent />
+      </Suspense>
+    </TeamDataWrapper>
+    <Footer />
+  </TeamProvider>
+);
 
 export default Page;
