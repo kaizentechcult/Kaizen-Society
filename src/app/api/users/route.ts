@@ -10,9 +10,8 @@ export async function GET() {
     const users = await User.find({});
     return NextResponse.json(users);
   } catch (error: unknown) {
-    console.error("Error fetching users:", error);
     return NextResponse.json(
-      { message: "Error fetching users" },
+      { message: `Error fetching users: ${error}` },
       { status: 500 }
     );
   }

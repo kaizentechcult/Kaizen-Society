@@ -12,8 +12,6 @@ type TeamContextType = MemberType[] | null;
 const Page = () => {
   const [teamMembers, setTeamMembers] = useState<TeamContextType>();
 
-  console.log(teamMembers);
-
   useEffect(() => {
     const fetchTeamMembers = async () => {
       try {
