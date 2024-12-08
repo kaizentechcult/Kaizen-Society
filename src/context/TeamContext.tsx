@@ -61,7 +61,7 @@ export const TeamDataWrapper = ({ children }: { children: ReactNode }) => {
   if (!teamMembers) {
     // Return a Promise that Suspense will wait for
     throw new Promise<void>((resolve) => {
-      setTimeout(resolve, 1000); // Simulate loading time
+      setTimeout(() => resolve(), 1000); // Simulate loading time
     });
   }
 
