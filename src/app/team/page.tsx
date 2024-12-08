@@ -1,36 +1,33 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import React, { Suspense, useEffect, useState } from "react";
 import Member from "@/components/Member/Member";
 import Image from "next/image";
 import Footer from "@/components/Footer/Footer";
+import { TeamProvider, useTeam, TeamDataWrapper } from "@/context/TeamContext";
+import { MemberType } from "@/types";
+import MemberLoadingSkeleton from "@/components/Member/MemberLoadingSkeleton";
 
-type MemberType = {
-  _id: string;
-  name: string;
-  img: string;
-  github: string;
-  linkedin: string;
-  position: string;
-  __v: number;
-};
+type TeamContextType = MemberType[] | null;
 
 const Page = () => {
-  const [membersData, setMembersData] = useState<MemberType[]>([]);
+  const [teamMembers, setTeamMembers] = useState<TeamContextType>();
+
+  console.log(teamMembers);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchTeamMembers = async () => {
       try {
         const response = await fetch("/api/users");
-        const data = await response.json();
-        setMembersData(data);
+        const data: MemberType[] = await response.json();
+        setTeamMembers(data);
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error("Error fetching team members:", error);
       }
     };
 
-    fetchUsers();
+    fetchTeamMembers();
   }, []);
-
   return (
     <>
       <div className="md:px-64 px-4 flex md:flex-row flex-col justify-between items-center py-10 md:py-0 gap-8 md:gap-0 mt-16">
@@ -46,7 +43,7 @@ const Page = () => {
         </div>
         <div className="right right-0 md:absolute -z-50 mt-24 md:w-[40%]">
           <Image
-            src="Hero/aboutus.svg"
+            src="/Hero/aboutus.svg"
             alt="Kaizen Club Team"
             width={500}
             height={300}
@@ -65,14 +62,15 @@ const Page = () => {
         </p>
         <p className="font-bold tracking-wider">- Michael Jordan</p>
       </div>
+
       <div className="flex flex-wrap justify-center items-center md:px-6 px-4 py-20 w-11/12 m-auto">
-        {membersData.map((member) => (
-          <Member key={member._id} {...member} />
-        ))}
+        {teamMembers === undefined ? (
+          <MemberLoadingSkeleton />
+        ) : (
+          teamMembers?.map((member) => <Member key={member._id} {...member} />)
+        )}
       </div>
-      <Footer />
     </>
   );
 };
-
 export default Page;
