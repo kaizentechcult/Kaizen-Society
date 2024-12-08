@@ -1,10 +1,9 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
-import Member from "@/components/Member/Member";
 import Image from "next/image";
-import Footer from "@/components/Footer/Footer";
-import { TeamProvider, useTeam, TeamDataWrapper } from "@/context/TeamContext";
+import React, { useEffect, useState } from "react";
+
+import Member from "@/components/Member/Member";
 import { MemberType } from "@/types";
 import MemberLoadingSkeleton from "@/components/Member/MemberLoadingSkeleton";
 
