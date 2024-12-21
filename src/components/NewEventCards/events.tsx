@@ -41,8 +41,8 @@ export function Events() {
               "Get Familiar with popular Cloud Computing Platforms and gain a chance to talk with industry professionals, and get to know more about Cloud computing in general.",
             status: "upcoming",
             organizers: [
-              "Ayush Singh",
-              "Shivang Sharma",
+              "Aayush Singh",
+              "Shivang Shukla",
               "Shivangi Bhartiya",
               "Adista Nautiyal",
               "Sooraj Nambiar",
@@ -59,8 +59,8 @@ export function Events() {
               "Get Familiar with popular Cloud Computing Platforms and gain a chance to talk with industry professionals, and get to know more about Cloud computing in general.",
             status: "upcoming",
             organizers: [
-              "Ayush Singh",
-              "Shivang Sharma",
+              "Aayush Singh",
+              "Shivang Shukla",
               "Shivangi Bhartiya",
               "Adista Nautiyal",
               "Sooraj Nambiar",
@@ -109,7 +109,7 @@ export function Events() {
               "Tackle Challenging DSA Questions prepared by us, focused to leve up your thinking and logical skills.",
             status: "past",
             organizers: [
-              "Ayush Singh",
+              "Aayush Singh",
               "Shivangi Bhartiya",
               "Sreehitha Thati",
               "Manisha",
@@ -125,7 +125,7 @@ export function Events() {
               "Tackle Challenging DSA Questions prepared by us, focused to leve up your thinking and logical skills.",
             status: "past",
             organizers: [
-              "Ayush Singh",
+              "Aayush Singh",
               "Shivangi Bhartiya",
               "Sreehitha Thati",
               "Manisha",
@@ -143,7 +143,7 @@ export function Events() {
             organizers: [
               "Krish Khanna",
               "Sooraj Nambiar",
-              "Ayush Singh",
+              "Aayush Singh",
               "Adista Nautiyal",
               "Shivangi Bhartiya",
             ],
