@@ -34,40 +34,7 @@ export function Events() {
     setTimeout(() => {
       setCategories({
         Upcoming: [
-          {
-            id: "5",
-            name: "Cloud Computing Webinar (AWS, GCP, Azure, etc)",
-            description:
-              "Get Familiar with popular Cloud Computing Platforms and gain a chance to talk with industry professionals, and get to know more about Cloud computing in general.",
-            status: "upcoming",
-            organizers: [
-              "Aayush Singh",
-              "Shivang Shukla",
-              "Shivangi Bhartiya",
-              "Adista Nautiyal",
-              "Sooraj Nambiar",
-            ],
-            images: ["/Events/CloudComputingWebinar.jpg"],
-            link: "#",
-          },
-        ],
         Live: [
-          {
-            id: "5",
-            name: "Cloud Computing Webinar (AWS, GCP, Azure, etc)",
-            description:
-              "Get Familiar with popular Cloud Computing Platforms and gain a chance to talk with industry professionals, and get to know more about Cloud computing in general.",
-            status: "upcoming",
-            organizers: [
-              "Aayush Singh",
-              "Shivang Shukla",
-              "Shivangi Bhartiya",
-              "Adista Nautiyal",
-              "Sooraj Nambiar",
-            ],
-            images: ["/Events/CloudComputingWebinar.jpg"],
-            link: "#",
-          },
         ],
         Past: [
           {
@@ -150,6 +117,21 @@ export function Events() {
             images: ["/Events/ThinkTank.png", "/Events/ThinkTankWinners.png"],
             link: "#",
           },
+          id: "5",
+          name: "Cloud Computing Webinar (AWS, GCP, Azure, etc)",
+          description:
+            "Get Familiar with popular Cloud Computing Platforms and gain a chance to talk with industry professionals, and get to know more about Cloud computing in general.",
+          status: "upcoming",
+          organizers: [
+            "Aayush Singh",
+            "Shivang Shukla",
+            "Shivangi Bhartiya",
+            "Adista Nautiyal",
+            "Sooraj Nambiar",
+          ],
+          images: ["/Events/CloudComputingWebinar.jpg"],
+          link: "#",
+        },
         ],
       });
       setLoading(false);
