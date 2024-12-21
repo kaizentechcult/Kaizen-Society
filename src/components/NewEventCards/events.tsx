@@ -116,22 +116,23 @@ export function Events() {
             images: ["/Events/ThinkTank.png", "/Events/ThinkTankWinners.png"],
             link: "#",
           },
-          {id: "5",
-          name: "Cloud Computing Webinar (AWS, GCP, Azure, etc)",
-          description:
-            "Get Familiar with popular Cloud Computing Platforms and gain a chance to talk with industry professionals, and get to know more about Cloud computing in general.",
-          status: "upcoming",
-          organizers: [
-            "Aayush Singh",
-            "Shivang Shukla",
-            "Shivangi Bhartiya",
-            "Adista Nautiyal",
-            "Sooraj Nambiar",
-          ],
-          images: ["/Events/CloudComputingWebinar.jpg"],
-          link: "#",
-        },
-        ]
+          {
+            id: "5",
+            name: "Cloud Computing Webinar (AWS, GCP, Azure, etc)",
+            description:
+              "Get Familiar with popular Cloud Computing Platforms and gain a chance to talk with industry professionals, and get to know more about Cloud computing in general.",
+            status: "upcoming",
+            organizers: [
+              "Aayush Singh",
+              "Shivang Shukla",
+              "Shivangi Bhartiya",
+              "Adista Nautiyal",
+              "Sooraj Nambiar",
+            ],
+            images: ["/Events/CloudComputingWebinar.jpg"],
+            link: "#",
+          },
+        ],
       });
       setLoading(false);
     }, 1000);
@@ -179,18 +180,21 @@ export function Events() {
                       Till then have a look on our past events.
                     </h1>
                   ) : (
-                    events.map((event: Event, index: number) => (
-                      <EventCard
-                        key={event.id}
-                        reverse={index % 2 === 1}
-                        title={event.name}
-                        status={event.status}
-                        description={event.description}
-                        organizers={event.organizers}
-                        link={event.link}
-                        images={event.images}
-                      />
-                    ))
+                    events
+                      .slice()
+                      .reverse()
+                      .map((event: Event, index: number) => (
+                        <EventCard
+                          key={event.id}
+                          reverse={index % 2 === 1}
+                          title={event.name}
+                          status={event.status}
+                          description={event.description}
+                          organizers={event.organizers}
+                          link={event.link}
+                          images={event.images}
+                        />
+                      ))
                   )}
                 </Tab.Panel>
               ))
