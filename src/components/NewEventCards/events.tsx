@@ -33,9 +33,8 @@ export function Events() {
     // Simulating data fetch
     setTimeout(() => {
       setCategories({
-        Upcoming: [
-        Live: [
-        ],
+        Upcoming: [],
+        Live: [],
         Past: [
           {
             id: "0",
