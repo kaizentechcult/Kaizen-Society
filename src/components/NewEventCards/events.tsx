@@ -116,7 +116,7 @@ export function Events() {
             images: ["/Events/ThinkTank.png", "/Events/ThinkTankWinners.png"],
             link: "#",
           },
-          id: "5",
+          {id: "5",
           name: "Cloud Computing Webinar (AWS, GCP, Azure, etc)",
           description:
             "Get Familiar with popular Cloud Computing Platforms and gain a chance to talk with industry professionals, and get to know more about Cloud computing in general.",
@@ -131,7 +131,7 @@ export function Events() {
           images: ["/Events/CloudComputingWebinar.jpg"],
           link: "#",
         },
-        ],
+        ]
       });
       setLoading(false);
     }, 1000);
