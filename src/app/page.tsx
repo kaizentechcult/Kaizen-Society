@@ -152,7 +152,7 @@ import Footer from "@/components/Footer/Footer";
 import Hero from "@/components/Hero/Hero";
 export default function Home() {
   return (
-    <div className="-pt-8">
+    <div className="bg-white h-screen">
       <Hero />
       <Footer className="bottom-0" />
     </div>

@@ -62,7 +62,7 @@ const Page = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white pt-32">
       <motion.div
         initial="hidden"
         animate="visible"
