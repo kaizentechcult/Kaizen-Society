@@ -139,7 +139,8 @@ export function Events() {
   }, []);
 
   return (
-    <div className="py-24 bg-white">
+    <div className="py-24 bg-white pt-32 h-screen">
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl text-center">
           Events organized by our community

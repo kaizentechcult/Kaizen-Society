@@ -42,7 +42,8 @@ const Challenges = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white py-16 px-4">
+    <div className="min-h-screen bg-black text-white py-16 px-4 pt-32">
+
       <motion.div
         initial="hidden"
         animate="visible"
@@ -50,7 +51,7 @@ const Challenges = () => {
         className="max-w-6xl mx-auto"
       >
         {/* Hero Section */}
-        <motion.div 
+        <motion.div
           variants={cardVariants}
           className="text-center mb-16"
         >
@@ -61,7 +62,7 @@ const Challenges = () => {
             </span>
           </h1>
           <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto">
-            Take on real-world challenges, improve your skills, and build your portfolio 
+            Take on real-world challenges, improve your skills, and build your portfolio
             with our curated collection of coding problems.
           </p>
         </motion.div>
@@ -101,7 +102,7 @@ const Challenges = () => {
                   <h2 className="text-2xl font-bold">Web Development</h2>
                 </div>
                 <p className="text-zinc-400 mb-6">
-                  Master modern web technologies through practical challenges. Build real-world 
+                  Master modern web technologies through practical challenges. Build real-world
                   applications and improve your frontend & backend skills.
                 </p>
                 <div className="flex items-center text-emerald-400 group-hover:translate-x-2 transition-transform">
@@ -124,7 +125,7 @@ const Challenges = () => {
                   <h2 className="text-2xl font-bold">DSA Challenges</h2>
                 </div>
                 <p className="text-zinc-400 mb-6">
-                  Level up your problem-solving skills with our curated collection of DSA challenges. 
+                  Level up your problem-solving skills with our curated collection of DSA challenges.
                   From basic to advanced algorithms, we&apos;ve got you covered.
                 </p>
                 <div className="flex items-center text-purple-400 group-hover:translate-x-2 transition-transform">

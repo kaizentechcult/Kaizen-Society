@@ -50,7 +50,7 @@ const WebDevChallenges = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white py-16 px-4">
+    <div className="min-h-screen bg-black text-white py-16 px-4 pt-32">
       <motion.div
         initial="hidden"
         animate="visible"
