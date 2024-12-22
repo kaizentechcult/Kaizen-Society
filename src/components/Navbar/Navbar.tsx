@@ -34,7 +34,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed top-0 w-full z-50">
+    <div className="fixed top-0 w-full z-50 " >
       <motion.nav
         initial={{ opacity: 0, y: -20 }}
         animate={{
@@ -44,15 +44,15 @@ const Navbar = () => {
           borderRadius: scrolled ? "20rem" : "0",
         }}
         transition={{
-          duration: 0.5,
+          duration: 0.01,
           ease: [0.42, 0, 0.58, 1] // easeInOutCubic bezier curve for smoother animation
         }}
-        className={`mx-auto transition-all duration-300 ${scrolled
-          ? "bg-white/80 backdrop-blur-md shadow-lg max-w-6xl rounded-full"
-          : "bg-black w-full"
+        className={`mx-auto transition-all duration-300 bg-[#000000] p-4 ${scrolled
+          ? "backdrop-blur-[20px]  shadow-lg  rounded-full"
+          : " w-full"
           }`}
       >
-        <div className={`mx-auto px-4 sm:px-6 lg:px-8 ${scrolled ? "max-w-6xl" : "w-full"}`}>
+        <div className={`mx-auto px-4 sm:px-6 lg:px-8 ${scrolled ? "" : "w-full"}`}>
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <motion.div
@@ -62,10 +62,10 @@ const Navbar = () => {
             >
               <Link href="/" className="flex items-center">
                 <Image
-                  src="/logoK.png"
+                  src="/kaizenLogo.jpg"
                   alt="logo"
-                  width={40}
-                  height={40}
+                  width={200}
+                  height={20}
                   className="rounded-full"
                 />
               </Link>
@@ -81,7 +81,7 @@ const Navbar = () => {
                 >
                   <Link
                     href={link.to}
-                    className={`text-sm ${scrolled ? "text-gray-800" : "text-white"
+                    className={`text-sm ${scrolled ? "text-white" : "text-white"
                       } hover:text-gray-600 transition-colors duration-200`}
                   >
                     {link.label}
