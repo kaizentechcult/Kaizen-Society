@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Challenge } from '@/types';
+import { Brain, Sparkles } from 'lucide-react';
 
 const DSAChallenges = () => {
   const [challenges, setChallenges] = useState<Challenge[]>([
@@ -51,49 +52,87 @@ const DSAChallenges = () => {
   };
 
   const itemVariants = {
-    hidden: { x: -20, opacity: 0 },
-    visible: { x: 0, opacity: 1 }
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white py-16 px-4">
+    <div className="min-h-screen bg-black text-white py-16 px-4">
       <motion.div
         initial="hidden"
         animate="visible"
         variants={containerVariants}
         className="max-w-4xl mx-auto"
       >
-        <h1 className="text-4xl font-bold text-center mb-12">DSA Challenges</h1>
+        {/* Hero Section */}
+        <motion.div 
+          variants={itemVariants}
+          className="text-center mb-16"
+        >
+          <div className="flex justify-center mb-6">
+            <Brain className="w-12 h-12 text-purple-400" />
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+            Data Structures &{" "}
+            <span className="bg-gradient-to-r from-purple-400 to-blue-400 text-transparent bg-clip-text">
+              Algorithms
+            </span>
+          </h1>
+          <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto">
+            Level up your problem-solving skills with our curated collection of DSA challenges.
+            From basic to advanced algorithms, we&apos;ve got you covered.
+          </p>
+        </motion.div>
         
         <motion.div className="space-y-6" variants={containerVariants}>
           {challenges.map((challenge) => (
             <motion.div
               key={challenge.id}
               variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              className="bg-gray-800 p-6 rounded-lg shadow-lg"
+              className="group relative"
             >
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="text-xl font-bold mb-2">{challenge.title}</h3>
-                  <p className="text-gray-300 mb-4">{challenge.description}</p>
-                  <span className={`px-3 py-1 rounded-full text-sm ${
-                    challenge.difficulty === 'Easy' ? 'bg-green-500' :
-                    challenge.difficulty === 'Medium' ? 'bg-yellow-500' : 'bg-red-500'
-                  }`}>
-                    {challenge.difficulty}
-                  </span>
+              <div className="absolute inset-0 bg-gradient-to-b from-purple-600/10 to-blue-600/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="bg-gradient-to-b from-zinc-900 via-zinc-900 to-zinc-900/50 p-8 rounded-xl border border-zinc-800/50 group-hover:border-purple-500/30 transition-colors relative">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
+                      {challenge.title}
+                    </h3>
+                    <p className="text-zinc-400 mb-4">{challenge.description}</p>
+                    <div className="flex items-center gap-4">
+                      <span className={`px-3 py-1 rounded-full text-sm border ${
+                        challenge.difficulty === 'Easy' 
+                          ? 'border-emerald-500/30 text-emerald-400' 
+                          : challenge.difficulty === 'Medium' 
+                          ? 'border-purple-500/30 text-purple-400' 
+                          : 'border-red-500/30 text-red-400'
+                      }`}>
+                        {challenge.difficulty}
+                      </span>
+                      {challenge.completed && (
+                        <span className="flex items-center text-emerald-400 text-sm">
+                          <Sparkles className="w-4 h-4 mr-1" />
+                          Completed
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <motion.div
+                    whileTap={{ scale: 0.95 }}
+                    className="relative"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={challenge.completed}
+                      onChange={() => toggleComplete(challenge.id)}
+                      className="w-6 h-6 rounded-md border-2 border-purple-500/50 checked:bg-purple-500/50 
+                        transition-colors cursor-pointer appearance-none checked:before:content-['✓'] 
+                        checked:before:absolute checked:before:left-1/2 checked:before:top-1/2 
+                        checked:before:transform checked:before:-translate-x-1/2 checked:before:-translate-y-1/2
+                        checked:before:text-white"
+                    />
+                  </motion.div>
                 </div>
-                <motion.div
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <input
-                    type="checkbox"
-                    checked={challenge.completed}
-                    onChange={() => toggleComplete(challenge.id)}
-                    className="w-6 h-6 rounded-md border-2 border-blue-500 checked:bg-blue-500"
-                  />
-                </motion.div>
               </div>
             </motion.div>
           ))}
