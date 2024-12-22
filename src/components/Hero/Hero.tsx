@@ -4,7 +4,7 @@ import img from "../../../public/hero.jpg";
 
 const Hero = () => {
   return (
-    <div className="h-screen flex md:flex-row flex-col justify-center items-center gap-20  md:px-64 px-10 ">
+    <div className="pt-56 flex md:flex-row flex-col justify-center items-center gap-20  md:px-64 px-10 ">
       <div className="flex-1 md:flex md:flex-col md:justify-center md:items-center md:gap-10 flex flex-col justify-center items-center sm:gap-6 gap-4">
         <h1 className="text-5xl font-bold text-center">
           Kaizen Technical Community

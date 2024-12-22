@@ -17,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navbar />
+        <div className="pt-8"></div>
         {children}
         <Analytics />
       </body>
