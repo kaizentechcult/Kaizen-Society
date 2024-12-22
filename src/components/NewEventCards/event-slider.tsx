@@ -1,6 +1,7 @@
 "use client";
 
 import Slider from "react-slick";
+import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -23,7 +24,13 @@ export function EventSlider({ images, className }: EventSliderProps) {
     return (
       <div className="cursor-pointer max-h-[250px] min-h-[250px] overflow-hidden flex justify-center">
         <div>
-          <img className="m-auto h-[250px]" src={images[0]} alt="Event" />
+          <Image
+            className="m-auto h-[250px]"
+            src={images[0]}
+            alt="Event"
+            width={500}
+            height={250}
+          />
         </div>
       </div>
     );
@@ -37,10 +44,12 @@ export function EventSlider({ images, className }: EventSliderProps) {
           className="cursor-pointer max-h-[250px] min-h-[250px] overflow-hidden flex justify-center"
         >
           <div>
-            <img
+            <Image
               className="m-auto h-[250px]"
               src={img}
               alt={`Event ${index + 1}`}
+              width={500}
+              height={250}
             />
           </div>
         </div>
@@ -48,3 +57,4 @@ export function EventSlider({ images, className }: EventSliderProps) {
     </Slider>
   );
 }
+
