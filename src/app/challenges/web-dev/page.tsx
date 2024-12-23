@@ -35,7 +35,7 @@ const webDevChallenges: Challenge[] = [
 
 export default function WebDevChallenges() {
   const { user } = useAuth();
-  const { completedChallenges, toggleChallenge, isInitialized } = useCompletedChallenges('web-dev');
+  const { completedChallenges, toggleChallenge, isInitialized, progress } = useCompletedChallenges('web-dev', webDevChallenges.length);
 
   const getDifficultyColor = (difficulty: Challenge['difficulty']) => {
     switch (difficulty) {
@@ -57,9 +57,25 @@ export default function WebDevChallenges() {
         animate={{ opacity: 1, y: 0 }}
         className="max-w-6xl mx-auto"
       >
-        <div className="flex items-center mb-12">
-          <Code2 className="w-10 h-10 text-emerald-400 mr-4" />
-          <h1 className="text-4xl font-bold">Web Development Challenges</h1>
+        <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center">
+            <Code2 className="w-10 h-10 text-emerald-400 mr-4" />
+            <h1 className="text-4xl font-bold">Web Development Challenges</h1>
+          </div>
+          <div className="text-right">
+            <p className="text-zinc-400 mb-2">Progress</p>
+            <div className="flex items-center gap-4">
+              <div className="w-48 h-2 bg-zinc-800 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.5 }}
+                  className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400"
+                />
+              </div>
+              <span className="text-emerald-400 font-semibold">{progress}%</span>
+            </div>
+          </div>
         </div>
 
         {!user && (
