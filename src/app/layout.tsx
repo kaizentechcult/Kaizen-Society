@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar/Navbar";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
+import { AuthProvider } from '@/contexts/AuthContext';
 
 export const metadata: Metadata = {
   title: "Kaizen-Society",
@@ -16,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        {children}
-        <Analytics />
+        <AuthProvider>
+          <Navbar />
+          {children}
+          <Analytics />
+        </AuthProvider>
       </body>
     </html>
   );

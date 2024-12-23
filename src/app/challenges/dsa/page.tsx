@@ -1,145 +1,114 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { Challenge } from '@/types';
-import { Brain, Sparkles } from 'lucide-react';
+import { Brain, CheckCircle2 } from 'lucide-react';
+import { useCompletedChallenges } from '@/hooks/useCompletedChallenges';
+import { useAuth } from '@/contexts/AuthContext';
 
-const DSAChallenges = () => {
-  const [challenges, setChallenges] = useState<Challenge[]>([
-    {
-      id: 1,
-      title: "Two Sum Problem",
-      description: "Given an array of integers, return indices of the two numbers that add up to a specific target.",
-      difficulty: "Easy",
-      completed: false
-    },
-    {
-      id: 2,
-      title: "Valid Parentheses",
-      description: "Create a function that determines if the input string has valid parentheses ordering.",
-      difficulty: "Easy",
-      completed: false
-    },
-    {
-      id: 3,
-      title: "Binary Search Implementation",
-      description: "Implement binary search algorithm to find an element in a sorted array.",
-      difficulty: "Medium",
-      completed: false
-    },
-    {
-      id: 4,
-      title: "Linked List Cycle Detection",
-      description: "Detect if a linked list has a cycle using Floyd's Tortoise and Hare algorithm.",
-      difficulty: "Medium",
-      completed: false
+interface Challenge {
+  id: string;
+  title: string;
+  description: string;
+  difficulty: 'Easy' | 'Medium' | 'Hard';
+}
+
+const dsaChallenges: Challenge[] = [
+  {
+    id: 'dsa1',
+    title: 'Two Sum',
+    description: 'Find two numbers in an array that add up to a target sum.',
+    difficulty: 'Easy'
+  },
+  {
+    id: 'dsa2',
+    title: 'Binary Tree Level Order Traversal',
+    description: 'Implement level-order traversal of a binary tree.',
+    difficulty: 'Medium'
+  },
+  {
+    id: 'dsa3',
+    title: 'Merge K Sorted Lists',
+    description: 'Merge k sorted linked lists into one sorted linked list.',
+    difficulty: 'Hard'
+  },
+];
+
+export default function DSAChallenges() {
+  const { user } = useAuth();
+  const { completedChallenges, toggleChallenge } = useCompletedChallenges('dsa');
+
+  const getDifficultyColor = (difficulty: Challenge['difficulty']) => {
+    switch (difficulty) {
+      case 'Easy':
+        return 'text-emerald-400';
+      case 'Medium':
+        return 'text-purple-400';
+      case 'Hard':
+        return 'text-red-400';
+      default:
+        return 'text-gray-400';
     }
-  ]);
-
-  const toggleComplete = (id: number) => {
-    setChallenges(challenges.map(challenge => 
-      challenge.id === id ? { ...challenge, completed: !challenge.completed } : challenge
-    ));
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 }
   };
 
   return (
     <div className="min-h-screen bg-black text-white py-16 px-4 pt-32">
       <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-        className="max-w-4xl mx-auto"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-6xl mx-auto"
       >
-        {/* Hero Section */}
-        <motion.div 
-          variants={itemVariants}
-          className="text-center mb-16"
-        >
-          <div className="flex justify-center mb-6">
-            <Brain className="w-12 h-12 text-purple-400" />
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-            Data Structures &{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-blue-400 text-transparent bg-clip-text">
-              Algorithms
-            </span>
-          </h1>
-          <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto">
-            Level up your problem-solving skills with our curated collection of DSA challenges.
-            From basic to advanced algorithms, we&apos;ve got you covered.
-          </p>
-        </motion.div>
-        
-        <motion.div className="space-y-6" variants={containerVariants}>
-          {challenges.map((challenge) => (
+        <div className="flex items-center mb-12">
+          <Brain className="w-10 h-10 text-purple-400 mr-4" />
+          <h1 className="text-4xl font-bold">DSA Challenges</h1>
+        </div>
+
+        {!user && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mb-8 p-4 bg-zinc-900/50 border border-zinc-800 rounded-lg"
+          >
+            <p className="text-zinc-400">
+              Sign in to sync your progress across devices
+            </p>
+          </motion.div>
+        )}
+
+        <div className="grid gap-6">
+          {dsaChallenges.map((challenge) => (
             <motion.div
               key={challenge.id}
-              variants={itemVariants}
-              className="group relative"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="bg-zinc-900/50 border border-zinc-800/50 rounded-xl p-6 relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-b from-purple-600/10 to-blue-600/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="bg-gradient-to-b from-zinc-900 via-zinc-900 to-zinc-900/50 p-8 rounded-xl border border-zinc-800/50 group-hover:border-purple-500/30 transition-colors relative">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
-                      {challenge.title}
-                    </h3>
-                    <p className="text-zinc-400 mb-4">{challenge.description}</p>
-                    <div className="flex items-center gap-4">
-                      <span className={`px-3 py-1 rounded-full text-sm border ${
-                        challenge.difficulty === 'Easy' 
-                          ? 'border-emerald-500/30 text-emerald-400' 
-                          : challenge.difficulty === 'Medium' 
-                          ? 'border-purple-500/30 text-purple-400' 
-                          : 'border-red-500/30 text-red-400'
-                      }`}>
-                        {challenge.difficulty}
-                      </span>
-                      {challenge.completed && (
-                        <span className="flex items-center text-emerald-400 text-sm">
-                          <Sparkles className="w-4 h-4 mr-1" />
-                          Completed
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <motion.div
-                    whileTap={{ scale: 0.95 }}
-                    className="relative"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={challenge.completed}
-                      onChange={() => toggleComplete(challenge.id)}
-                      className="w-6 h-6 rounded-md border-2 border-purple-500/50 checked:bg-purple-500/50 
-                        transition-colors cursor-pointer appearance-none checked:before:content-['✓'] 
-                        checked:before:absolute checked:before:left-1/2 checked:before:top-1/2 
-                        checked:before:transform checked:before:-translate-x-1/2 checked:before:-translate-y-1/2
-                        checked:before:text-white"
-                    />
-                  </motion.div>
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold mb-2 flex items-center">
+                    {challenge.title}
+                    <span className={`ml-3 text-sm ${getDifficultyColor(challenge.difficulty)}`}>
+                      {challenge.difficulty}
+                    </span>
+                  </h3>
+                  <p className="text-zinc-400">{challenge.description}</p>
                 </div>
+                <button
+                  onClick={() => toggleChallenge(challenge.id)}
+                  className="ml-4 p-2 rounded-lg hover:bg-zinc-800 transition-colors"
+                >
+                  <CheckCircle2 
+                    className={`w-6 h-6 ${
+                      completedChallenges.includes(challenge.id)
+                        ? 'text-emerald-400'
+                        : 'text-zinc-600'
+                    }`}
+                  />
+                </button>
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </motion.div>
     </div>
   );
-};
-
-export default DSAChallenges; 
+} 

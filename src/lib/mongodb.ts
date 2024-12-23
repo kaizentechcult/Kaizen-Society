@@ -1,14 +1,26 @@
-import mongoose from "mongoose";
+import { MongoClient } from 'mongodb';
 
-const NEXT_MONGO_URL = process.env.MONGO_URL as string;
-
-if (!NEXT_MONGO_URL) {
-  throw new Error("Please add your Mongo URL to .env.local");
+if (!process.env.MONGODB_URI) {
+  throw new Error('Please add your Mongo URI to .env.local');
 }
 
-export const connectMongoDB = async () => {
-  if (mongoose.connection.readyState === 0) {
-    await mongoose.connect(NEXT_MONGO_URL);
-    console.log("Connected to MongoDB");
+
+const uri = process.env.MONGODB_URI;
+// const dbName = process.env.MONGODB_DB;
+
+let cachedClient: MongoClient | null = null;
+let cachedDb: any = null;
+
+export async function connectMongoDB() {
+  if (cachedClient && cachedDb) {
+    return { client: cachedClient, db: cachedDb };
   }
-};
+
+  const client = await MongoClient.connect(uri);
+  const db = client.db(uri);
+
+  cachedClient = client;
+  cachedDb = db;
+
+  return { client, db };
+}
