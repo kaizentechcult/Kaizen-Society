@@ -11,7 +11,7 @@ export default function LoginButton() {
   const isChallengePage = pathname.includes('/challenges');
 
   return (
-    <div className={`fixed top-20 right-12 z-50 ${isChallengePage ? 'md:right-8' : ''}`}>
+    <div className={`z-50 ${isChallengePage ? 'md:right-8' : ''}`}>
       {user ? (
         <motion.div
           initial={{ opacity: 0 }}

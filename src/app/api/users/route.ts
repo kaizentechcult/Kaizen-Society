@@ -1,18 +1,23 @@
 "use server";
 
-import { connectMongoDB } from "@/lib/mongodb";
-import { User } from "@/models/User";
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
+import { connectMongoDB } from '@/lib/mongodb';
 
 export async function GET() {
-  try {
-    await connectMongoDB();
-    const users = await User.find({});
-    return NextResponse.json(users);
-  } catch (error: unknown) {
-    return NextResponse.json(
-      { message: `Error fetching users: ${error}` },
-      { status: 500 }
-    );
-  }
+    try {
+        const { db } = await connectMongoDB();
+        const users = await db.collection('users').find({}).toArray();
+        
+        if (!users) {
+            return NextResponse.json([], { status: 200 });
+        }
+
+        return NextResponse.json(users);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        return NextResponse.json(
+            { error: 'Failed to fetch users' },
+            { status: 500 }
+        );
+    }
 }
