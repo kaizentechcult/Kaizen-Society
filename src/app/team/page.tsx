@@ -6,19 +6,34 @@ import { MemberType } from "@/types";
 import { motion } from 'framer-motion';
 import { Users, Code2, Brain } from 'lucide-react';
 
-type TeamContextType = MemberType[] | null;
+type TeamContextType = MemberType[];
 
 const Page = () => {
-  const [teamMembers, setTeamMembers] = useState<TeamContextType>();
+  const [teamMembers, setTeamMembers] = useState<TeamContextType>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTeamMembers = async () => {
       try {
+        setLoading(true);
         const response = await fetch("/api/users");
-        const data: MemberType[] = await response.json();
-        setTeamMembers(data);
+        if (!response.ok) {
+          throw new Error('Failed to fetch team members');
+        }
+        const data = await response.json();
+        // Ensure data is an array
+        if (Array.isArray(data)) {
+          setTeamMembers(data);
+        } else {
+          console.error('Received non-array data:', data);
+          setError('Invalid data format received');
+        }
       } catch (error) {
         console.error("Error fetching team members:", error);
+        setError(error instanceof Error ? error.message : 'Failed to load team members');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -49,17 +64,23 @@ const Page = () => {
       title: "Techies",
       value: "650+"
     },
-    // {
-    //   icon: <Code2 className="w-6 h-6 text-emerald-400" />,
-    //   title: "Projects Completed",
-    //   value: "2+"
-    // },
     {
       icon: <Brain className="w-6 h-6 text-blue-400" />,
       title: "Events Organized",
       value: "5+"
     }
   ];
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-black text-white pt-32 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-red-400 mb-4">Error</h2>
+          <p className="text-zinc-400">{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black text-white pt-32">
@@ -129,14 +150,16 @@ const Page = () => {
           variants={containerVariants}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-12"
         >
-          {teamMembers === undefined ? (
-            Array.from({ length: 12 }).map((_, index) => (
+          {loading ? (
+            // Loading skeletons
+            Array.from({ length: 6 }).map((_, index) => (
               <MemberLoading key={index} />
             ))
-          ) : (
-            teamMembers?.map((membersData, index) => (
+          ) : teamMembers.length > 0 ? (
+            // Render team members if available
+            teamMembers.map((member, index) => (
               <motion.div
-                key={index}
+                key={member._id}
                 variants={itemVariants}
                 whileHover={{ y: -5 }}
                 className="group relative"
@@ -147,21 +170,21 @@ const Page = () => {
                     <div className="mb-6 relative">
                       <div className="absolute inset-0 bg-gradient-to-b from-purple-500/20 to-emerald-500/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
                       <Image
-                        src={membersData.img}
-                        alt={membersData.name}
+                        src={member.img}
+                        alt={member.name}
                         width={120}
                         height={120}
                         className="rounded-full object-cover border-2 border-zinc-800/50 group-hover:border-purple-500/50 transition-colors relative z-10"
                       />
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2">
-                      {membersData.name}
+                      {member.name}
                     </h3>
-                    <p className="text-zinc-400 mb-6">{membersData.position}</p>
+                    <p className="text-zinc-400 mb-6">{member.position}</p>
                     <div className="flex gap-6 mt-auto">
-                      {membersData.github && (
+                      {member.github && (
                         <a
-                          href={membersData.github}
+                          href={member.github}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="transform transition-all hover:scale-110 hover:text-emerald-400"
@@ -171,9 +194,9 @@ const Page = () => {
                           </svg>
                         </a>
                       )}
-                      {membersData.linkedin && (
+                      {member.linkedin && (
                         <a
-                          href={membersData.linkedin}
+                          href={member.linkedin}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="transform transition-all hover:scale-110 hover:text-purple-400"
@@ -188,6 +211,11 @@ const Page = () => {
                 </div>
               </motion.div>
             ))
+          ) : (
+            // No team members found
+            <div className="col-span-full text-center py-12">
+              <p className="text-zinc-400">No team members found.</p>
+            </div>
           )}
         </motion.div>
       </motion.div>

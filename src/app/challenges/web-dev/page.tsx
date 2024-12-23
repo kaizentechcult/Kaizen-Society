@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Code2, CheckCircle2 } from 'lucide-react';
 import { useCompletedChallenges } from '@/hooks/useCompletedChallenges';
 import { useAuth } from '@/contexts/AuthContext';
+import SignUp from '@/components/SignUp';
 
 interface Challenge {
   id: string;
@@ -77,19 +78,7 @@ export default function WebDevChallenges() {
             </div>
           </div>
         </div>
-
-        {!user && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mb-8 p-4 bg-zinc-900/50 border border-zinc-800 rounded-lg"
-          >
-            <p className="text-zinc-400">
-              Sign in to sync your progress across devices
-            </p>
-          </motion.div>
-        )}
-
+        <SignUp />
         <div className="grid gap-6">
           {webDevChallenges.map((challenge) => (
             <motion.div
@@ -110,16 +99,14 @@ export default function WebDevChallenges() {
                 </div>
                 <button
                   onClick={() => isInitialized && toggleChallenge(challenge.id)}
-                  className={`ml-4 p-2 rounded-lg hover:bg-zinc-800 transition-colors ${
-                    !isInitialized ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
-                >
-                  <CheckCircle2 
-                    className={`w-6 h-6 ${
-                      isInitialized && completedChallenges.includes(challenge.id)
-                        ? 'text-emerald-400'
-                        : 'text-zinc-600'
+                  className={`ml-4 p-2 rounded-lg hover:bg-zinc-800 transition-colors ${!isInitialized ? 'opacity-50 cursor-not-allowed' : ''
                     }`}
+                >
+                  <CheckCircle2
+                    className={`w-6 h-6 ${isInitialized && completedChallenges.includes(challenge.id)
+                      ? 'text-emerald-400'
+                      : 'text-zinc-600'
+                      }`}
                   />
                 </button>
               </div>
