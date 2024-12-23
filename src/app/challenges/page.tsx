@@ -3,8 +3,12 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Code2, Brain, Trophy, Users, Timer, Sparkles } from 'lucide-react';
+import LoginButton from '@/components/LoginButton';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Challenges = () => {
+  const { user } = useAuth();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -42,7 +46,9 @@ const Challenges = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white py-16 px-4 pt-32">
+    <div className="min-h-screen bg-black text-white py-16 px-4 pt-32 relative">
+      {/* Login Button */}
+      <LoginButton />
 
       <motion.div
         initial="hidden"
@@ -65,6 +71,17 @@ const Challenges = () => {
             Take on real-world challenges, improve your skills, and build your portfolio
             with our curated collection of coding problems.
           </p>
+          {!user && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="mt-6"
+            >
+              <p className="text-zinc-400 text-sm">
+                Sign in to save your progress across devices
+              </p>
+            </motion.div>
+          )}
         </motion.div>
 
         {/* Stats Section */}
