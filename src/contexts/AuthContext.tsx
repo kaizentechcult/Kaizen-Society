@@ -2,7 +2,8 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '@/lib/firebase';
-import { User, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { User, GoogleAuthProvider, signInWithPopup, browserPopupRedirectResolver } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
 
 interface AuthContextType {
   user: User | null;
@@ -24,6 +25,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isSigningIn, setIsSigningIn] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -35,20 +37,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signInWithGoogle = async () => {
-    if (isSigningIn) return; // Prevent multiple sign-in attempts
+    if (isSigningIn) return;
 
     setIsSigningIn(true);
     const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({
+      prompt: 'select_account'
+    });
+
     try {
-      const result = await signInWithPopup(auth, provider);
-      // After successful sign-in, you might want to store some user data
+      const result = await signInWithPopup(auth, provider, browserPopupRedirectResolver);
       if (result.user) {
-        // You can add additional user data handling here if needed
         console.log('Successfully signed in:', result.user.email);
+        router.push('/challenges'); // Redirect after successful sign-in
       }
     } catch (error: any) {
       if (error.code !== 'auth/cancelled-popup-request') {
         console.error('Error signing in with Google:', error);
+        // Show error to user
+        alert('Failed to sign in with Google. Please try again.');
       }
     } finally {
       setIsSigningIn(false);
@@ -57,7 +64,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
-      await signOut(auth);
+      await auth.signOut();
+      router.push('/'); // Redirect to home after logout
     } catch (error) {
       console.error('Error signing out:', error);
     }
