@@ -35,7 +35,7 @@ const dsaChallenges: Challenge[] = [
 
 export default function DSAChallenges() {
   const { user } = useAuth();
-  const { completedChallenges, toggleChallenge } = useCompletedChallenges('dsa');
+  const { completedChallenges, toggleChallenge, isInitialized, progress } = useCompletedChallenges('dsa', dsaChallenges.length);
 
   const getDifficultyColor = (difficulty: Challenge['difficulty']) => {
     switch (difficulty) {
@@ -57,9 +57,25 @@ export default function DSAChallenges() {
         animate={{ opacity: 1, y: 0 }}
         className="max-w-6xl mx-auto"
       >
-        <div className="flex items-center mb-12">
-          <Brain className="w-10 h-10 text-purple-400 mr-4" />
-          <h1 className="text-4xl font-bold">DSA Challenges</h1>
+        <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center">
+            <Brain className="w-10 h-10 text-purple-400 mr-4" />
+            <h1 className="text-4xl font-bold">DSA Challenges</h1>
+          </div>
+          <div className="text-right">
+            <p className="text-zinc-400 mb-2">Progress</p>
+            <div className="flex items-center gap-4">
+              <div className="w-48 h-2 bg-zinc-800 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.5 }}
+                  className="h-full bg-gradient-to-r from-purple-500 to-purple-400"
+                />
+              </div>
+              <span className="text-purple-400 font-semibold">{progress}%</span>
+            </div>
+          </div>
         </div>
 
         {!user && (

@@ -26,19 +26,24 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-    const body = await request.json();
-    const { userId, type, completedChallenges } = body;
-
-    if (!userId || !type || !completedChallenges) {
-        return NextResponse.json({ error: 'Missing parameters' }, { status: 400 });
-    }
-
     try {
+        const body = await request.json();
+        const { userId, userEmail, type, completedChallenges } = body;
+
+        if (!userId || !userEmail || !type || !completedChallenges) {
+            console.error('Missing parameters:', { userId, userEmail, type, completedChallenges });
+            return NextResponse.json({ error: 'Missing parameters' }, { status: 400 });
+        }
+
         const { db } = await connectMongoDB();
-        await db.collection('completed-challenges').updateOne(
+        
+        const result = await db.collection('completed-challenges').updateOne(
             { userId, type },
             {
                 $set: {
+                    userId,
+                    userEmail,
+                    type,
                     challenges: completedChallenges,
                     updatedAt: new Date()
                 }
@@ -46,9 +51,18 @@ export async function POST(request: Request) {
             { upsert: true }
         );
 
-        return NextResponse.json({ success: true });
+        console.log('MongoDB update result:', result);
+
+        return NextResponse.json({ 
+            success: true,
+            message: 'Challenges updated successfully',
+            result 
+        });
     } catch (error) {
         console.error('Database error:', error);
-        return NextResponse.json({ error: 'Database error' }, { status: 500 });
+        return NextResponse.json({ 
+            error: 'Database error',
+            details: error instanceof Error ? error.message : 'Unknown error'
+        }, { status: 500 });
     }
 } 
