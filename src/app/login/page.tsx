@@ -2,11 +2,13 @@
 
 import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function Login() {
   const { signInWithGoogle, user } = useAuth();
+  const { theme } = useTheme();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,12 +28,18 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white pt-32">
+    <div className={`min-h-screen pt-32 ${
+      theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-900'
+    }`}>
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-md mx-auto bg-zinc-900 rounded-xl p-8 border border-zinc-800"
+          className={`max-w-md mx-auto rounded-xl p-8 ${
+            theme === 'dark'
+              ? 'bg-zinc-900 border border-zinc-800'
+              : 'bg-gray-50 border border-gray-200'
+          }`}
         >
           <h1 className="text-3xl font-bold text-center mb-8">
             Welcome to{" "}
@@ -43,12 +51,18 @@ export default function Login() {
           <button
             onClick={handleSignIn}
             disabled={isLoading}
-            className={`w-full bg-white text-black rounded-lg px-4 py-3 flex items-center justify-center gap-3 hover:bg-gray-100 transition-colors ${
-              isLoading ? 'opacity-50 cursor-not-allowed' : ''
+            className={`w-full rounded-lg px-4 py-3 flex items-center justify-center gap-3 transition-colors ${
+              isLoading 
+                ? 'opacity-50 cursor-not-allowed' 
+                : theme === 'dark'
+                  ? 'bg-white text-black hover:bg-gray-100'
+                  : 'bg-black text-white hover:bg-gray-900'
             }`}
           >
             {isLoading ? (
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black"></div>
+              <div className={`animate-spin rounded-full h-5 w-5 border-b-2 ${
+                theme === 'dark' ? 'border-black' : 'border-white'
+              }`}></div>
             ) : (
               <>
                 <svg className="w-6 h-6" viewBox="0 0 24 24">
