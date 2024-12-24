@@ -6,7 +6,6 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
 import Navbar from "@/components/Navbar/Navbar";
-import Footer from "@/components/Footer/Footer";
 
 export default function ClientLayout({
   children,
@@ -20,8 +19,8 @@ export default function ClientLayout({
           <div className="flex flex-col min-h-screen">
             <Navbar />
             <main className="flex-grow">{children}</main>
-            <Footer />
           </div>
+          <Analytics />
         </AuthProvider>
       </Provider>
     </ThemeProvider>

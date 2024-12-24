@@ -16,10 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta
-          name="google-site-verification"
-          content="W6XE4LcFH_Js89poVEbr_sCsGtmpujHOvC6PmkkEKNs"
-        />
+        <meta name="google-site-verification" content="63hmLsB0aZ8iyqAQBuv7wwrQjMTcaPGlS5UlH4W3w7U" />
       </head>
       <body className="min-h-screen antialiased transition-colors duration-300">
         <ClientLayout>{children}</ClientLayout>
