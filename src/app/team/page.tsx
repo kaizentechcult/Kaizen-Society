@@ -105,14 +105,14 @@ const Page = () => {
             <h1 className="text-5xl sm:text-7xl font-bold mb-6">
               Our{" "}
               <span className="bg-gradient-to-r from-purple-400 via-emerald-400 to-blue-400 text-transparent bg-clip-text">
-                Team
+              Community 
               </span>
             </h1>
             <p className={`text-lg md:text-xl leading-relaxed max-w-2xl mx-auto ${
               theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
             }`}>
               Meet the passionate individuals driving innovation and excellence at Kaizen Society.
-              Together, we&apos;re building the future of software development.
+              Together, we&apos;re building future with emerging technologies.
             </p>
           </motion.div>
 
