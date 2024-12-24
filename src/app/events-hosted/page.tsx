@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Calendar, MapPin, Users } from 'lucide-react';
 import Image from 'next/image';
 import GradientHover from '@/components/ui/GradientHover';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface Event {
   id: string;
@@ -73,6 +74,8 @@ const events = [
 ];
 
 const EventsHosted = () => {
+  const { theme } = useTheme();
+  
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -92,7 +95,9 @@ const EventsHosted = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white py-16 px-4 pt-32">
+    <div className={`min-h-screen py-16 px-4 pt-32 ${
+      theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-900'
+    }`}>
       <motion.div
         initial="hidden"
         animate="visible"
@@ -110,7 +115,9 @@ const EventsHosted = () => {
               Events
             </span>
           </h1>
-          <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto">
+          <p className={`text-lg md:text-xl max-w-2xl mx-auto ${
+            theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
+          }`}>
             Join us for exciting workshops, hackathons, and tech talks to enhance your skills and connect with fellow developers.
           </p>
         </motion.div>
@@ -122,7 +129,11 @@ const EventsHosted = () => {
               key={event.id}
               variants={itemVariants}
             >
-              <GradientHover className="group relative bg-zinc-900/50 backdrop-blur-lg rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/10">
+              <GradientHover className={`group relative rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/10 ${
+                theme === 'dark' 
+                  ? 'bg-zinc-900/50 backdrop-blur-lg'
+                  : 'bg-gray-50/50 backdrop-blur-lg'
+              }`}>
                 {/* Image Container */}
                 <div className="aspect-[16/9] relative overflow-hidden">
                   <Image
@@ -151,12 +162,16 @@ const EventsHosted = () => {
                   {/* Title and Description */}
                   <div className="space-y-4">
                     <h3 className="text-2xl font-bold tracking-tight">{event.name}</h3>
-                    <p className="text-zinc-400 text-base leading-relaxed">{event.description}</p>
+                    <p className={theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'}>
+                      {event.description}
+                    </p>
                   </div>
 
                   {/* Organizers Section */}
                   <div className="mt-8 space-y-3">
-                    <div className="flex items-center gap-2 text-zinc-400">
+                    <div className={`flex items-center gap-2 ${
+                      theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
+                    }`}>
                       <Users className="w-5 h-5" />
                       <span className="text-sm font-medium">Organized by:</span>
                     </div>
@@ -164,7 +179,11 @@ const EventsHosted = () => {
                       {event.organizers.map((organizer, idx) => (
                         <span 
                           key={idx} 
-                          className="text-sm bg-zinc-800/50 px-3 py-1.5 rounded-full border border-zinc-700/50 hover:border-zinc-600/50 transition-colors"
+                          className={`text-sm px-3 py-1.5 rounded-full transition-colors ${
+                            theme === 'dark'
+                              ? 'bg-zinc-800/50 border border-zinc-700/50 hover:border-zinc-600/50'
+                              : 'bg-gray-100/50 border border-gray-200 hover:border-gray-300'
+                          }`}
                         >
                           {organizer}
                         </span>
@@ -176,7 +195,11 @@ const EventsHosted = () => {
                   <div className="mt-8">
                     <a 
                       href={event.link}
-                      className="inline-flex items-center justify-center px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl transition-colors text-sm font-medium group-hover:bg-purple-500/10 group-hover:text-purple-400 border border-zinc-700 hover:border-purple-500/50"
+                      className={`inline-flex items-center justify-center px-6 py-3 rounded-xl transition-colors text-sm font-medium ${
+                        theme === 'dark'
+                          ? 'bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700 group-hover:bg-purple-500/10 group-hover:text-purple-400 hover:border-purple-500/50'
+                          : 'bg-gray-100 hover:bg-gray-200 text-gray-900 border border-gray-200 group-hover:bg-purple-500/10 group-hover:text-purple-600 hover:border-purple-500/50'
+                      }`}
                     >
                       {event.status === 'upcoming' ? 'Register Now' : 'Learn More'}
                     </a>

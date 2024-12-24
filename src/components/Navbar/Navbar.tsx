@@ -1,29 +1,26 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import LoginButton from "../LoginButton";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 
-interface NavLink {
-  label: string;
-  to: string;
-}
-
-const navlinks: NavLink[] = [
+const navlinks = [
   { label: "Home", to: "/" },
   { label: "Team", to: "/team" },
   { label: "Events", to: "/events-hosted" },
   { label: "Challenges", to: "/challenges" },
 ];
 
-// WhatsApp group link
-const WHATSAPP_LINK = "https://chat.whatsapp.com/FuuhxjicCHcFKNY8EOB4wq";
+const WHATSAPP_LINK = "https://chat.whatsapp.com/LRQsj3HBGcy4YTp3nlrEGt";
 
-const Navbar = () => {
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,9 +50,13 @@ const Navbar = () => {
           ease: [0.42, 0, 0.58, 1]
         }}
         className={`mx-auto transition-all duration-300 ${
-          scrolled
-            ? "bg-zinc-900/60 backdrop-blur-xl shadow-lg rounded-full border-zinc-800/50"
-            : "bg-black/60 backdrop-blur-lg"
+          theme === 'dark'
+            ? (scrolled
+              ? "bg-zinc-900/60 backdrop-blur-xl border border-zinc-800/50 shadow-lg"
+              : "bg-black/60 backdrop-blur-lg border-b border-zinc-800/50")
+            : (scrolled
+              ? "bg-white/80 backdrop-blur-xl border border-gray-200/50 shadow-lg"
+              : "bg-white/80 backdrop-blur-lg border-b border-gray-200/50")
         }`}
       >
         <div className={`mx-auto px-4 sm:px-6 lg:px-8 ${scrolled ? "" : "w-full"}`}>
@@ -87,7 +88,11 @@ const Navbar = () => {
                 >
                   <Link
                     href={link.to}
-                    className="text-sm text-zinc-400 hover:text-white transition-colors duration-200"
+                    className={`text-sm font-medium transition-colors duration-200 ${
+                      theme === 'dark'
+                        ? 'text-zinc-400 hover:text-white'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
                   >
                     {link.label}
                   </Link>
@@ -99,31 +104,62 @@ const Navbar = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -2 }}
-                className="md:flex hidden items-center gap-2 px-4 py-1.5 bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors duration-200"
+                className={`md:flex hidden items-center gap-2 px-4 py-1.5 rounded-full border transition-colors duration-200 ${
+                  theme === 'dark'
+                    ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20'
+                    : 'bg-emerald-50 text-emerald-600 border-emerald-200 hover:bg-emerald-100'
+                }`}
               >
                 <MessageCircle className="w-4 h-4" />
                 <span className="text-sm font-medium">Join Group</span>
               </motion.a>
+              {/* Theme Toggle */}
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={toggleTheme}
+                className={`p-2 rounded-full transition-colors ${
+                  theme === 'dark'
+                    ? 'text-zinc-400 hover:text-white hover:bg-white/5'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                }`}
+              >
+                {theme === 'dark' ? (
+                  <Sun className="w-5 h-5" />
+                ) : (
+                  <Moon className="w-5 h-5" />
+                )}
+              </motion.button>
               <LoginButton />
             </div>
 
             {/* Mobile menu button */}
             <div className="flex items-center gap-2 md:hidden">
-              {/* WhatsApp Link - Mobile */}
-              {/* <motion.a
-                href={WHATSAPP_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
+              {/* Theme Toggle - Mobile */}
+              <motion.button
                 whileTap={{ scale: 0.95 }}
-                className="p-2 text-emerald-400"
+                onClick={toggleTheme}
+                className={`p-2 rounded-full transition-colors ${
+                  theme === 'dark'
+                    ? 'text-zinc-400 hover:text-white hover:bg-white/5'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                }`}
               >
-                <MessageCircle className="w-5 h-5" />
-              </motion.a> */}
+                {theme === 'dark' ? (
+                  <Sun className="w-5 h-5" />
+                ) : (
+                  <Moon className="w-5 h-5" />
+                )}
+              </motion.button>
               <LoginButton />
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={handleMenu}
-                className="p-2 -mr-2"
+                className={`p-2 -mr-2 rounded-full transition-colors ${
+                  theme === 'dark'
+                    ? 'hover:bg-white/5'
+                    : 'hover:bg-gray-100'
+                }`}
               >
                 <div className="w-5 flex flex-col items-end space-y-1">
                   <motion.span
@@ -132,14 +168,18 @@ const Navbar = () => {
                       rotate: isMenuOpen ? 45 : 0,
                       y: isMenuOpen ? 6 : 0,
                     }}
-                    className="h-0.5 bg-white rounded-full origin-center"
+                    className={`h-0.5 rounded-full origin-center ${
+                      theme === 'dark' ? 'bg-white' : 'bg-gray-900'
+                    }`}
                   />
                   <motion.span
                     animate={{
                       width: "20px",
                       opacity: isMenuOpen ? 0 : 1,
                     }}
-                    className="h-0.5 bg-white rounded-full"
+                    className={`h-0.5 rounded-full ${
+                      theme === 'dark' ? 'bg-white' : 'bg-gray-900'
+                    }`}
                   />
                   <motion.span
                     animate={{
@@ -147,7 +187,9 @@ const Navbar = () => {
                       rotate: isMenuOpen ? -45 : 0,
                       y: isMenuOpen ? -6 : 0,
                     }}
-                    className="h-0.5 bg-white rounded-full origin-center"
+                    className={`h-0.5 rounded-full origin-center ${
+                      theme === 'dark' ? 'bg-white' : 'bg-gray-900'
+                    }`}
                   />
                 </div>
               </motion.button>
@@ -163,7 +205,11 @@ const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
-              className="fixed inset-x-0 top-[64px] bg-black/80 backdrop-blur-xl md:hidden border-t border-zinc-800/50"
+              className={`fixed inset-x-0 top-[64px] border-t md:hidden ${
+                theme === 'dark'
+                  ? 'bg-black/90 backdrop-blur-xl border-zinc-800/50'
+                  : 'bg-white/90 backdrop-blur-xl border-gray-200/50'
+              }`}
             >
               <div className="relative p-4">
                 <div className="space-y-1">
@@ -177,7 +223,11 @@ const Navbar = () => {
                       <Link
                         href={link.to}
                         onClick={handleMenu}
-                        className="text-zinc-300 hover:text-white text-base font-light transition-colors block px-4 py-3 rounded-lg hover:bg-white/5"
+                        className={`block px-4 py-3 rounded-lg transition-colors text-base font-medium ${
+                          theme === 'dark'
+                            ? 'text-zinc-300 hover:text-white hover:bg-white/5'
+                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                        }`}
                       >
                         {link.label}
                       </Link>
@@ -193,10 +243,14 @@ const Navbar = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: navlinks.length * 0.05 }}
                     onClick={handleMenu}
-                    className="flex items-center gap-3 text-emerald-400 px-4 py-3 rounded-lg hover:bg-emerald-500/10 transition-colors"
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                      theme === 'dark'
+                        ? 'text-emerald-400 hover:bg-emerald-500/10'
+                        : 'text-emerald-600 hover:bg-emerald-50'
+                    }`}
                   >
                     <MessageCircle className="w-5 h-5" />
-                    <span className="text-base font-light">Join WhatsApp Group</span>
+                    <span className="text-base font-medium">Join WhatsApp Group</span>
                   </motion.a>
                 </div>
               </div>
@@ -206,6 +260,4 @@ const Navbar = () => {
       </motion.nav>
     </div>
   );
-};
-
-export default Navbar;
+}

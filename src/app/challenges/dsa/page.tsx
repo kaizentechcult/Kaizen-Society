@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Brain, CheckCircle2 } from 'lucide-react';
 import { useCompletedChallenges } from '@/hooks/useCompletedChallenges';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import LoginButton from '@/components/LoginButton';
 import ProgressBar from '@/components/common/ProgressBar';
 
@@ -37,6 +38,7 @@ const dsaChallenges: Challenge[] = [
 
 export default function DSAChallenges() {
   const { user } = useAuth();
+  const { theme } = useTheme();
   const { completedChallenges, toggleChallenge, isInitialized, progress } = useCompletedChallenges('dsa', dsaChallenges.length);
 
   const getDifficultyColor = (difficulty: Challenge['difficulty']) => {
@@ -48,12 +50,14 @@ export default function DSAChallenges() {
       case 'Hard':
         return 'text-red-400';
       default:
-        return 'text-gray-400';
+        return theme === 'dark' ? 'text-zinc-400' : 'text-gray-400';
     }
   };
 
   return (
-    <div className="min-h-screen bg-black text-white py-8 px-4 sm:py-16 sm:px-6 lg:px-8 pt-24 sm:pt-32">
+    <div className={`min-h-screen py-8 px-4 sm:py-16 sm:px-6 lg:px-8 pt-24 sm:pt-32 ${
+      theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-900'
+    }`}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -77,7 +81,11 @@ export default function DSAChallenges() {
               key={challenge.id}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="bg-zinc-900/50 border border-zinc-800/50 rounded-xl p-6 relative group"
+              className={`rounded-xl p-6 relative group ${
+                theme === 'dark' 
+                  ? 'bg-zinc-900/50 border border-zinc-800/50'
+                  : 'bg-gray-50/50 border border-gray-200'
+              }`}
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -87,17 +95,28 @@ export default function DSAChallenges() {
                       {challenge.difficulty}
                     </span>
                   </h3>
-                  <p className="text-zinc-400">{challenge.description}</p>
+                  <p className={theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'}>
+                    {challenge.description}
+                  </p>
                 </div>
                 <button
-                  onClick={() => toggleChallenge(challenge.id)}
-                  className="ml-4 p-2 rounded-lg hover:bg-zinc-800 transition-colors"
+                  onClick={() => isInitialized && toggleChallenge(challenge.id)}
+                  className={`ml-4 p-2 rounded-lg transition-colors ${
+                    !isInitialized 
+                      ? 'opacity-50 cursor-not-allowed' 
+                      : theme === 'dark'
+                        ? 'hover:bg-zinc-800'
+                        : 'hover:bg-gray-100'
+                  }`}
                 >
                   <CheckCircle2
-                    className={`w-6 h-6 ${completedChallenges.includes(challenge.id)
+                    className={`w-6 h-6 ${
+                      isInitialized && completedChallenges.includes(challenge.id)
                         ? 'text-emerald-400'
-                        : 'text-zinc-600'
-                      }`}
+                        : theme === 'dark'
+                          ? 'text-zinc-600'
+                          : 'text-gray-400'
+                    }`}
                   />
                 </button>
               </div>

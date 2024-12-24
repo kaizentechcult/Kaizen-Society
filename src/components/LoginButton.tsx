@@ -1,48 +1,36 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { usePathname } from 'next/navigation';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function LoginButton() {
+  const router = useRouter();
   const { user, logout } = useAuth();
-  const pathname = usePathname();
-  const isChallengePage = pathname.includes('/challenges');
+  const { theme } = useTheme();
+
+  const handleClick = () => {
+    if (user) {
+      logout();
+    } else {
+      router.push('/login');
+    }
+  };
 
   return (
-    <div className="relative z-50">
-      {user ? (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="flex items-center gap-2 sm:gap-4 bg-zinc-900/80 backdrop-blur-sm rounded-lg p-2"
-        >
-          <span className="text-zinc-400 text-xs sm:text-sm hidden sm:block max-w-[150px] truncate">
-            {user.email}
-          </span>
-          <button
-            onClick={logout}
-            className="px-3 py-1.5 sm:px-4 sm:py-2 bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors text-xs sm:text-sm whitespace-nowrap"
-          >
-            Sign Out
-          </button>
-        </motion.div>
-      ) : (
-        <Link href="/login">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm whitespace-nowrap
-              ${isChallengePage 
-                ? 'bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-600 hover:to-emerald-600 text-white'
-                : 'bg-zinc-900 hover:bg-zinc-800 text-white'
-              } rounded-lg transition-colors`}
-          >
-            Sign In
-          </motion.button>
-        </Link>
-      )}
-    </div>
+    <button
+      onClick={handleClick}
+      className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+        theme === 'dark'
+          ? (user
+            ? 'bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800'
+            : 'bg-white text-black hover:bg-gray-100')
+          : (user
+            ? 'bg-gray-100 text-gray-900 hover:bg-gray-200 border border-gray-200'
+            : 'bg-gray-900 text-white hover:bg-gray-800')
+      }`}
+    >
+      {user ? 'Sign Out' : 'Sign In'}
+    </button>
   );
 } 
