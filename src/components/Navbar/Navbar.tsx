@@ -15,8 +15,7 @@ const navlinks = [
   { label: "Challenges", to: "/challenges" },
 ];
 
-const WHATSAPP_LINK = "https://chat.whatsapp.com/LRQsj3HBGcy4YTp3nlrEGt";
-
+const LINKTREE_LINK = "https://linktr.ee/kaizen_community";
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -47,19 +46,21 @@ export default function Navbar() {
         }}
         transition={{
           duration: 0.3,
-          ease: [0.42, 0, 0.58, 1]
+          ease: [0.42, 0, 0.58, 1],
         }}
         className={`mx-auto transition-all duration-300 ${
-          theme === 'dark'
-            ? (scrolled
+          theme === "dark"
+            ? scrolled
               ? "bg-zinc-900/60 backdrop-blur-xl border border-zinc-800/50 shadow-lg"
-              : "bg-black/60 backdrop-blur-lg border-b border-zinc-800/50")
-            : (scrolled
-              ? "bg-white/80 backdrop-blur-xl border border-gray-200/50 shadow-lg"
-              : "bg-white/80 backdrop-blur-lg border-b border-gray-200/50")
+              : "bg-black/60 backdrop-blur-lg border-b border-zinc-800/50"
+            : scrolled
+            ? "bg-white/80 backdrop-blur-xl border border-gray-200/50 shadow-lg"
+            : "bg-white/80 backdrop-blur-lg border-b border-gray-200/50"
         }`}
       >
-        <div className={`mx-auto px-4 sm:px-6 lg:px-8 ${scrolled ? "" : "w-full"}`}>
+        <div
+          className={`mx-auto px-4 sm:px-6 lg:px-8 ${scrolled ? "" : "w-full"}`}
+        >
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <motion.div
@@ -89,9 +90,9 @@ export default function Navbar() {
                   <Link
                     href={link.to}
                     className={`text-sm font-medium transition-colors duration-200 ${
-                      theme === 'dark'
-                        ? 'text-zinc-400 hover:text-white'
-                        : 'text-gray-600 hover:text-gray-900'
+                      theme === "dark"
+                        ? "text-zinc-400 hover:text-white"
+                        : "text-gray-600 hover:text-gray-900"
                     }`}
                   >
                     {link.label}
@@ -100,14 +101,14 @@ export default function Navbar() {
               ))}
               {/* WhatsApp Link */}
               <motion.a
-                href={WHATSAPP_LINK}
+                href={LINKTREE_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -2 }}
                 className={`md:flex hidden items-center gap-2 px-4 py-1.5 rounded-full border transition-colors duration-200 ${
-                  theme === 'dark'
-                    ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20'
-                    : 'bg-emerald-50 text-emerald-600 border-emerald-200 hover:bg-emerald-100'
+                  theme === "dark"
+                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
+                    : "bg-emerald-50 text-emerald-600 border-emerald-200 hover:bg-emerald-100"
                 }`}
               >
                 <MessageCircle className="w-4 h-4" />
@@ -119,12 +120,12 @@ export default function Navbar() {
                 whileTap={{ scale: 0.95 }}
                 onClick={toggleTheme}
                 className={`p-2 rounded-full transition-colors ${
-                  theme === 'dark'
-                    ? 'text-zinc-400 hover:text-white hover:bg-white/5'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  theme === "dark"
+                    ? "text-zinc-400 hover:text-white hover:bg-white/5"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 }`}
               >
-                {theme === 'dark' ? (
+                {theme === "dark" ? (
                   <Sun className="w-5 h-5" />
                 ) : (
                   <Moon className="w-5 h-5" />
@@ -140,12 +141,12 @@ export default function Navbar() {
                 whileTap={{ scale: 0.95 }}
                 onClick={toggleTheme}
                 className={`p-2 rounded-full transition-colors ${
-                  theme === 'dark'
-                    ? 'text-zinc-400 hover:text-white hover:bg-white/5'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  theme === "dark"
+                    ? "text-zinc-400 hover:text-white hover:bg-white/5"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 }`}
               >
-                {theme === 'dark' ? (
+                {theme === "dark" ? (
                   <Sun className="w-5 h-5" />
                 ) : (
                   <Moon className="w-5 h-5" />
@@ -156,9 +157,7 @@ export default function Navbar() {
                 whileTap={{ scale: 0.95 }}
                 onClick={handleMenu}
                 className={`p-2 -mr-2 rounded-full transition-colors ${
-                  theme === 'dark'
-                    ? 'hover:bg-white/5'
-                    : 'hover:bg-gray-100'
+                  theme === "dark" ? "hover:bg-white/5" : "hover:bg-gray-100"
                 }`}
               >
                 <div className="w-5 flex flex-col items-end space-y-1">
@@ -169,7 +168,7 @@ export default function Navbar() {
                       y: isMenuOpen ? 6 : 0,
                     }}
                     className={`h-0.5 rounded-full origin-center ${
-                      theme === 'dark' ? 'bg-white' : 'bg-gray-900'
+                      theme === "dark" ? "bg-white" : "bg-gray-900"
                     }`}
                   />
                   <motion.span
@@ -178,7 +177,7 @@ export default function Navbar() {
                       opacity: isMenuOpen ? 0 : 1,
                     }}
                     className={`h-0.5 rounded-full ${
-                      theme === 'dark' ? 'bg-white' : 'bg-gray-900'
+                      theme === "dark" ? "bg-white" : "bg-gray-900"
                     }`}
                   />
                   <motion.span
@@ -188,7 +187,7 @@ export default function Navbar() {
                       y: isMenuOpen ? -6 : 0,
                     }}
                     className={`h-0.5 rounded-full origin-center ${
-                      theme === 'dark' ? 'bg-white' : 'bg-gray-900'
+                      theme === "dark" ? "bg-white" : "bg-gray-900"
                     }`}
                   />
                 </div>
@@ -206,9 +205,9 @@ export default function Navbar() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
               className={`fixed inset-x-0 top-[64px] border-t md:hidden ${
-                theme === 'dark'
-                  ? 'bg-black/90 backdrop-blur-xl border-zinc-800/50'
-                  : 'bg-white/90 backdrop-blur-xl border-gray-200/50'
+                theme === "dark"
+                  ? "bg-black/90 backdrop-blur-xl border-zinc-800/50"
+                  : "bg-white/90 backdrop-blur-xl border-gray-200/50"
               }`}
             >
               <div className="relative p-4">
@@ -224,9 +223,9 @@ export default function Navbar() {
                         href={link.to}
                         onClick={handleMenu}
                         className={`block px-4 py-3 rounded-lg transition-colors text-base font-medium ${
-                          theme === 'dark'
-                            ? 'text-zinc-300 hover:text-white hover:bg-white/5'
-                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                          theme === "dark"
+                            ? "text-zinc-300 hover:text-white hover:bg-white/5"
+                            : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                         }`}
                       >
                         {link.label}
@@ -236,7 +235,7 @@ export default function Navbar() {
 
                   {/* WhatsApp Link in Mobile Menu */}
                   <motion.a
-                    href={WHATSAPP_LINK}
+                    href={LINKTREE_LINK}
                     target="_blank"
                     rel="noopener noreferrer"
                     initial={{ opacity: 0 }}
@@ -244,13 +243,15 @@ export default function Navbar() {
                     transition={{ delay: navlinks.length * 0.05 }}
                     onClick={handleMenu}
                     className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                      theme === 'dark'
-                        ? 'text-emerald-400 hover:bg-emerald-500/10'
-                        : 'text-emerald-600 hover:bg-emerald-50'
+                      theme === "dark"
+                        ? "text-emerald-400 hover:bg-emerald-500/10"
+                        : "text-emerald-600 hover:bg-emerald-50"
                     }`}
                   >
                     <MessageCircle className="w-5 h-5" />
-                    <span className="text-base font-medium">Join WhatsApp Group</span>
+                    <span className="text-base font-medium">
+                      Join WhatsApp Group
+                    </span>
                   </motion.a>
                 </div>
               </div>
