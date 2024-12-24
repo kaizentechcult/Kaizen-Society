@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import ClientLayout from "./layout.client";
+import Head from 'next/head';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,6 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <Head>
+        <meta
+          name="google-site-verification"
+          content="W6XE4LcFH_Js89poVEbr_sCsGtmpujHOvC6PmkkEKNs"
+        />
+      </Head>
       <body className="min-h-screen antialiased transition-colors duration-300">
         <ClientLayout>{children}</ClientLayout>
         <Analytics />
