@@ -7,9 +7,8 @@ export default function Home() {
   const { theme } = useTheme();
 
   return (
-    <div className={`min-h-screen ${
-      theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-900'
-    }`}>
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-900'
+      }`}>
       <Hero />
     </div>
   );
