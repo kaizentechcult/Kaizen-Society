@@ -11,17 +11,19 @@ export default function LoginButton() {
   const isChallengePage = pathname.includes('/challenges');
 
   return (
-    <div className={`z-50 ${isChallengePage ? 'md:right-8' : ''}`}>
+    <div className="relative z-50">
       {user ? (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="flex items-center gap-4 bg-zinc-900/80 backdrop-blur-sm rounded-lg p-2"
+          className="flex items-center gap-2 sm:gap-4 bg-zinc-900/80 backdrop-blur-sm rounded-lg p-2"
         >
-          <span className="text-zinc-400 text-sm hidden md:block">{user.email}</span>
+          <span className="text-zinc-400 text-xs sm:text-sm hidden sm:block max-w-[150px] truncate">
+            {user.email}
+          </span>
           <button
             onClick={logout}
-            className="px-4 py-2 bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors text-sm"
+            className="px-3 py-1.5 sm:px-4 sm:py-2 bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors text-xs sm:text-sm whitespace-nowrap"
           >
             Sign Out
           </button>
@@ -31,13 +33,13 @@ export default function LoginButton() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`px-4 py-2 ${
-              isChallengePage 
-                ? 'bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-600 hover:to-emerald-600'
-                : 'bg-zinc-900 hover:bg-zinc-800'
-            } text-white rounded-lg transition-colors text-sm`}
+            className={`px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm whitespace-nowrap
+              ${isChallengePage 
+                ? 'bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-600 hover:to-emerald-600 text-white'
+                : 'bg-zinc-900 hover:bg-zinc-800 text-white'
+              } rounded-lg transition-colors`}
           >
-            {isChallengePage ? 'Sign in to Save Progress' : 'Sign In'}
+            Sign In
           </motion.button>
         </Link>
       )}

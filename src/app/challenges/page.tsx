@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Code2, Brain, Trophy, Users, Timer, Sparkles } from 'lucide-react';
-import LoginButton from '@/components/LoginButton';
 import { useAuth } from '@/contexts/AuthContext';
 
 const Challenges = () => {
@@ -47,9 +46,6 @@ const Challenges = () => {
 
   return (
     <div className="min-h-screen bg-black text-white py-16 px-4 pt-32 relative">
-      {/* Login Button */}
-      <LoginButton />
-
       <motion.div
         initial="hidden"
         animate="visible"
