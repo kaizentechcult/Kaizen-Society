@@ -43,7 +43,7 @@ const Footer = (props: Props) => {
           <a
             target="_blank"
             aria-label="Instagram"
-            href="https://www.instagram.com/tech_with_kaizen_"
+            href="https://www.instagram.com/kaizen_techsoc/"
           >
             <Image
               src={"icons/instagram.svg"}

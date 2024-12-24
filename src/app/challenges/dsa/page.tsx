@@ -5,7 +5,7 @@ import { Brain, CheckCircle2 } from 'lucide-react';
 import { useCompletedChallenges } from '@/hooks/useCompletedChallenges';
 import { useAuth } from '@/contexts/AuthContext';
 import LoginButton from '@/components/LoginButton';
-import SignUp from '@/components/SignUp';
+import ProgressBar from '@/components/common/ProgressBar';
 
 interface Challenge {
   id: string;
@@ -53,34 +53,23 @@ export default function DSAChallenges() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white py-16 px-4 pt-32">
+    <div className="min-h-screen bg-black text-white py-8 px-4 sm:py-16 sm:px-6 lg:px-8 pt-24 sm:pt-32">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-6xl mx-auto"
+        className="max-w-7xl mx-auto"
       >
-        <div className="flex items-center justify-between mb-12">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-4">
           <div className="flex items-center">
-            <Brain className="w-10 h-10 text-purple-400 mr-4" />
-            <h1 className="text-4xl font-bold">DSA Challenges</h1>
+            <Brain className="w-8 h-8 sm:w-10 sm:h-10 text-purple-400 mr-3 sm:mr-4 flex-shrink-0" />
+            <h1 className="text-2xl sm:text-4xl font-bold">DSA Challenges</h1>
           </div>
-          <div className="text-right">
-            <p className="text-zinc-400 mb-2">Progress</p>
-            <div className="flex items-center gap-4">
-              <div className="w-48 h-2 bg-zinc-800 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.5 }}
-                  className="h-full bg-gradient-to-r from-purple-500 to-purple-400"
-                />
-              </div>
-              <span className="text-purple-400 font-semibold">{progress}%</span>
-            </div>
-          </div>
+          <ProgressBar 
+            progress={progress}
+            color="bg-gradient-to-r from-purple-500 to-purple-400"
+            textColor="text-purple-400"
+          />
         </div>
-
-        <SignUp />
 
         <div className="grid gap-6">
           {dsaChallenges.map((challenge) => (
