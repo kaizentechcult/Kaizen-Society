@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Brain, CheckCircle2, ExternalLink, Code2, RefreshCw } from 'lucide-react';
+import { Code2, CheckCircle2, ExternalLink, RefreshCw } from 'lucide-react';
 import { useCompletedChallenges } from '@/hooks/useCompletedChallenges';
 import { useTheme } from '@/contexts/ThemeContext';
 import ProgressBar from '@/components/common/ProgressBar';
@@ -20,17 +20,17 @@ interface Problem {
   category: 'DSA' | 'WebDev';
 }
 
-export default function DSAChallenges() {
+export default function WebDevChallenges() {
   const { theme } = useTheme();
   const [problems, setProblems] = useState<Problem[]>([]);
   const [loading, setLoading] = useState(true);
-  const { completedChallenges, toggleChallenge, isInitialized, progress } = useCompletedChallenges('dsa', problems.length);
+  const { completedChallenges, toggleChallenge, isInitialized, progress } = useCompletedChallenges('web-dev', problems.length);
   const [showConfetti, setShowConfetti] = useState(false);
 
   const fetchProblems = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/problems?category=DSA');
+      const response = await fetch('/api/problems?category=WebDev');
       if (!response.ok) throw new Error('Failed to fetch problems');
       const data = await response.json();
       setProblems(data || []);
@@ -46,12 +46,29 @@ export default function DSAChallenges() {
     fetchProblems();
   }, []);
 
-  const getDifficultyColor = (difficulty: Difficulty) => {
+  const getTechnologyColor = (name: string) => {
+    switch (name.toLowerCase()) {
+      case 'html forms':
+        return 'text-orange-400';
+      case 'css grid':
+        return 'text-blue-400';
+      case 'javascript api':
+        return 'text-yellow-400';
+      case 'react components':
+        return 'text-cyan-400';
+      case 'node.js backend':
+        return 'text-green-400';
+      default:
+        return theme === 'dark' ? 'text-zinc-400' : 'text-gray-400';
+    }
+  };
+
+  const getDifficultyStyle = (difficulty: Difficulty) => {
     switch (difficulty) {
       case 'Easy':
         return 'bg-emerald-400/10 text-emerald-400';
       case 'Medium':
-        return 'bg-purple-400/10 text-purple-400';
+        return 'bg-blue-400/10 text-blue-400';
       case 'Hard':
         return 'bg-red-400/10 text-red-400';
       default:
@@ -63,20 +80,21 @@ export default function DSAChallenges() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`rounded-xl p-12 text-center ${theme === 'dark'
+      className={`rounded-xl p-12 text-center ${
+        theme === 'dark' 
           ? 'bg-zinc-900/50 border border-zinc-800/50'
           : 'bg-gray-50/50 border border-gray-200'
-        }`}
+      }`}
     >
-      <Code2 className="w-16 h-16 mx-auto mb-6 text-purple-400/50" />
+      <Code2 className="w-16 h-16 mx-auto mb-6 text-blue-400/50" />
       <h3 className="text-xl font-semibold mb-3">No Challenges Available</h3>
       <p className={`mb-6 ${theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'}`}>
-        Looks like there aren&apos;t any DSA challenges at the moment.
+        Looks like there are not any Web Development challenges at the moment.
         <br />Check back later or try refreshing the page.
       </p>
       <button
         onClick={fetchProblems}
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-400/10 text-purple-400 hover:bg-purple-400/20 transition-colors"
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-400/10 text-blue-400 hover:bg-blue-400/20 transition-colors"
       >
         <RefreshCw className="w-4 h-4" />
         Refresh
@@ -86,7 +104,7 @@ export default function DSAChallenges() {
 
   const LoadingState = () => (
     <div className="flex items-center justify-center min-h-[300px]">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-400"></div>
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-400"></div>
     </div>
   );
 
@@ -116,13 +134,13 @@ export default function DSAChallenges() {
       >
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-4">
           <div className="flex items-center">
-            <Brain className="w-8 h-8 sm:w-10 sm:h-10 text-purple-400 mr-3 sm:mr-4 flex-shrink-0" />
-            <h1 className="text-2xl sm:text-4xl font-bold">DSA Challenges</h1>
+            <Code2 className="w-8 h-8 sm:w-10 sm:h-10 text-blue-400 mr-3 sm:mr-4 flex-shrink-0" />
+            <h1 className="text-2xl sm:text-4xl font-bold">Web Development Challenges</h1>
           </div>
-          <ProgressBar
+          <ProgressBar 
             progress={progress}
-            color="bg-gradient-to-r from-purple-500 to-purple-400"
-            textColor="text-purple-400"
+            color="bg-gradient-to-r from-blue-500 to-blue-400"
+            textColor="text-blue-400"
           />
         </div>
 
@@ -137,49 +155,54 @@ export default function DSAChallenges() {
                 key={problem._id}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className={`rounded-xl p-6 relative group ${theme === 'dark'
+                className={`rounded-xl p-6 relative group ${
+                  theme === 'dark' 
                     ? 'bg-zinc-900/50 border border-zinc-800/50 hover:bg-zinc-900/70'
                     : 'bg-gray-50/50 border border-gray-200 hover:bg-gray-100/50'
-                  } transition-colors`}
+                } transition-colors`}
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1 text-sm text-gray-500">
-                      <span>#{problem.srNo}</span>
-                      <span>•</span>
-                      <span>{problem.name}</span>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-sm text-gray-500">#{problem.srNo}</span>
+                      <span className="text-sm text-gray-500">•</span>
+                      <span className={`text-sm font-medium ${getTechnologyColor(problem.name)}`}>
+                        {problem.name}
+                      </span>
                     </div>
                     <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
-                      <a
-                        href={problem.link}
-                        target="_blank"
+                      <a 
+                        href={problem.link} 
+                        target="_blank" 
                         rel="noopener noreferrer"
-                        className="hover:text-purple-400 transition-colors inline-flex items-center gap-2"
+                        className="hover:text-blue-400 transition-colors inline-flex items-center gap-2"
                       >
                         {problem.title}
                         <ExternalLink className="w-4 h-4" />
                       </a>
-                      <span className={`text-sm px-2 py-0.5 rounded-full ${getDifficultyColor(problem.difficulty)}`}>
+                      <span className={`text-sm px-2 py-0.5 rounded-full ${getDifficultyStyle(problem.difficulty)}`}>
                         {problem.difficulty}
                       </span>
                     </h3>
                   </div>
                   <button
                     onClick={(e) => handleToggle(problem._id)}
-                    className={`ml-4 p-2 rounded-lg transition-colors ${!isInitialized
-                        ? 'opacity-50 cursor-not-allowed'
+                    className={`ml-4 p-2 rounded-lg transition-colors ${
+                      !isInitialized 
+                        ? 'opacity-50 cursor-not-allowed' 
                         : theme === 'dark'
                           ? 'hover:bg-zinc-800'
                           : 'hover:bg-gray-100'
-                      }`}
+                    }`}
                   >
                     <CheckCircle2
-                      className={`w-6 h-6 ${isInitialized && completedChallenges.includes(problem._id)
+                      className={`w-6 h-6 ${
+                        isInitialized && completedChallenges.includes(problem._id)
                           ? 'text-emerald-400'
                           : theme === 'dark'
                             ? 'text-zinc-600'
                             : 'text-gray-400'
-                        }`}
+                      }`}
                     />
                   </button>
                 </div>
