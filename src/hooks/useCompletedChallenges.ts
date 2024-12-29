@@ -1,39 +1,15 @@
 'use client';
 
-import { useEffect, useCallback, useMemo } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useCallback, useMemo } from 'react';
 import { useLocalStorage } from './useLocalStorage';
 
 export function useCompletedChallenges(type: 'web-dev' | 'dsa', totalChallenges: number) {
-  const { user } = useAuth();
   const [localCompleted, setLocalCompleted, isInitialized] = useLocalStorage<string[]>(`${type}CompletedChallenges`, []);
 
   const progress = useMemo(() => {
-    if (!isInitialized) return 0;
+    if (!isInitialized || totalChallenges === 0) return 0;
     return Math.round((localCompleted.length / totalChallenges) * 100);
   }, [localCompleted.length, totalChallenges, isInitialized]);
-
-  // Fetch completed challenges from MongoDB when user logs in
-  useEffect(() => {
-    const fetchFromMongoDB = async () => {
-      if (user && isInitialized) {
-        try {
-          const response = await fetch(`/api/completed-challenges?userId=${user.uid}&type=${type}`);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = await response.json();
-          if (data.completedChallenges) {
-            setLocalCompleted(data.completedChallenges);
-          }
-        } catch (error) {
-          console.error('Error fetching completed challenges:', error);
-        }
-      }
-    };
-
-    fetchFromMongoDB();
-  }, [user, type, isInitialized, setLocalCompleted]);
 
   const toggleChallenge = useCallback(async (challengeId: string) => {
     if (!isInitialized) return;
@@ -43,34 +19,7 @@ export function useCompletedChallenges(type: 'web-dev' | 'dsa', totalChallenges:
       : [...localCompleted, challengeId];
 
     setLocalCompleted(newCompleted);
-
-    if (user) {
-      try {
-        const response = await fetch('/api/completed-challenges', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId: user.uid,
-            userEmail: user.email,
-            type,
-            completedChallenges: newCompleted
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-        console.log('Save to MongoDB result:', result);
-      } catch (error) {
-        console.error('Error saving completed challenges:', error);
-        setLocalCompleted(localCompleted);
-      }
-    }
-  }, [isInitialized, localCompleted, setLocalCompleted, type, user]);
+  }, [isInitialized, localCompleted, setLocalCompleted]);
 
   return {
     completedChallenges: isInitialized ? localCompleted : [],

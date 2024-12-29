@@ -46,7 +46,7 @@ export default function Navbar() {
           borderRadius: scrolled ? "20rem" : "0",
         }}
         transition={{
-          duration: 0.3,
+          duration: 0.001,
           ease: [0.42, 0, 0.58, 1]
         }}
         className={`mx-auto transition-all duration-300 ${

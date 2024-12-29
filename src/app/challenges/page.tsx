@@ -120,7 +120,7 @@ const Challenges = () => {
             className="group relative"
           >
             <div className="absolute inset-0 bg-gradient-to-b from-emerald-600/10 to-blue-600/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <Link href="/challenges/web-dev">
+            <Link href="/challenges/webdev">
               <div className={`p-8 rounded-xl relative h-full transition-colors ${
                 theme === 'dark'
                   ? 'bg-gradient-to-b from-zinc-900 via-zinc-900 to-zinc-900/50 border border-zinc-800/50 group-hover:border-emerald-500/30'
