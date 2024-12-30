@@ -1,89 +1,91 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 
 export function useCompletedChallenges(type: 'web-dev' | 'dsa', totalChallenges: number) {
-  const { user } = useAuth();
   const [completedChallenges, setCompletedChallenges] = useState<string[]>([]);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuth();
 
-  // Fetch initial completed challenges
-  useEffect(() => {
-    const fetchCompletedChallenges = async () => {
-      if (!user) {
-        setCompletedChallenges([]);
-        setIsInitialized(true);
-        return;
-      }
-
-      try {
-        const token = await user.getIdToken();
-        const response = await fetch(`/api/user/progress?type=${type}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        if (!response.ok) throw new Error('Failed to fetch progress');
-        const data = await response.json();
-        setCompletedChallenges(data.completedChallenges);
-      } catch (error) {
-        console.error('Error fetching completed challenges:', error);
-        setCompletedChallenges([]);
-      } finally {
-        setIsInitialized(true);
-      }
-    };
-
-    fetchCompletedChallenges();
-  }, [user, type]);
-
+  // Calculate progress
   const progress = totalChallenges === 0 ? 0 : Math.round((completedChallenges.length / totalChallenges) * 100);
 
-  const toggleChallenge = useCallback(async (challengeId: string) => {
-    if (!user || !isInitialized) return;
+  // Fetch completed challenges
+  useEffect(() => {
+    async function fetchProgress() {
+      try {
+        const url = `/api/user/progress?type=${type}${user?.email ? `&email=${user.email}` : ''}`;
+        const res = await fetch(url);
+        const data = await res.json();
 
-    const isCompleted = completedChallenges.includes(challengeId);
-    const newCompleted = isCompleted
-      ? completedChallenges.filter(id => id !== challengeId)
-      : [...completedChallenges, challengeId];
+        if (!res.ok) throw new Error(data.error || 'Failed to fetch progress');
+        setCompletedChallenges(data.completedChallenges);
+      } catch (error) {
+        console.error('Error fetching progress:', error);
+        setCompletedChallenges([]);
+      } finally {
+        setIsLoading(false);
+      }
+    }
 
-    // Optimistically update UI
-    setCompletedChallenges(newCompleted);
+    fetchProgress();
+  }, [type, user?.email]);
+
+  // Toggle challenge completion
+  const toggleChallenge = async (challengeId: string) => {
+    if (!user?.email) {
+      alert('Please log in to track your progress');
+      return;
+    }
 
     try {
-      const token = await user.getIdToken();
-      const response = await fetch('/api/user/progress', {
+      const completed = !completedChallenges.includes(challengeId);
+      
+      // Optimistically update UI
+      setCompletedChallenges(prev => 
+        completed 
+          ? [...prev, challengeId]
+          : prev.filter(id => id !== challengeId)
+      );
+
+      const res = await fetch('/api/user/progress', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          email: user.email,
           type,
           challengeId,
-          completed: !isCompleted
+          completed,
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to update progress');
+      const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to update progress');
       }
 
-      const data = await response.json();
-      // Update with server data in case of any discrepancy
+      // Update with server data
       setCompletedChallenges(data.completedChallenges);
+      
     } catch (error) {
       console.error('Error updating progress:', error);
+      
       // Revert optimistic update on error
-      setCompletedChallenges(completedChallenges);
+      const completed = !completedChallenges.includes(challengeId);
+      setCompletedChallenges(prev => 
+        !completed 
+          ? [...prev, challengeId]
+          : prev.filter(id => id !== challengeId)
+      );
     }
-  }, [user, isInitialized, completedChallenges, type]);
+  };
 
   return {
     completedChallenges,
     toggleChallenge,
-    isInitialized,
-    progress
+    isLoading,
+    progress,
   };
 } 
