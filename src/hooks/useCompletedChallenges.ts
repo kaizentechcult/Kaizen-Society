@@ -1,28 +1,87 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
-import { useLocalStorage } from './useLocalStorage';
+import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 
 export function useCompletedChallenges(type: 'web-dev' | 'dsa', totalChallenges: number) {
-  const [localCompleted, setLocalCompleted, isInitialized] = useLocalStorage<string[]>(`${type}CompletedChallenges`, []);
+  const { user } = useAuth();
+  const [completedChallenges, setCompletedChallenges] = useState<string[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  const progress = useMemo(() => {
-    if (!isInitialized || totalChallenges === 0) return 0;
-    return Math.round((localCompleted.length / totalChallenges) * 100);
-  }, [localCompleted.length, totalChallenges, isInitialized]);
+  // Fetch initial completed challenges
+  useEffect(() => {
+    const fetchCompletedChallenges = async () => {
+      if (!user) {
+        setCompletedChallenges([]);
+        setIsInitialized(true);
+        return;
+      }
+
+      try {
+        const token = await user.getIdToken();
+        const response = await fetch(`/api/user/progress?type=${type}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) throw new Error('Failed to fetch progress');
+        const data = await response.json();
+        setCompletedChallenges(data.completedChallenges);
+      } catch (error) {
+        console.error('Error fetching completed challenges:', error);
+        setCompletedChallenges([]);
+      } finally {
+        setIsInitialized(true);
+      }
+    };
+
+    fetchCompletedChallenges();
+  }, [user, type]);
+
+  const progress = totalChallenges === 0 ? 0 : Math.round((completedChallenges.length / totalChallenges) * 100);
 
   const toggleChallenge = useCallback(async (challengeId: string) => {
-    if (!isInitialized) return;
+    if (!user || !isInitialized) return;
 
-    const newCompleted = localCompleted.includes(challengeId)
-      ? localCompleted.filter(id => id !== challengeId)
-      : [...localCompleted, challengeId];
+    const isCompleted = completedChallenges.includes(challengeId);
+    const newCompleted = isCompleted
+      ? completedChallenges.filter(id => id !== challengeId)
+      : [...completedChallenges, challengeId];
 
-    setLocalCompleted(newCompleted);
-  }, [isInitialized, localCompleted, setLocalCompleted]);
+    // Optimistically update UI
+    setCompletedChallenges(newCompleted);
+
+    try {
+      const token = await user.getIdToken();
+      const response = await fetch('/api/user/progress', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          type,
+          challengeId,
+          completed: !isCompleted
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update progress');
+      }
+
+      const data = await response.json();
+      // Update with server data in case of any discrepancy
+      setCompletedChallenges(data.completedChallenges);
+    } catch (error) {
+      console.error('Error updating progress:', error);
+      // Revert optimistic update on error
+      setCompletedChallenges(completedChallenges);
+    }
+  }, [user, isInitialized, completedChallenges, type]);
 
   return {
-    completedChallenges: isInitialized ? localCompleted : [],
+    completedChallenges,
     toggleChallenge,
     isInitialized,
     progress

@@ -7,25 +7,29 @@ if (!process.env.MONGODB_URI) {
 const uri = process.env.MONGODB_URI;
 const options = {};
 
-let cachedClient: MongoClient | null = null;
-let cachedDb: any = null;
+let client: MongoClient;
+let clientPromise: Promise<MongoClient>;
 
-export async function connectMongoDB() {
-  if (cachedClient && cachedDb) {
-    return { client: cachedClient, db: cachedDb };
+if (process.env.NODE_ENV === 'development') {
+  // In development mode, use a global variable so that the value
+  // is preserved across module reloads caused by HMR (Hot Module Replacement).
+  let globalWithMongo = global as typeof globalThis & {
+    _mongoClientPromise?: Promise<MongoClient>
+  };
+
+  if (!globalWithMongo._mongoClientPromise) {
+    client = new MongoClient(uri, options);
+    globalWithMongo._mongoClientPromise = client.connect();
   }
+  clientPromise = globalWithMongo._mongoClientPromise;
+} else {
+  // In production mode, it's best to not use a global variable.
+  client = new MongoClient(uri, options);
+  clientPromise = client.connect();
+}
 
-  try {
-    const client = await MongoClient.connect(uri, options);
-    const dbName = new URL(uri).pathname.substring(1); // Extract database name from URI
-    const db = client.db(dbName);
-
-    cachedClient = client;
-    cachedDb = db;
-
-    return { client, db };
-  } catch (error) {
-    console.error('MongoDB connection error:', error);
-    throw error;
-  }
+export async function connectToDatabase() {
+  const client = await clientPromise;
+  const db = client.db(process.env.MONGODB_DB);
+  return { client, db };
 }
