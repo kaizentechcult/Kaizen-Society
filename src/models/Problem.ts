@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
-const problemSchema = new mongoose.Schema({
+const problemSchema = new Schema({
   srNo: {
     type: Number,
     required: true,
@@ -25,8 +25,16 @@ const problemSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['WebDev', 'DSA'],
+    enum: ['DSA', 'WebDev'],
   },
+  topic: {
+    type: String,
+    required: true,
+  },
+}, {
+  timestamps: true,
 });
 
-export default mongoose.models.Problem || mongoose.model("Problem", problemSchema); 
+const Problem = mongoose.models.Problem || mongoose.model('Problem', problemSchema);
+
+export default Problem; 

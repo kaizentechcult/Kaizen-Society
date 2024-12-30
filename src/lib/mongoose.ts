@@ -4,21 +4,15 @@ if (!process.env.MONGODB_URI) {
   throw new Error('Please add your Mongo URI to .env.local');
 }
 
-const uri = process.env.MONGODB_URI;
-
-let isConnected = false;
-
 export const connectMongoDB = async () => {
-  if (isConnected) {
-    return;
-  }
-
   try {
-    await mongoose.connect(uri);
-    isConnected = true;
-    console.log('MongoDB connected successfully');
+    const { connection } = await mongoose.connect(process.env.MONGODB_URI);
+    if (connection.readyState === 1) {
+      console.log('MongoDB connected');
+      return;
+    }
   } catch (error) {
-    console.error('MongoDB connection error:', error);
+    console.error('Error connecting to MongoDB:', error);
     throw error;
   }
 }; 

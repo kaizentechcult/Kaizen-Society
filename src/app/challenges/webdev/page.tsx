@@ -7,6 +7,8 @@ import { useTheme } from '@/contexts/ThemeContext';
 import ProgressBar from '@/components/common/ProgressBar';
 import { useEffect, useState } from 'react';
 import CompletionConfetti from '@/components/CompletionConfetti';
+import { useAuth } from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 
 type Difficulty = 'Easy' | 'Medium' | 'Hard';
 
@@ -22,6 +24,8 @@ interface Problem {
 
 export default function WebDevChallenges() {
   const { theme } = useTheme();
+  const { user } = useAuth();
+  const router = useRouter();
   const [problems, setProblems] = useState<Problem[]>([]);
   const [loading, setLoading] = useState(true);
   const { completedChallenges, toggleChallenge, isInitialized, progress } = useCompletedChallenges('web-dev', problems.length);
@@ -109,12 +113,17 @@ export default function WebDevChallenges() {
   );
 
   const handleToggle = (problemId: string) => {
+    if (!user) {
+      // Redirect to login if not authenticated
+      router.push('/login');
+      return;
+    }
+    
     if (!isInitialized) return;
     
     const wasCompleted = completedChallenges.includes(problemId);
     if (!wasCompleted) {
       setShowConfetti(true);
-      // Reset confetti after animation
       setTimeout(() => setShowConfetti(false), 3000);
     }
     
@@ -186,18 +195,19 @@ export default function WebDevChallenges() {
                     </h3>
                   </div>
                   <button
-                    onClick={(e) => handleToggle(problem._id)}
-                    className={`ml-4 p-2 rounded-lg transition-colors ${
-                      !isInitialized 
-                        ? 'opacity-50 cursor-not-allowed' 
+                    onClick={() => handleToggle(problem._id)}
+                    className={`flex-shrink-0 p-1.5 rounded-md transition-colors ${
+                      !isInitialized
+                        ? 'opacity-50 cursor-not-allowed'
                         : theme === 'dark'
                           ? 'hover:bg-zinc-800'
                           : 'hover:bg-gray-100'
                     }`}
+                    title={!user ? 'Sign in to track your progress' : undefined}
                   >
                     <CheckCircle2
-                      className={`w-6 h-6 ${
-                        isInitialized && completedChallenges.includes(problem._id)
+                      className={`w-5 h-5 ${
+                        isInitialized && user && completedChallenges.includes(problem._id)
                           ? 'text-emerald-400'
                           : theme === 'dark'
                             ? 'text-zinc-600'
