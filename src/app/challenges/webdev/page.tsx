@@ -28,7 +28,7 @@ export default function WebDevChallenges() {
   const router = useRouter();
   const [problems, setProblems] = useState<Problem[]>([]);
   const [loading, setLoading] = useState(true);
-  const { completedChallenges, toggleChallenge, isInitialized, progress } = useCompletedChallenges('web-dev', problems.length);
+  const { completedChallenges, toggleChallenge, isLoading, progress } = useCompletedChallenges('web-dev', problems.length);
   const [showConfetti, setShowConfetti] = useState(false);
 
   const fetchProblems = async () => {
@@ -119,7 +119,7 @@ export default function WebDevChallenges() {
       return;
     }
     
-    if (!isInitialized) return;
+    if (isLoading) return;
     
     const wasCompleted = completedChallenges.includes(problemId);
     if (!wasCompleted) {
@@ -197,7 +197,7 @@ export default function WebDevChallenges() {
                   <button
                     onClick={() => handleToggle(problem._id)}
                     className={`flex-shrink-0 p-1.5 rounded-md transition-colors ${
-                      !isInitialized
+                      isLoading
                         ? 'opacity-50 cursor-not-allowed'
                         : theme === 'dark'
                           ? 'hover:bg-zinc-800'
@@ -207,7 +207,7 @@ export default function WebDevChallenges() {
                   >
                     <CheckCircle2
                       className={`w-5 h-5 ${
-                        isInitialized && user && completedChallenges.includes(problem._id)
+                        !isLoading && user && completedChallenges.includes(problem._id)
                           ? 'text-emerald-400'
                           : theme === 'dark'
                             ? 'text-zinc-600'
