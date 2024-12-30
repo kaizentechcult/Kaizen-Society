@@ -32,7 +32,7 @@ export default function DSAChallenges() {
   const [selectedTopic, setSelectedTopic] = useState<string>('All');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('All');
   const [loading, setLoading] = useState(true);
-  const { completedChallenges, toggleChallenge, isInitialized, progress } = useCompletedChallenges('dsa', problems.length);
+  const { completedChallenges, toggleChallenge, isLoading, progress } = useCompletedChallenges('dsa', problems.length);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [activeFilterTab, setActiveFilterTab] = useState<'topic' | 'difficulty'>('topic');
@@ -148,7 +148,7 @@ export default function DSAChallenges() {
       return;
     }
     
-    if (!isInitialized) return;
+    if (isLoading) return;
     
     const wasCompleted = completedChallenges.includes(problemId);
     if (!wasCompleted) {
@@ -312,7 +312,7 @@ export default function DSAChallenges() {
                   <button
                     onClick={() => handleToggle(problem._id)}
                     className={`flex-shrink-0 p-1.5 rounded-md transition-colors ${
-                      !isInitialized
+                      isLoading
                         ? 'opacity-50 cursor-not-allowed'
                         : theme === 'dark'
                           ? 'hover:bg-zinc-800'
@@ -322,7 +322,7 @@ export default function DSAChallenges() {
                   >
                     <CheckCircle2
                       className={`w-5 h-5 ${
-                        isInitialized && user && completedChallenges.includes(problem._id)
+                        !isLoading && user && completedChallenges.includes(problem._id)
                           ? 'text-emerald-400'
                           : theme === 'dark'
                             ? 'text-zinc-600'
