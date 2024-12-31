@@ -1,0 +1,11 @@
+srNo,name,title,difficulty,category,topic
+1,portfolio,Build a Personal Portfolio,Easy,WebDev,HTML
+2,responsive-landing,Create a Responsive Landing Page,Easy,WebDev,CSS
+3,todo-app,Build a Todo List Application,Easy,WebDev,JavaScript
+4,weather-app,Weather Dashboard with API Integration,Medium,WebDev,JavaScript
+5,blog-platform,Create a Blog Platform,Medium,WebDev,React
+6,ecommerce,E-commerce Product Page,Medium,WebDev,React
+7,chat-app,Real-time Chat Application,Hard,WebDev,Node.js
+8,social-media,Social Media Dashboard,Hard,WebDev,React
+9,auth-system,Authentication System,Hard,WebDev,Node.js
+10,cms-dashboard,Content Management System,Hard,WebDev,React 

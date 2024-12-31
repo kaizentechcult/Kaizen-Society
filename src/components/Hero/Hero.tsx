@@ -23,10 +23,9 @@ const Hero = () => {
                 </span>
               </h1>
               <p className={`text-lg sm:text-xl leading-relaxed ${theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'}`}>
-                As a part of the Institute Technical Council, we aim to provide a
-                gateway for the people in our institute to join the coding community.
-                We create a platform which allows students to gain assistance and
-                mentorship to enhance their coding ability.
+                We aim to provide a gateway for the people in our institute to join
+                the coding community. We create a platform which allows students to
+                gain assistance and mentorship to enhance their coding ability.
               </p>
             </div>
 
@@ -38,11 +37,10 @@ const Hero = () => {
                 </button>
               </Link>
               <Link href="/team">
-                <button className={`px-6 py-3 rounded-lg font-medium text-lg transition-colors ${
-                  theme === 'dark' 
-                    ? 'bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800' 
+                <button className={`px-6 py-3 rounded-lg font-medium text-lg transition-colors ${theme === 'dark'
+                    ? 'bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800'
                     : 'bg-gray-100 text-gray-900 hover:bg-gray-200 border border-gray-200'
-                }`}>
+                  }`}>
                   Meet the Team
                 </button>
               </Link>
@@ -67,21 +65,19 @@ const Hero = () => {
 
           {/* Image */}
           <div className="flex-1 relative">
-            <div className={`absolute inset-0 rounded-2xl blur-3xl ${
-              theme === 'dark'
+            <div className={`absolute inset-0 rounded-2xl blur-3xl ${theme === 'dark'
                 ? 'bg-gradient-to-tr from-purple-500/20 to-emerald-500/20'
                 : 'bg-gradient-to-tr from-purple-500/10 to-emerald-500/10'
-            }`} />
-            <Image 
+              }`} />
+            <Image
               src="/hero.jpg"
-              alt="Kaizen Community" 
+              alt="Kaizen Community"
               width={500}
               height={500}
-              className={`rounded-2xl relative z-10 ${
-                theme === 'dark' 
-                  ? 'border border-zinc-800/50' 
+              className={`rounded-2xl relative z-10 ${theme === 'dark'
+                  ? 'border border-zinc-800/50'
                   : 'border border-gray-200'
-              }`}
+                }`}
               priority
             />
           </div>

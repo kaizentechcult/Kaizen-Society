@@ -1,6 +1,6 @@
 import { connectMongoDB } from '@/lib/mongoose';
-import { NextResponse } from 'next/server';
 import Problem from '@/models/Problem';
+import { successResponse, errorResponse } from '@/lib/api-response';
 
 export async function GET(req: Request) {
     try {
@@ -10,10 +10,10 @@ export async function GET(req: Request) {
 
         const query = category ? { category } : {};
         const problems = await Problem.find(query).sort({ srNo: 1 });
-        return NextResponse.json(problems);
+        return successResponse(problems);
     } catch (error) {
         console.error('Error fetching problems:', error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        return errorResponse('Internal Server Error', 500);
     }
 }
 
@@ -22,9 +22,9 @@ export async function POST(req: Request) {
         await connectMongoDB();
         const body = await req.json();
         const result = await Problem.create(body);
-        return NextResponse.json(result, { status: 201 });
+        return successResponse(result, 201);
     } catch (error) {
         console.error('Error creating problem:', error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        return errorResponse('Internal Server Error', 500);
     }
 }
