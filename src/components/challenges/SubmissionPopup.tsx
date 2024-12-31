@@ -8,19 +8,29 @@ import { useState } from 'react';
 interface SubmissionPopupProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (url: string) => void;
+  onSubmit: (url: string) => Promise<boolean>;
   submitting: boolean;
 }
 
 export default function SubmissionPopup({ isOpen, onClose, onSubmit, submitting }: SubmissionPopupProps) {
   const { theme } = useTheme();
   const [url, setUrl] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (url.trim()) {
-      onSubmit(url.trim());
-      setUrl('');
+      setError('');
+      try {
+        const success = await onSubmit(url.trim());
+        if (success) {
+          setUrl('');
+        } else {
+          setError('Failed to submit project. Please try again.');
+        }
+      } catch (error) {
+        setError('Failed to submit project. Please try again.');
+      }
     }
   };
 
@@ -91,6 +101,11 @@ export default function SubmissionPopup({ isOpen, onClose, onSubmit, submitting 
                         : 'bg-white border-gray-300 text-gray-900 placeholder:text-gray-400'
                     } focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   />
+                  {error && (
+                    <p className="mt-2 text-sm text-red-500">
+                      {error}
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex justify-end gap-3">

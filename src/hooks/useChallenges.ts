@@ -54,17 +54,33 @@ export function useChallenges({ category }: UseChallengesProps) {
     }
   }, [user?.email]);
 
-  const handleSubmit = async (problemId: string) => {
+  const handleSubmit = async (problemId: string, deployedUrl: string) => {
     if (!user) {
       router.push('/login');
-      return;
+      return false;
     }
-
-    const deployedUrl = prompt('Please enter your deployed project URL:');
-    if (!deployedUrl) return;
 
     try {
       setSubmitting(problemId);
+
+      if (category === 'DSA') {
+        // For DSA, just mark as completed
+        const submission: ProjectSubmission = {
+          _id: `${problemId}_${Date.now()}`,
+          problemId,
+          deployedUrl: '',
+          status: 'approved'
+        };
+        setSubmissions(prev => ({
+          ...prev,
+          [problemId]: submission
+        }));
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 3000);
+        return true;
+      }
+
+      // For WebDev, submit project URL
       const response = await fetch('/api/project-submission', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -75,17 +91,20 @@ export function useChallenges({ category }: UseChallengesProps) {
         })
       });
 
-      if (!response.ok) throw new Error('Failed to submit project');
       const result = await response.json();
 
-      if (result.success) {
-        await fetchSubmissions();
-        setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 3000);
+      if (!response.ok || !result.success) {
+        console.error('Submission failed:', result);
+        return false;
       }
+
+      await fetchSubmissions();
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 3000);
+      return true;
     } catch (error) {
       console.error('Error submitting project:', error);
-      alert('Failed to submit project. Please try again.');
+      return false;
     } finally {
       setSubmitting(null);
     }

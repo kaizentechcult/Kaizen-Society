@@ -17,7 +17,7 @@ interface ChallengeLayoutProps {
   submissions: Record<string, ProjectSubmission>;
   submitting: string | null;
   showConfetti: boolean;
-  onSubmit: (problemId: string) => void;
+  onSubmit: (problemId: string, url: string) => Promise<boolean>;
   onRefresh: () => void;
   isAuthenticated: boolean;
 }
@@ -35,6 +35,10 @@ export default function ChallengeLayout({
   isAuthenticated
 }: ChallengeLayoutProps) {
   const { theme } = useTheme();
+
+  const handleCardSubmit = async (problemId: string, url: string) => {
+    return await onSubmit(problemId, url);
+  };
 
   return (
     <div className={`min-h-screen py-8 px-4 sm:py-16 sm:px-6 lg:px-8 pt-24 sm:pt-32 ${
@@ -61,7 +65,7 @@ export default function ChallengeLayout({
                 problem={problem}
                 submission={submissions[problem._id]}
                 submitting={submitting === problem._id}
-                onSubmit={() => onSubmit(problem._id)}
+                onSubmit={handleCardSubmit}
                 isAuthenticated={isAuthenticated}
               />
             ))}

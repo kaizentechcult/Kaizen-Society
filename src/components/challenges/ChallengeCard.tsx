@@ -5,13 +5,14 @@ import { CheckCircle2, RefreshCw, Link as LinkIcon } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Problem, ProjectSubmission } from '@/types/challenges';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import SubmissionPopup from './SubmissionPopup';
 
 interface ChallengeCardProps {
   problem: Problem;
   submission?: ProjectSubmission;
   submitting: boolean;
-  onSubmit: (url?: string) => void;
+  onSubmit: (problemId: string, url: string) => Promise<boolean>;
   isAuthenticated: boolean;
 }
 
@@ -26,14 +27,38 @@ export function getDifficultyStyle(difficulty: 'Easy' | 'Medium' | 'Hard') {
 
 export default function ChallengeCard({ problem, submission, submitting, onSubmit, isAuthenticated }: ChallengeCardProps) {
   const { theme } = useTheme();
+  const router = useRouter();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const isCompleted = submission?.status === 'approved';
   const isPending = submission?.status === 'pending';
   const isWebDev = problem.category === 'WebDev';
+  const hasSubmission = isCompleted || isPending;
 
-  const handleSubmit = (url?: string) => {
-    onSubmit(url);
-    setIsPopupOpen(false);
+  const handleSubmitClick = () => {
+    if (!isAuthenticated) {
+      router.push('/login');
+      return;
+    }
+    setIsPopupOpen(true);
+  };
+
+  const handlePopupSubmit = async (url: string) => {
+    try {
+      const success = await onSubmit(problem._id, url);
+      if (success) {
+        setIsPopupOpen(false);
+      }
+      return success;
+    } catch (error) {
+      console.error('Error submitting:', error);
+      return false;
+    }
+  };
+
+  const handleCheckboxClick = () => {
+    if (!isWebDev) {
+      onSubmit(problem._id, '');
+    }
   };
 
   return (
@@ -61,8 +86,8 @@ export default function ChallengeCard({ problem, submission, submitting, onSubmi
                   : theme === 'dark'
                     ? 'text-zinc-600'
                     : 'text-gray-400'
-                } cursor-pointer`}
-              onClick={isWebDev ? undefined : () => handleSubmit()}
+                } ${!isWebDev ? 'cursor-pointer' : ''}`}
+              onClick={!isWebDev ? handleCheckboxClick : undefined}
             />
           </div>
 
@@ -94,9 +119,9 @@ export default function ChallengeCard({ problem, submission, submitting, onSubmi
           {/* Submit Button - Only show for WebDev challenges */}
           {isWebDev && (
             <button
-              onClick={() => isAuthenticated && setIsPopupOpen(true)}
-              disabled={submitting || isCompleted}
-              className={`flex-shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${isCompleted
+              onClick={handleSubmitClick}
+              disabled={submitting || hasSubmission}
+              className={`flex-shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${hasSubmission
                 ? theme === 'dark'
                   ? 'bg-zinc-800/50 text-zinc-500 cursor-not-allowed'
                   : 'bg-gray-100/50 text-gray-500 cursor-not-allowed'
@@ -104,14 +129,14 @@ export default function ChallengeCard({ problem, submission, submitting, onSubmi
                   ? 'bg-zinc-800/50 hover:bg-zinc-800 text-zinc-100'
                   : 'bg-gray-100/50 hover:bg-gray-200 text-gray-900'
                 }`}
-              title={!isAuthenticated ? 'Sign in to submit your project' : undefined}
+              title={!isAuthenticated ? 'Sign in to submit your project' : hasSubmission ? 'Project already submitted' : undefined}
             >
               {submitting ? (
                 <RefreshCw className="w-4 h-4 animate-spin" />
               ) : (
                 <LinkIcon className="w-4 h-4" />
               )}
-              {isCompleted ? 'Completed' : 'Submit Project'}
+              {hasSubmission ? (isPending ? 'Pending Review' : 'Completed') : 'Submit Project'}
             </button>
           )}
         </div>
@@ -131,7 +156,7 @@ export default function ChallengeCard({ problem, submission, submitting, onSubmi
       <SubmissionPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
-        onSubmit={handleSubmit}
+        onSubmit={handlePopupSubmit}
         submitting={submitting}
       />
     </>

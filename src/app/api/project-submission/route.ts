@@ -1,6 +1,7 @@
 import { connectMongoDB } from '@/lib/mongoose';
 import ProjectSubmission from '@/models/ProjectSubmission';
 import { successResponse, errorResponse } from '@/lib/api-response';
+import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
@@ -8,7 +9,10 @@ export async function POST(req: Request) {
     const { email, problemId, deployedUrl } = await req.json();
 
     if (!email || !problemId || !deployedUrl) {
-      return errorResponse('Missing required fields', 400);
+      return NextResponse.json(
+        { success: false, message: 'Missing required fields' },
+        { status: 400 }
+      );
     }
 
     // Create or update submission
@@ -18,10 +22,16 @@ export async function POST(req: Request) {
       { upsert: true, new: true }
     );
 
-    return successResponse({ submission });
+    return NextResponse.json(
+      { success: true, data: { submission } },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Error in project submission:', error);
-    return errorResponse('Failed to submit project');
+    return NextResponse.json(
+      { success: false, message: 'Failed to submit project' },
+      { status: 500 }
+    );
   }
 }
 
@@ -33,15 +43,24 @@ export async function GET(req: Request) {
     const problemId = searchParams.get('problemId');
 
     if (!email) {
-      return errorResponse('Email is required', 400);
+      return NextResponse.json(
+        { success: false, message: 'Email is required' },
+        { status: 400 }
+      );
     }
 
     const query = problemId ? { email, problemId } : { email };
     const submissions = await ProjectSubmission.find(query).sort({ createdAt: -1 });
 
-    return successResponse({ submissions });
+    return NextResponse.json(
+      { success: true, data: { submissions } },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Error fetching submissions:', error);
-    return errorResponse('Failed to fetch submissions');
+    return NextResponse.json(
+      { success: false, message: 'Failed to fetch submissions' },
+      { status: 500 }
+    );
   }
 } 
