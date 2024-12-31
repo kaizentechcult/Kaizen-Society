@@ -46,9 +46,15 @@ export default function DSAChallenges() {
       setLoading(true);
       const response = await fetch('/api/problems?category=DSA');
       if (!response.ok) throw new Error('Failed to fetch problems');
-      const data = await response.json();
-      setProblems(data || []);
-      setFilteredProblems(data || []);
+      const result = await response.json();
+      if (result.success && Array.isArray(result.data)) {
+        setProblems(result.data);
+        setFilteredProblems(result.data);
+      } else {
+        console.error('Invalid response format:', result);
+        setProblems([]);
+        setFilteredProblems([]);
+      }
     } catch (error) {
       console.error('Error fetching problems:', error);
       setProblems([]);

@@ -1,20 +1,33 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, Users } from 'lucide-react';
+import { Calendar, MapPin, Users, ExternalLink, Calendar as CalendarIcon } from 'lucide-react';
 import Image from 'next/image';
-import GradientHover from '@/components/ui/GradientHover';
 import { useTheme } from '@/contexts/ThemeContext';
 
-interface Event {
-  id: string;
-  name: string;
-  status: "upcoming" | "live" | "past";
-  description: string;
-  organizers: string[];
-  images: string[];
-  link: string;
-}
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 10
+    }
+  }
+};
 
 const events = [
   {
@@ -22,196 +35,223 @@ const events = [
     name: "GSOC Webinar",
     description: "Meet GSOC Member, and get to know the ins and outs of the Google Summer Of Code. An opportunity to get your doubts cleared and get a chance to know more about GSOC.",
     status: "past",
+    date: "September 15, 2023",
+    venue: "Online",
     organizers: ["Aakash Amod Rajput", "Krish Khanna", "Sreehitha Thati"],
     images: ["/Events/GSOCwebinar.png"],
-    link: "#"
+    link: "#",
+    attendees: "200+"
   },
   {
     id: "1",
     name: "Portfolio Challenge",
     description: "Develop a Website Portfolio to showcase your skills, and get feedback from industry experts.",
     status: "past",
+    date: "October 10, 2023",
+    venue: "Online",
     organizers: ["Krish Khanna", "Sooraj Nambiar", "Nikhil Verma", "Sreehitha Thati"],
     images: ["/Events/portfolioLeaderboard.jpg"],
-    link: "#"
+    link: "#",
+    attendees: "150+"
   },
   {
     id: "2",
     name: "DSA Challenge I",
     description: "Tackle Challenging DSA Questions prepared by us, focused to level up your thinking and logical skills.",
     status: "past",
+    date: "November 5, 2023",
+    venue: "Online",
     organizers: ["Aayush Singh", "Shivangi Bhartiya", "Sreehitha Thati", "Manisha", "Rianna Bansal"],
     images: ["/Events/week1.jpg"],
-    link: "#"
+    link: "#",
+    attendees: "300+"
   },
   {
     id: "3",
     name: "DSA Challenge II",
     description: "Tackle Challenging DSA Questions prepared by us, focused to level up your thinking and logical skills.",
     status: "past",
+    date: "December 1, 2023",
+    venue: "Online",
     organizers: ["Aayush Singh", "Shivangi Bhartiya", "Sreehitha Thati", "Manisha", "Rianna Bansal"],
     images: ["/Events/week2.jpg"],
-    link: "#"
+    link: "#",
+    attendees: "350+"
   },
   {
     id: "4",
     name: "ThinkTank Ideathon",
     description: "Create an Innovative Solution to a Problem and win exciting prizes. Get a chance to work with Industry Professionals.",
     status: "past",
+    date: "January 15, 2024",
+    venue: "Online",
     organizers: ["Krish Khanna", "Sooraj Nambiar", "Aayush Singh", "Adista Nautiyal", "Shivangi Bhartiya"],
     images: ["/Events/ThinkTank.png", "/Events/ThinkTankWinners.png"],
-    link: "#"
+    link: "#",
+    attendees: "250+"
   },
   {
     id: "5",
     name: "Cloud Computing Webinar",
     description: "Get Familiar with popular Cloud Computing Platforms and gain a chance to talk with industry professionals, and get to know more about Cloud computing in general.",
     status: "past",
+    date: "February 1, 2024",
+    venue: "Online",
     organizers: ["Aayush Singh", "Shivang Shukla", "Shivangi Bhartiya", "Adista Nautiyal", "Sooraj Nambiar"],
     images: ["/Events/CloudComputingWebinar.jpg"],
-    link: "#"
+    link: "#",
+    attendees: "400+"
   }
 ];
 
-const EventsHosted = () => {
+export default function EventsHosted() {
   const { theme } = useTheme();
-  
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  };
 
   return (
-    <div className={`min-h-screen py-16 px-4 pt-32 ${
+    <div className={`min-h-screen pt-32 ${
       theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-900'
     }`}>
       <motion.div
         initial="hidden"
         animate="visible"
         variants={containerVariants}
-        className="max-w-7xl mx-auto"
+        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
       >
         {/* Hero Section */}
-        <motion.div
-          variants={itemVariants}
-          className="text-center mb-20"
-        >
-          <h1 className="text-5xl sm:text-6xl font-bold mb-6">
-            Our{" "}
-            <span className="bg-gradient-to-r from-purple-400 via-emerald-400 to-blue-400 text-transparent bg-clip-text">
-              Events
-            </span>
-          </h1>
-          <p className={`text-lg md:text-xl max-w-2xl mx-auto ${
+        <motion.div variants={itemVariants} className="text-center mb-16">
+          <div className="flex items-center justify-center mb-4">
+            <CalendarIcon className="w-10 h-10 text-purple-400 mr-3" />
+            <h1 className="text-3xl sm:text-5xl font-bold">
+              Our{" "}
+              <span className="bg-gradient-to-r from-purple-400 via-emerald-400 to-blue-400 text-transparent bg-clip-text">
+                Events
+              </span>
+            </h1>
+          </div>
+          <p className={`text-base sm:text-lg max-w-2xl mx-auto ${
             theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
           }`}>
-            Join us for exciting workshops, hackathons, and tech talks to enhance your skills and connect with fellow developers.
+            Join us in our journey of learning and growth through various events and workshops.
           </p>
         </motion.div>
 
-        {/* Events Grid - Reversed to show latest first */}
-        <div className="grid gap-12 lg:grid-cols-2">
-          {[...events].reverse().map((event, index) => (
-            <motion.div
-              key={event.id}
-              variants={itemVariants}
-            >
-              <GradientHover className={`group relative rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/10 ${
-                theme === 'dark' 
-                  ? 'bg-zinc-900/50 backdrop-blur-lg'
-                  : 'bg-gray-50/50 backdrop-blur-lg'
-              }`}>
-                {/* Image Container */}
-                <div className="aspect-[16/9] relative overflow-hidden">
-                  <Image
-                    src={event.images[0]}
-                    alt={event.name}
-                    width={800}
-                    height={450}
-                    className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-300"
+        {/* Events Timeline */}
+        <motion.div variants={containerVariants} className="relative">
+          {/* Timeline Line */}
+          <div className={`absolute left-12 sm:left-[8.5rem] top-0 bottom-0 w-0.5 ${
+            theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'
+          }`} />
+
+          {/* Events */}
+          <div className="space-y-8">
+            {events.map((event, index) => (
+              <motion.div
+                key={event.id}
+                variants={itemVariants}
+                whileHover={{ x: 5 }}
+                className="relative flex"
+              >
+                {/* Timeline Dot and Date */}
+                <div className="flex-none w-24 sm:w-36 relative">
+                  <motion.div
+                    whileHover={{ scale: 1.2 }}
+                    className={`absolute left-12 sm:left-[8.5rem] top-8 -translate-x-1/2 w-3 h-3 rounded-full border-2 ${
+                      theme === 'dark'
+                        ? 'bg-black border-purple-400'
+                        : 'bg-white border-purple-600'
+                    }`}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="pr-8 pt-6 text-right">
+                    <span className={`text-sm font-medium ${
+                      theme === 'dark' ? 'text-purple-400' : 'text-purple-600'
+                    }`}>
+                      {event.date.split(',')[0]}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Content Container */}
-                <div className="relative p-8">
-                  {/* Status Badge */}
-                  <span className={`absolute top-0 right-8 -translate-y-1/2 text-sm px-4 py-1.5 rounded-full font-medium ${
-                    event.status === 'upcoming' 
-                      ? 'bg-emerald-400/20 text-emerald-400 border border-emerald-400/20' 
-                      : event.status === 'live'
-                      ? 'bg-red-400/20 text-red-400 border border-red-400/20'
-                      : 'bg-zinc-400/20 text-zinc-400 border border-zinc-400/20'
-                  }`}>
-                    {event.status}
-                  </span>
+                {/* Event Content */}
+                <div className="flex-1">
+                  <motion.div
+                    whileHover={{ scale: 1.01 }}
+                    className={`rounded-lg overflow-hidden ${
+                      theme === 'dark'
+                        ? 'bg-zinc-900/50 border border-zinc-800/50'
+                        : 'bg-gray-50/50 border border-gray-200'
+                    }`}
+                  >
+                    <div className="flex flex-col sm:flex-row">
+                      {/* Event Image */}
+                      <div className="relative h-48 sm:h-auto sm:w-48 flex-none">
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 z-10"
+                          initial={{ opacity: 0 }}
+                          whileHover={{ opacity: 1 }}
+                        />
+                        <motion.div
+                          className="relative h-full w-full"
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        >
+                          <Image
+                            src={event.images[0]}
+                            alt={event.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </motion.div>
+                      </div>
 
-                  {/* Title and Description */}
-                  <div className="space-y-4">
-                    <h3 className="text-2xl font-bold tracking-tight">{event.name}</h3>
-                    <p className={theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'}>
-                      {event.description}
-                    </p>
-                  </div>
-
-                  {/* Organizers Section */}
-                  <div className="mt-8 space-y-3">
-                    <div className={`flex items-center gap-2 ${
-                      theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
-                    }`}>
-                      <Users className="w-5 h-5" />
-                      <span className="text-sm font-medium">Organized by:</span>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {event.organizers.map((organizer, idx) => (
-                        <span 
-                          key={idx} 
-                          className={`text-sm px-3 py-1.5 rounded-full transition-colors ${
+                      {/* Event Details */}
+                      <div className="p-4 sm:p-5 flex-1">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-lg font-bold">{event.name}</h3>
+                          <span className={`px-2 py-0.5 rounded-full text-xs ${
                             theme === 'dark'
-                              ? 'bg-zinc-800/50 border border-zinc-700/50 hover:border-zinc-600/50'
-                              : 'bg-gray-100/50 border border-gray-200 hover:border-gray-300'
+                              ? 'bg-purple-400/10 text-purple-400'
+                              : 'bg-purple-50 text-purple-600'
+                          }`}>
+                            {event.attendees} Attendees
+                          </span>
+                        </div>
+
+                        <p className={`text-sm mb-3 line-clamp-2 ${theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'}`}>
+                          {event.description}
+                        </p>
+
+                        {/* Event Metadata */}
+                        <div className="flex flex-wrap gap-3 text-xs mb-3">
+                          <div className={`flex items-center ${theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'}`}>
+                            <MapPin className="w-4 h-4 mr-1" />
+                            {event.venue}
+                          </div>
+                          <div className={`flex items-center ${theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'}`}>
+                            <Users className="w-4 h-4 mr-1" />
+                            {event.organizers.length} Organizers
+                          </div>
+                        </div>
+
+                        {/* Link Button */}
+                        <button
+                          disabled
+                          className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm cursor-not-allowed opacity-50 ${
+                            theme === 'dark'
+                              ? 'bg-zinc-800 text-zinc-400'
+                              : 'bg-gray-100 text-gray-500'
                           }`}
                         >
-                          {organizer}
-                        </span>
-                      ))}
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          Past Event
+                        </button>
+                      </div>
                     </div>
-                  </div>
-
-                  {/* Action Button */}
-                  <div className="mt-8">
-                    <a 
-                      href={event.link}
-                      className={`inline-flex items-center justify-center px-6 py-3 rounded-xl transition-colors text-sm font-medium ${
-                        theme === 'dark'
-                          ? 'bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700 group-hover:bg-purple-500/10 group-hover:text-purple-400 hover:border-purple-500/50'
-                          : 'bg-gray-100 hover:bg-gray-200 text-gray-900 border border-gray-200 group-hover:bg-purple-500/10 group-hover:text-purple-600 hover:border-purple-500/50'
-                      }`}
-                    >
-                      {event.status === 'upcoming' ? 'Register Now' : 'Learn More'}
-                    </a>
-                  </div>
+                  </motion.div>
                 </div>
-              </GradientHover>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </motion.div>
     </div>
   );
-};
-
-export default EventsHosted;
+}

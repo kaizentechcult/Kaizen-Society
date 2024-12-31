@@ -11,8 +11,10 @@ import { useTheme } from "@/contexts/ThemeContext";
 const navlinks = [
   { label: "Home", to: "/" },
   { label: "Team", to: "/team" },
+  { label: "Projects", to: "/projects" },
   { label: "Events", to: "/events-hosted" },
   { label: "Challenges", to: "/challenges" },
+  { label: "About", to: "/about" },
 ];
 
 const LINKTREE_LINK = "https://linktr.ee/kaizen_community";
@@ -114,7 +116,7 @@ export default function Navbar() {
                 }`}
               >
                 <MessageCircle className="w-4 h-4" />
-                <span className="text-sm font-medium">Join Group</span>
+                <span className="text-sm font-medium">Join Us</span>
               </motion.a>
               {/* Theme Toggle */}
               <motion.button
@@ -206,57 +208,69 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
-              className={`fixed inset-x-0 top-[64px] border-t md:hidden ${
+              className={`fixed inset-0 top-[64px] md:hidden ${
                 theme === "dark"
-                  ? "bg-black/90 backdrop-blur-xl border-zinc-800/50"
-                  : "bg-white/90 backdrop-blur-xl border-gray-200/50"
+                  ? "bg-black/60"
+                  : "bg-white/60"
               }`}
             >
-              <div className="relative p-4">
-                <div className="space-y-1">
-                  {navlinks.map((link, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: index * 0.05 }}
-                    >
-                      <Link
-                        href={link.to}
-                        onClick={handleMenu}
-                        className={`block px-4 py-3 rounded-lg transition-colors text-base font-medium ${
-                          theme === "dark"
-                            ? "text-zinc-300 hover:text-white hover:bg-white/5"
-                            : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                        }`}
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.15, delay: 0.1 }}
+                className={`relative border-t backdrop-blur-xl ${
+                  theme === "dark"
+                    ? "bg-black/40 border-zinc-800/50"
+                    : "bg-white/40 border-gray-200/50"
+                }`}
+              >
+                <div className="max-w-6xl mx-auto">
+                  <div className="p-4 space-y-1">
+                    {navlinks.map((link, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
                       >
-                        {link.label}
-                      </Link>
-                    </motion.div>
-                  ))}
+                        <Link
+                          href={link.to}
+                          onClick={handleMenu}
+                          className={`block px-4 py-3 rounded-lg transition-colors text-base font-medium ${
+                            theme === "dark"
+                              ? "text-zinc-300 hover:text-white hover:bg-white/5"
+                              : "text-gray-600 hover:text-gray-900 hover:bg-gray-100/50"
+                          }`}
+                        >
+                          {link.label}
+                        </Link>
+                      </motion.div>
+                    ))}
 
-                  {/* WhatsApp Link in Mobile Menu */}
-                  <motion.a
-                    href={LINKTREE_LINK}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: navlinks.length * 0.05 }}
-                    onClick={handleMenu}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                      theme === "dark"
-                        ? "text-emerald-400 hover:bg-emerald-500/10"
-                        : "text-emerald-600 hover:bg-emerald-50"
-                    }`}
-                  >
-                    <MessageCircle className="w-5 h-5" />
-                    <span className="text-base font-medium">
-                      Join WhatsApp Group
-                    </span>
-                  </motion.a>
+                    {/* Join Us Link in Mobile Menu */}
+                    <motion.a
+                      href={LINKTREE_LINK}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: navlinks.length * 0.05 }}
+                      onClick={handleMenu}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                        theme === "dark"
+                          ? "text-emerald-400 hover:bg-emerald-500/10"
+                          : "text-emerald-600 hover:bg-emerald-50/50"
+                      }`}
+                    >
+                      <MessageCircle className="w-5 h-5" />
+                      <span className="text-base font-medium">
+                        Join Us
+                      </span>
+                    </motion.a>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
