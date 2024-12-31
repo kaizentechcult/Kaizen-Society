@@ -1,5 +1,4 @@
 import { connectMongoDB } from '@/lib/mongoose';
-// import { NextResponse } from 'next/server';
 import ProjectSubmission from '@/models/ProjectSubmission';
 import { successResponse, errorResponse } from '@/lib/api-response';
 
