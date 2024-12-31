@@ -8,6 +8,7 @@ export interface Problem {
   difficulty: Difficulty;
   category: 'DSA' | 'WebDev';
   topic: string;
+  link?: string;
 }
 
 export interface ProjectSubmission {

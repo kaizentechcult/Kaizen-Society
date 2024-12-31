@@ -39,9 +39,15 @@ export default function ChallengeCard({ problem, submission, submitting, onSubmi
       router.push('/login');
       return;
     }
-    if (isWebDev) {
-      setIsPopupOpen(true);
-    } else {
+    setIsPopupOpen(true);
+  };
+
+  const handleCheckboxClick = () => {
+    if (!isAuthenticated) {
+      router.push('/login');
+      return;
+    }
+    if (!isWebDev && !hasSubmission) {
       onSubmit(problem._id, '');
     }
   };
@@ -72,9 +78,10 @@ export default function ChallengeCard({ problem, submission, submitting, onSubmi
         <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 p-4">
           {/* Status */}
           <div
+            onClick={!isWebDev ? handleCheckboxClick : undefined}
             className={`flex-shrink-0 p-1.5 rounded-md ${theme === 'dark' ? 'bg-zinc-800/50' : 'bg-gray-100/50'
-              }`}
-            title={isPending ? 'Submission pending review' : isCompleted ? 'Challenge completed' : 'Not submitted yet'}
+              } ${!isWebDev && !hasSubmission ? 'cursor-pointer hover:bg-zinc-700/50' : ''}`}
+            title={isPending ? 'Submission pending review' : isCompleted ? 'Challenge completed' : !isWebDev ? 'Click to mark as completed' : 'Not submitted yet'}
           >
             <CheckCircle2
               className={`w-5 h-5 ${isCompleted
@@ -114,30 +121,42 @@ export default function ChallengeCard({ problem, submission, submitting, onSubmi
           </div>
 
           {/* Action Button */}
-          <button
-            onClick={handleSubmitClick}
-            disabled={submitting || hasSubmission}
-            className={`flex-shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${hasSubmission
-              ? theme === 'dark'
-                ? 'bg-zinc-800/50 text-zinc-500 cursor-not-allowed'
-                : 'bg-gray-100/50 text-gray-500 cursor-not-allowed'
-              : theme === 'dark'
-                ? 'bg-zinc-800/50 hover:bg-zinc-800 text-zinc-100'
-                : 'bg-gray-100/50 hover:bg-gray-200 text-gray-900'
+          {isWebDev ? (
+            <button
+              onClick={handleSubmitClick}
+              disabled={submitting || hasSubmission}
+              className={`flex-shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${hasSubmission
+                ? theme === 'dark'
+                  ? 'bg-zinc-800/50 text-zinc-500 cursor-not-allowed'
+                  : 'bg-gray-100/50 text-gray-500 cursor-not-allowed'
+                : theme === 'dark'
+                  ? 'bg-zinc-800/50 hover:bg-zinc-800 text-zinc-100'
+                  : 'bg-gray-100/50 hover:bg-gray-200 text-gray-900'
+                }`}
+              title={!isAuthenticated ? 'Sign in to submit your project' : hasSubmission ? 'Project already submitted' : undefined}
+            >
+              {submitting ? (
+                <RefreshCw className="w-4 h-4 animate-spin" />
+              ) : (
+                <LinkIcon className="w-4 h-4" />
+              )}
+              {hasSubmission ? (isPending ? 'Pending Review' : 'Completed') : 'Submit Project'}
+            </button>
+          ) : (
+            <a
+              href={problem.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex-shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                theme === 'dark'
+                  ? 'bg-zinc-800/50 hover:bg-zinc-800 text-zinc-100'
+                  : 'bg-gray-100/50 hover:bg-gray-200 text-gray-900'
               }`}
-            title={!isAuthenticated ? 'Sign in to submit your project' : hasSubmission ? 'Project already submitted' : undefined}
-          >
-            {submitting ? (
-              <RefreshCw className="w-4 h-4 animate-spin" />
-            ) : isWebDev ? (
-              <LinkIcon className="w-4 h-4" />
-            ) : (
+            >
               <ExternalLink className="w-4 h-4" />
-            )}
-            {hasSubmission 
-              ? (isPending ? 'Pending Review' : 'Completed') 
-              : (isWebDev ? 'Submit Project' : 'Solve')}
-          </button>
+              Solve
+            </a>
+          )}
         </div>
 
         {/* Submission URL - Only show for WebDev challenges */}
