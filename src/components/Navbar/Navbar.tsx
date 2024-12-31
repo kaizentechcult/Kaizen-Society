@@ -11,10 +11,10 @@ import { useTheme } from "@/contexts/ThemeContext";
 const navlinks = [
   { label: "Home", to: "/" },
   { label: "Team", to: "/team" },
-  { label: "Projects", to: "/projects" },
+  // { label: "Projects", to: "/projects" },
   { label: "Events", to: "/events-hosted" },
   { label: "Challenges", to: "/challenges" },
-  { label: "About", to: "/about" },
+  // { label: "About", to: "/about" },
 ];
 
 const LINKTREE_LINK = "https://linktr.ee/kaizen_community";

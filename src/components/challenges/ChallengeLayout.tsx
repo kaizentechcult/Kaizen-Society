@@ -11,7 +11,7 @@ import ChallengeHeader from './ChallengeHeader';
 
 interface ChallengeLayoutProps {
   title: string;
-  progress: number;
+  // progress: number;
   loading: boolean;
   problems: Problem[];
   submissions: Record<string, ProjectSubmission>;
@@ -24,7 +24,7 @@ interface ChallengeLayoutProps {
 
 export default function ChallengeLayout({
   title,
-  progress,
+  // progress,
   loading,
   problems,
   submissions,
@@ -51,7 +51,7 @@ export default function ChallengeLayout({
         animate={{ opacity: 1, y: 0 }}
         className="max-w-7xl mx-auto"
       >
-        <ChallengeHeader title={title} progress={progress} />
+        <ChallengeHeader title={title} />
 
         {loading ? (
           <LoadingState />
