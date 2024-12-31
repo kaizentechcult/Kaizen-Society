@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle2, RefreshCw, Link as LinkIcon } from 'lucide-react';
+import { CheckCircle2, RefreshCw, Link as LinkIcon, ExternalLink } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Problem, ProjectSubmission } from '@/types/challenges';
 import { useState } from 'react';
@@ -39,7 +39,11 @@ export default function ChallengeCard({ problem, submission, submitting, onSubmi
       router.push('/login');
       return;
     }
-    setIsPopupOpen(true);
+    if (isWebDev) {
+      setIsPopupOpen(true);
+    } else {
+      onSubmit(problem._id, '');
+    }
   };
 
   const handlePopupSubmit = async (url: string) => {
@@ -52,12 +56,6 @@ export default function ChallengeCard({ problem, submission, submitting, onSubmi
     } catch (error) {
       console.error('Error submitting:', error);
       return false;
-    }
-  };
-
-  const handleCheckboxClick = () => {
-    if (!isWebDev) {
-      onSubmit(problem._id, '');
     }
   };
 
@@ -86,8 +84,7 @@ export default function ChallengeCard({ problem, submission, submitting, onSubmi
                   : theme === 'dark'
                     ? 'text-zinc-600'
                     : 'text-gray-400'
-                } ${!isWebDev ? 'cursor-pointer' : ''}`}
-              onClick={!isWebDev ? handleCheckboxClick : undefined}
+                }`}
             />
           </div>
 
@@ -116,29 +113,31 @@ export default function ChallengeCard({ problem, submission, submitting, onSubmi
             </div>
           </div>
 
-          {/* Submit Button - Only show for WebDev challenges */}
-          {isWebDev && (
-            <button
-              onClick={handleSubmitClick}
-              disabled={submitting || hasSubmission}
-              className={`flex-shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${hasSubmission
-                ? theme === 'dark'
-                  ? 'bg-zinc-800/50 text-zinc-500 cursor-not-allowed'
-                  : 'bg-gray-100/50 text-gray-500 cursor-not-allowed'
-                : theme === 'dark'
-                  ? 'bg-zinc-800/50 hover:bg-zinc-800 text-zinc-100'
-                  : 'bg-gray-100/50 hover:bg-gray-200 text-gray-900'
-                }`}
-              title={!isAuthenticated ? 'Sign in to submit your project' : hasSubmission ? 'Project already submitted' : undefined}
-            >
-              {submitting ? (
-                <RefreshCw className="w-4 h-4 animate-spin" />
-              ) : (
-                <LinkIcon className="w-4 h-4" />
-              )}
-              {hasSubmission ? (isPending ? 'Pending Review' : 'Completed') : 'Submit Project'}
-            </button>
-          )}
+          {/* Action Button */}
+          <button
+            onClick={handleSubmitClick}
+            disabled={submitting || hasSubmission}
+            className={`flex-shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${hasSubmission
+              ? theme === 'dark'
+                ? 'bg-zinc-800/50 text-zinc-500 cursor-not-allowed'
+                : 'bg-gray-100/50 text-gray-500 cursor-not-allowed'
+              : theme === 'dark'
+                ? 'bg-zinc-800/50 hover:bg-zinc-800 text-zinc-100'
+                : 'bg-gray-100/50 hover:bg-gray-200 text-gray-900'
+              }`}
+            title={!isAuthenticated ? 'Sign in to submit your project' : hasSubmission ? 'Project already submitted' : undefined}
+          >
+            {submitting ? (
+              <RefreshCw className="w-4 h-4 animate-spin" />
+            ) : isWebDev ? (
+              <LinkIcon className="w-4 h-4" />
+            ) : (
+              <ExternalLink className="w-4 h-4" />
+            )}
+            {hasSubmission 
+              ? (isPending ? 'Pending Review' : 'Completed') 
+              : (isWebDev ? 'Submit Project' : 'Solve')}
+          </button>
         </div>
 
         {/* Submission URL - Only show for WebDev challenges */}
@@ -152,13 +151,15 @@ export default function ChallengeCard({ problem, submission, submitting, onSubmi
         )}
       </motion.div>
 
-      {/* Submission Popup */}
-      <SubmissionPopup
-        isOpen={isPopupOpen}
-        onClose={() => setIsPopupOpen(false)}
-        onSubmit={handlePopupSubmit}
-        submitting={submitting}
-      />
+      {/* Submission Popup - Only for WebDev challenges */}
+      {isWebDev && (
+        <SubmissionPopup
+          isOpen={isPopupOpen}
+          onClose={() => setIsPopupOpen(false)}
+          onSubmit={handlePopupSubmit}
+          submitting={submitting}
+        />
+      )}
     </>
   );
 } 

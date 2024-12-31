@@ -16,7 +16,7 @@ export function useChallenges({ category }: UseChallengesProps) {
   const [submitting, setSubmitting] = useState<string | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
 
-  const fetchProblems = async () => {
+  const fetchProblems = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch(`/api/problems?category=${category}`);
@@ -34,7 +34,7 @@ export function useChallenges({ category }: UseChallengesProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [category]);
 
   const fetchSubmissions = useCallback(async () => {
     if (!user?.email) return;
@@ -112,7 +112,7 @@ export function useChallenges({ category }: UseChallengesProps) {
 
   useEffect(() => {
     fetchProblems();
-  }, []);
+  }, [fetchProblems]);
 
   useEffect(() => {
     if (user?.email) {
