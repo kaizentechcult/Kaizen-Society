@@ -21,7 +21,7 @@ export default function WebDevChallenges() {
   return (
     <ChallengeLayout
       title="Web Development Challenges"
-      progress={progress}
+      // progress={progress}
       loading={loading}
       problems={problems}
       submissions={submissions}

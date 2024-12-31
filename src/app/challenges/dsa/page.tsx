@@ -1,8 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { useChallenges } from '@/hooks/useChallenges';
-import { useCompletedChallenges } from '@/hooks/useCompletedChallenges';
 import ChallengeLayout from '@/components/challenges/ChallengeLayout';
 
 export default function DSAChallenges() {
@@ -14,10 +12,9 @@ export default function DSAChallenges() {
     showConfetti,
     handleSubmit,
     fetchProblems,
-    isAuthenticated
+    isAuthenticated,
+    // progress
   } = useChallenges({ category: 'DSA' });
-
-  const { progress } = useCompletedChallenges('dsa', problems.length);
 
   const handleDSASubmit = async (problemId: string, url: string) => {
     return await handleSubmit(problemId, url);
@@ -26,7 +23,7 @@ export default function DSAChallenges() {
   return (
     <ChallengeLayout
       title="DSA Challenges"
-      progress={progress}
+      // progress={progress}
       loading={loading}
       problems={problems}
       submissions={submissions}
