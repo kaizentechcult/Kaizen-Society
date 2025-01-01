@@ -37,10 +37,10 @@ const events = [
     status: "past",
     date: "September 15, 2023",
     venue: "Online",
-    organizers: ["Aakash Amod Rajput", "Krish Khanna", "Sreehitha Thati"],
+    // organizers: ["Aakash Amod Rajput", "Krish Khanna", "Sreehitha Thati"],
     images: ["/Events/GSOCwebinar.png"],
     link: "#",
-    attendees: "200+"
+    attendees: "65+"
   },
   {
     id: "1",
@@ -49,10 +49,10 @@ const events = [
     status: "past",
     date: "October 10, 2023",
     venue: "Online",
-    organizers: ["Krish Khanna", "Sooraj Nambiar", "Nikhil Verma", "Sreehitha Thati"],
+    // organizers: ["Krish Khanna", "Sooraj Nambiar", "Nikhil Verma", "Sreehitha Thati"],
     images: ["/Events/portfolioLeaderboard.jpg"],
     link: "#",
-    attendees: "150+"
+    attendees: "10+"
   },
   {
     id: "2",
@@ -61,10 +61,10 @@ const events = [
     status: "past",
     date: "November 5, 2023",
     venue: "Online",
-    organizers: ["Aayush Singh", "Shivangi Bhartiya", "Sreehitha Thati", "Manisha", "Rianna Bansal"],
+    // organizers: ["Aayush Singh", "Shivangi Bhartiya", "Sreehitha Thati", "Manisha", "Rianna Bansal"],
     images: ["/Events/week1.jpg"],
     link: "#",
-    attendees: "300+"
+    attendees: "25+"
   },
   {
     id: "3",
@@ -73,10 +73,10 @@ const events = [
     status: "past",
     date: "December 1, 2023",
     venue: "Online",
-    organizers: ["Aayush Singh", "Shivangi Bhartiya", "Sreehitha Thati", "Manisha", "Rianna Bansal"],
+    // organizers: ["Aayush Singh", "Shivangi Bhartiya", "Sreehitha Thati", "Manisha", "Rianna Bansal"],
     images: ["/Events/week2.jpg"],
     link: "#",
-    attendees: "350+"
+    attendees: "20+"
   },
   {
     id: "4",
@@ -85,10 +85,10 @@ const events = [
     status: "past",
     date: "January 15, 2024",
     venue: "Online",
-    organizers: ["Krish Khanna", "Sooraj Nambiar", "Aayush Singh", "Adista Nautiyal", "Shivangi Bhartiya"],
+    // organizers: ["Krish Khanna", "Sooraj Nambiar", "Aayush Singh", "Adista Nautiyal", "Shivangi Bhartiya"],
     images: ["/Events/ThinkTank.png", "/Events/ThinkTankWinners.png"],
     link: "#",
-    attendees: "250+"
+    attendees: "100+"
   },
   {
     id: "5",
@@ -97,10 +97,10 @@ const events = [
     status: "past",
     date: "February 1, 2024",
     venue: "Online",
-    organizers: ["Aayush Singh", "Shivang Shukla", "Shivangi Bhartiya", "Adista Nautiyal", "Sooraj Nambiar"],
+    // organizers: ["Aayush Singh", "Shivang Shukla", "Shivangi Bhartiya", "Adista Nautiyal", "Sooraj Nambiar"],
     images: ["/Events/CloudComputingWebinar.jpg"],
     link: "#",
-    attendees: "400+"
+    attendees: "85+"
   }
 ];
 
@@ -108,9 +108,8 @@ export default function EventsHosted() {
   const { theme } = useTheme();
 
   return (
-    <div className={`min-h-screen pt-32 ${
-      theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-900'
-    }`}>
+    <div className={`min-h-screen pt-32 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-900'
+      }`}>
       <motion.div
         initial="hidden"
         animate="visible"
@@ -128,9 +127,8 @@ export default function EventsHosted() {
               </span>
             </h1>
           </div>
-          <p className={`text-base sm:text-lg max-w-2xl mx-auto ${
-            theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
-          }`}>
+          <p className={`text-base sm:text-lg max-w-2xl mx-auto ${theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
+            }`}>
             Join us in our journey of learning and growth through various events and workshops.
           </p>
         </motion.div>
@@ -138,9 +136,8 @@ export default function EventsHosted() {
         {/* Events Timeline */}
         <motion.div variants={containerVariants} className="relative">
           {/* Timeline Line */}
-          <div className={`absolute left-12 sm:left-[8.5rem] top-0 bottom-0 w-0.5 ${
-            theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'
-          }`} />
+          <div className={`absolute left-12 sm:left-[8.5rem] top-0 bottom-0 w-0.5 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'
+            }`} />
 
           {/* Events */}
           <div className="space-y-8">
@@ -155,16 +152,14 @@ export default function EventsHosted() {
                 <div className="flex-none w-24 sm:w-36 relative">
                   <motion.div
                     whileHover={{ scale: 1.2 }}
-                    className={`absolute left-12 sm:left-[8.5rem] top-8 -translate-x-1/2 w-3 h-3 rounded-full border-2 ${
-                      theme === 'dark'
+                    className={`absolute left-12 sm:left-[8.5rem] top-8 -translate-x-1/2 w-3 h-3 rounded-full border-2 ${theme === 'dark'
                         ? 'bg-black border-purple-400'
                         : 'bg-white border-purple-600'
-                    }`}
+                      }`}
                   />
                   <div className="pr-8 pt-6 text-right">
-                    <span className={`text-sm font-medium ${
-                      theme === 'dark' ? 'text-purple-400' : 'text-purple-600'
-                    }`}>
+                    <span className={`text-sm font-medium ${theme === 'dark' ? 'text-purple-400' : 'text-purple-600'
+                      }`}>
                       {event.date.split(',')[0]}
                     </span>
                   </div>
@@ -174,11 +169,10 @@ export default function EventsHosted() {
                 <div className="flex-1">
                   <motion.div
                     whileHover={{ scale: 1.01 }}
-                    className={`rounded-lg overflow-hidden ${
-                      theme === 'dark'
+                    className={`rounded-lg overflow-hidden ${theme === 'dark'
                         ? 'bg-zinc-900/50 border border-zinc-800/50'
                         : 'bg-gray-50/50 border border-gray-200'
-                    }`}
+                      }`}
                   >
                     <div className="flex flex-col sm:flex-row">
                       {/* Event Image */}
@@ -206,13 +200,6 @@ export default function EventsHosted() {
                       <div className="p-4 sm:p-5 flex-1">
                         <div className="flex items-center justify-between mb-2">
                           <h3 className="text-lg font-bold">{event.name}</h3>
-                          <span className={`px-2 py-0.5 rounded-full text-xs ${
-                            theme === 'dark'
-                              ? 'bg-purple-400/10 text-purple-400'
-                              : 'bg-purple-50 text-purple-600'
-                          }`}>
-                            {event.attendees} Attendees
-                          </span>
                         </div>
 
                         <p className={`text-sm mb-3 line-clamp-2 ${theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'}`}>
@@ -227,18 +214,17 @@ export default function EventsHosted() {
                           </div>
                           <div className={`flex items-center ${theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'}`}>
                             <Users className="w-4 h-4 mr-1" />
-                            {event.organizers.length} Organizers
+                            {event.attendees} Attendees
                           </div>
                         </div>
 
                         {/* Link Button */}
                         <button
                           disabled
-                          className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm cursor-not-allowed opacity-50 ${
-                            theme === 'dark'
+                          className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm cursor-not-allowed opacity-50 ${theme === 'dark'
                               ? 'bg-zinc-800 text-zinc-400'
                               : 'bg-gray-100 text-gray-500'
-                          }`}
+                            }`}
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                           Past Event

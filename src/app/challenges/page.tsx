@@ -87,28 +87,7 @@ const Challenges = () => {
         </motion.div>
 
         {/* Stats Section */}
-        <motion.div
-          variants={containerVariants}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              className={`backdrop-blur-sm rounded-xl p-6 text-center ${
-                theme === 'dark'
-                  ? 'bg-zinc-900/50 border border-zinc-800/50'
-                  : 'bg-gray-50/50 border border-gray-200'
-              }`}
-            >
-              <div className="flex justify-center mb-4">{stat.icon}</div>
-              <h3 className="text-3xl font-bold mb-2">{stat.value}</h3>
-              <p className={theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'}>
-                {stat.title}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
+
 
         {/* Challenge Cards */}
         <motion.div
