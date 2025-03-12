@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { useTheme } from '@/contexts/ThemeContext';
+import { motion } from "framer-motion";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const gradientVariants = {
   hidden: { opacity: 0, scale: 0.8 },
@@ -11,23 +11,23 @@ const gradientVariants = {
     transition: {
       type: "spring",
       stiffness: 100,
-      damping: 10
-    }
-  }
+      damping: 10,
+    },
+  },
 };
 
 const shimmerVariants = {
   initial: {
-    backgroundPosition: "0 0"
+    backgroundPosition: "0 0",
   },
   animate: {
     backgroundPosition: "100% 100%",
     transition: {
       repeat: Infinity,
       repeatType: "reverse" as const,
-      duration: 3
-    }
-  }
+      duration: 3,
+    },
+  },
 };
 
 export default function Hero() {
@@ -45,26 +45,18 @@ export default function Hero() {
         variants={shimmerVariants}
         initial="initial"
         animate="animate"
-        style={{
-          background: theme === 'dark'
-            ? 'linear-gradient(45deg, rgba(168, 85, 247, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%)'
-            : 'linear-gradient(45deg, rgba(168, 85, 247, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%)',
-          backgroundSize: "200% 200%"
-        }}
       />
-      <motion.h1
-        className="text-5xl sm:text-7xl font-bold text-center mb-8"
-      >
-        Building the Future{' '}
+      <motion.h1 className="text-5xl sm:text-7xl font-bold text-center mb-8">
+        Building the Future{" "}
         <motion.span
           className="bg-gradient-to-r from-purple-400 via-emerald-400 to-blue-400 text-transparent bg-clip-text"
-          animate={{ 
+          animate={{
             backgroundPosition: ["0%", "100%"],
-            transition: { 
-              duration: 5, 
-              repeat: Infinity, 
-              repeatType: "reverse" 
-            }
+            transition: {
+              duration: 5,
+              repeat: Infinity,
+              repeatType: "reverse",
+            },
           }}
           style={{ backgroundSize: "200%" }}
         >
@@ -73,4 +65,4 @@ export default function Hero() {
       </motion.h1>
     </motion.div>
   );
-} 
+}
