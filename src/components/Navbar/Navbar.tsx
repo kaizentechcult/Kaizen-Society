@@ -11,6 +11,7 @@ import { useTheme } from "@/contexts/ThemeContext";
 const navlinks = [
   { label: "Home", to: "/" },
   { label: "Team", to: "/team" },
+  { label: "Blog", to: "/blog" },
   { label: "Events", to: "/events-hosted" },
   { label: "Challenges", to: "/challenges" },
   // { label: "Projects", to: "/projects" },
@@ -52,12 +53,12 @@ export default function Navbar() {
           ease: [0.42, 0, 0.58, 1]
         }}
         className={`mx-auto transition-all duration-300 ${theme === "dark"
-            ? scrolled
-              ? "bg-zinc-900/60 backdrop-blur-xl border border-zinc-800/50 shadow-lg"
-              : "bg-black/60 backdrop-blur-lg border-b border-zinc-800/50"
-            : scrolled
-              ? "bg-white/80 backdrop-blur-xl border border-gray-200/50 shadow-lg"
-              : "bg-white/80 backdrop-blur-lg border-b border-gray-200/50"
+          ? scrolled
+            ? "bg-zinc-900/60 backdrop-blur-xl border border-zinc-800/50 shadow-lg"
+            : "bg-black/60 backdrop-blur-lg border-b border-zinc-800/50"
+          : scrolled
+            ? "bg-white/80 backdrop-blur-xl border border-gray-200/50 shadow-lg"
+            : "bg-white/80 backdrop-blur-lg border-b border-gray-200/50"
           }`}
       >
         <div
@@ -92,8 +93,8 @@ export default function Navbar() {
                   <Link
                     href={link.to}
                     className={`text-sm font-medium transition-colors duration-200 ${theme === "dark"
-                        ? "text-zinc-400 hover:text-white"
-                        : "text-gray-600 hover:text-gray-900"
+                      ? "text-zinc-400 hover:text-white"
+                      : "text-gray-600 hover:text-gray-900"
                       }`}
                   >
                     {link.label}
@@ -107,8 +108,8 @@ export default function Navbar() {
                 rel="noopener noreferrer"
                 whileHover={{ y: -2 }}
                 className={`md:flex hidden items-center gap-2 px-4 py-1.5 rounded-full border transition-colors duration-200 ${theme === "dark"
-                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
-                    : "bg-emerald-50 text-emerald-600 border-emerald-200 hover:bg-emerald-100"
+                  ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
+                  : "bg-emerald-50 text-emerald-600 border-emerald-200 hover:bg-emerald-100"
                   }`}
               >
                 <MessageCircle className="w-4 h-4" />
@@ -120,8 +121,8 @@ export default function Navbar() {
                 whileTap={{ scale: 0.95 }}
                 onClick={toggleTheme}
                 className={`p-2 rounded-full transition-colors ${theme === "dark"
-                    ? "text-zinc-400 hover:text-white hover:bg-white/5"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                  ? "text-zinc-400 hover:text-white hover:bg-white/5"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                   }`}
               >
                 {theme === "dark" ? (
@@ -140,8 +141,8 @@ export default function Navbar() {
                 whileTap={{ scale: 0.95 }}
                 onClick={toggleTheme}
                 className={`p-2 rounded-full transition-colors ${theme === "dark"
-                    ? "text-zinc-400 hover:text-white hover:bg-white/5"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                  ? "text-zinc-400 hover:text-white hover:bg-white/5"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                   }`}
               >
                 {theme === "dark" ? (
@@ -203,8 +204,8 @@ export default function Navbar() {
               {/* Backdrop layer */}
               <div
                 className={`absolute inset-0 ${theme === "dark"
-                    ? "bg-black"
-                    : "bg-white"
+                  ? "bg-black"
+                  : "bg-white"
                   }`}
               />
 
@@ -214,8 +215,8 @@ export default function Navbar() {
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.15, delay: 0.1 }}
                 className={`relative backdrop-blur-lg border-t ${theme === "dark"
-                    ? "bg-black/95 border-zinc-800/50"
-                    : "bg-white border-gray-200/50"
+                  ? "bg-black/95 border-zinc-800/50"
+                  : "bg-white border-gray-200/50"
                   } `}
               >
                 <div className="max-w-6xl mx-auto">
@@ -231,8 +232,8 @@ export default function Navbar() {
                           href={link.to}
                           onClick={handleMenu}
                           className={`block px-4 py-3 rounded-lg transition-colors text-base font-medium ${theme === "dark"
-                              ? "text-zinc-300 hover:text-white hover:bg-white/5"
-                              : "text-gray-600 hover:text-gray-900 hover:bg-gray-100/50"
+                            ? "text-zinc-300 hover:text-white hover:bg-white/5"
+                            : "text-gray-600 hover:text-gray-900 hover:bg-gray-100/50"
                             }`}
                         >
                           {link.label}
@@ -250,8 +251,8 @@ export default function Navbar() {
                       transition={{ delay: navlinks.length * 0.05 }}
                       onClick={handleMenu}
                       className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${theme === "dark"
-                          ? "text-emerald-400 hover:bg-emerald-500/10"
-                          : "text-emerald-600 hover:bg-emerald-50/50"
+                        ? "text-emerald-400 hover:bg-emerald-500/10"
+                        : "text-emerald-600 hover:bg-emerald-50/50"
                         }`}
                     >
                       <MessageCircle className="w-5 h-5" />
