@@ -14,16 +14,56 @@ const urlFor = (source: SanityImageSource) =>
 
 const options = { next: { revalidate: 30 } };
 
+// Fetch post data
+async function getPost(slug: string) {
+  return client.fetch<SanityDocument>(POST_QUERY, { slug }, options);
+}
+
+// ✅ **Add the `generateMetadata` function for dynamic SEO**
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const post = await getPost(params.slug);
+
+  return {
+    title: post.metaTitle || post.title,
+    description: post.metaDescription,
+    keywords: post.metaKeywords?.join(", "),
+    openGraph: {
+      title: post.metaTitle || post.title,
+      description: post.metaDescription,
+      url: `https://yourwebsite.com/blog/${post.slug}`,
+      type: "article",
+      images: [
+        {
+          url: post.image
+            ? urlFor(post.image)?.width(1200).height(630).url()
+            : "",
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.metaTitle || post.title,
+      description: post.metaDescription,
+      images: [
+        post.image ? urlFor(post.image)?.width(1200).height(630).url() : "",
+      ],
+    },
+  };
+}
+
+// Page Component
 export default async function PostPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) {
-  const post = await client.fetch<SanityDocument>(
-    POST_QUERY,
-    await params,
-    options
-  );
+  const post = await getPost(params.slug);
   const postImageUrl = post.image
     ? urlFor(post.image)?.width(550).height(310).url()
     : null;
